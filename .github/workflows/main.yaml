@@ -1,0 +1,25 @@
+name: vinttem_app
+
+concurrency:
+  group: $-$
+  cancel-in-progress: true
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  semantic-pull-request:
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/semantic_pull_request.yml@v1
+
+  build:
+    #uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
+    uses: ./.github/workflows/almost_vgv_flutter_package.yaml
+    with:
+      flutter_channel: stable
+      coverage_excludes: "**/*.g.dart"
+      min_coverage: 90

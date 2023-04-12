@@ -6,30 +6,20 @@ part of 'transaction.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Transaction _$TransactionFromJson(Map<String, dynamic> json) => $checkedCreate(
-      'Transaction',
-      json,
-      ($checkedConvert) {
-        final val = Transaction(
-          $checkedConvert('id', (v) => v as String?),
-          $checkedConvert('description', (v) => v as String?),
-          transactionUser: $checkedConvert('transaction_user',
-              (v) => $enumDecode(_$TransactionUserEnumMap, v)),
-          value: $checkedConvert('value', (v) => (v as num).toDouble()),
-          category: $checkedConvert(
-              'category', (v) => $enumDecode(_$TransactionCategoryEnumMap, v)),
-          type: $checkedConvert(
-              'type', (v) => $enumDecode(_$TransactionTypeEnumMap, v)),
-        );
-        return val;
-      },
-      fieldKeyMap: const {'transactionUser': 'transaction_user'},
+Transaction _$TransactionFromJson(Map<String, dynamic> json) => Transaction(
+      json['description'] as String?,
+      id: json['id'] as String,
+      transactionUser:
+          $enumDecode(_$TransactionUserEnumMap, json['transactionUser']),
+      value: (json['value'] as num).toDouble(),
+      category: $enumDecode(_$TransactionCategoryEnumMap, json['category']),
+      type: $enumDecode(_$TransactionTypeEnumMap, json['type']),
     );
 
 Map<String, dynamic> _$TransactionToJson(Transaction instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'transaction_user': _$TransactionUserEnumMap[instance.transactionUser]!,
+      'transactionUser': _$TransactionUserEnumMap[instance.transactionUser]!,
       'value': instance.value,
       'category': _$TransactionCategoryEnumMap[instance.category]!,
       'type': _$TransactionTypeEnumMap[instance.type]!,

@@ -3,35 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
-class User {
-  User({
-    required this.id,
-    required this.name,
-  });
-
-  final int id;
-  final String name;
-}
-
-class TransactionCategory {
-  TransactionCategory({
-    required this.id,
-    required this.name,
-  });
-
-  final int id;
-  final String name;
-}
-
-class TransactionType {
-  TransactionType({
-    required this.id,
-    required this.name,
-  });
-
-  final int id;
-  final String name;
-}
+import 'package:vinttem_app/transaction/models/models.dart';
 
 class TransactionPage extends StatefulWidget {
   const TransactionPage({super.key});
@@ -41,43 +13,15 @@ class TransactionPage extends StatefulWidget {
 }
 
 class _TransactionPageState extends State<TransactionPage> {
-  final List<TransactionType> _transactionTypes = [
-    TransactionType(id: 1, name: 'Personal'),
-    TransactionType(id: 2, name: 'Proportional'),
-    TransactionType(id: 3, name: 'Even'),
-  ];
-
-  late TransactionType? _selectedTransactionType = _transactionTypes[0];
-
-  final List<User> _users = [
-    User(id: 1, name: 'Matheus'),
-    User(id: 2, name: 'Bianca'),
-  ];
-
-  late User? _selectedUser = _users[0];
+  late TransactionType? _selectedTransactionType = TransactionType.justMe;
+  late TransactionUser? _selectedUser = TransactionUser.matheus;
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final formKey = GlobalKey<FormFieldState<dynamic>>();
 
-    final transactionCategories = [
-      TransactionCategory(id: 1, name: 'Recreation'),
-      TransactionCategory(id: 2, name: 'Market stuff?'),
-      TransactionCategory(id: 3, name: 'Health'),
-      TransactionCategory(id: 4, name: 'Study'),
-      TransactionCategory(id: 5, name: 'Cloths'),
-      TransactionCategory(id: 6, name: 'Housing'),
-      TransactionCategory(id: 7, name: 'Transport'),
-      TransactionCategory(id: 8, name: 'App Subscription'),
-      TransactionCategory(id: 9, name: 'Pets'),
-      TransactionCategory(id: 10, name: 'Gifts'),
-      TransactionCategory(id: 11, name: 'Personal Care'),
-      TransactionCategory(id: 12, name: 'Donations'),
-      TransactionCategory(id: 13, name: 'Buying something'),
-    ];
-
-    final categoryItems = transactionCategories
+    final categoryItems = TransactionCategory.values
         .map(
           (transactionCategory) => MultiSelectItem<TransactionCategory>(
             transactionCategory,
@@ -108,7 +52,7 @@ class _TransactionPageState extends State<TransactionPage> {
                   children: [
                     Wrap(
                       spacing: 8,
-                      children: _users.map((user) {
+                      children: TransactionUser.values.map((user) {
                         return ChoiceChip(
                           label: Text(user.name),
                           selected: _selectedUser?.id == user.id,
@@ -174,10 +118,11 @@ class _TransactionPageState extends State<TransactionPage> {
                   children: [
                     Wrap(
                       spacing: 8,
-                      children: _transactionTypes.map((type) {
+                      children: TransactionType.values.map((type) {
                         return ChoiceChip(
                           label: Text(type.name),
-                          selected: _selectedTransactionType?.id == type.id,
+                          selected:
+                              _selectedTransactionType?.apiName == type.apiName,
                           onSelected: (bool selected) {
                             setState(() {
                               _selectedTransactionType = selected ? type : null;

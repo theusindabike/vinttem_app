@@ -25,6 +25,7 @@ class App extends StatelessWidget {
     );
 
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       theme: FlexThemeData.light(
         scheme: FlexScheme.indigoM3,
         useMaterial3: true,

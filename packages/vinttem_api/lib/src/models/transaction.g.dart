@@ -7,13 +7,13 @@ part of 'transaction.dart';
 // **************************************************************************
 
 Transaction _$TransactionFromJson(Map<String, dynamic> json) => Transaction(
-      json['description'] as String?,
       id: json['id'] as String,
       transactionUser:
           $enumDecode(_$TransactionUserEnumMap, json['transactionUser']),
       value: (json['value'] as num).toDouble(),
       category: $enumDecode(_$TransactionCategoryEnumMap, json['category']),
       type: $enumDecode(_$TransactionTypeEnumMap, json['type']),
+      description: json['description'] as String?,
     );
 
 Map<String, dynamic> _$TransactionToJson(Transaction instance) =>

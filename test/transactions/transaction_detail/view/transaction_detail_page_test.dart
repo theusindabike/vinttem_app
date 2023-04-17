@@ -45,34 +45,17 @@ void main() {
   ];
 
   late TransactionRepository transactionRepository;
-  group('TransactionsListPage', () {
-    setUp(() {
-      transactionRepository = MockTransactionRepository();
-      when(transactionRepository.getTransactions)
-          .thenAnswer((_) => Future<List<Transaction>>.value([]));
-    });
-    testWidgets('render TransactionsListView', (tester) async {
+  group('TransactionDetailPage', () {
+    setUp(() {});
+    testWidgets('render TransactionDetailView', (tester) async {
       await tester.pumpApp(
-        const TransactionsListPage(),
-        transactionRepository: transactionRepository,
+        const TransactionDetailPage(),
       );
-      expect(find.byType(TransactionsListView), findsOneWidget);
+      expect(find.byType(TransactionDetailPage), findsOneWidget);
     });
-
-    testWidgets(
-      'on initialization calls getTransactions repo',
-      (tester) async {
-        await tester.pumpApp(
-          const TransactionsListPage(),
-          transactionRepository: transactionRepository,
-        );
-
-        verify(() => transactionRepository.getTransactions()).called(1);
-      },
-    );
   });
 
-  group('TransactionsListView', () {
+  group('TransactionDetailPage Form', () {
     late MockNavigator navigator;
     late TransactionsListBloc transactionsListBloc;
 
@@ -113,31 +96,5 @@ void main() {
 
       expect(find.byType(ListView), findsOneWidget);
     });
-
-    testWidgets(
-      'shows an error snackbar when getTransactionList fails',
-      (tester) async {
-        when(() => transactionsListBloc.state).thenReturn(
-          const TransactionsListState(status: TransactionsListStatus.failure),
-        );
-
-        // whenListen<TransactionsListState>(
-        //   transactionsListBloc,
-        //   Stream.fromIterable([
-        //     const TransactionsListState(),
-        //     const TransactionsListState(status: TransactionsListStatus.failure)
-        //   ]),
-        // );
-
-        await tester.pumpApp(
-          buildNavigatorRoute(),
-          transactionRepository: transactionRepository,
-        );
-        await tester.pumpAndSettle();
-
-        expect(find.byType(SnackBar), findsOneWidget);
-      },
-      skip: true,
-    );
   });
 }

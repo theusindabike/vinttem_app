@@ -4,14 +4,14 @@ import 'package:flutter/services.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:vinttem_app/transactions/models/models.dart';
 
-class TransactionPage extends StatefulWidget {
-  const TransactionPage({super.key});
+class TransactionDetailPage extends StatefulWidget {
+  const TransactionDetailPage({super.key});
 
   @override
-  State<TransactionPage> createState() => _TransactionPageState();
+  State<TransactionDetailPage> createState() => _TransactionDetailPageState();
 }
 
-class _TransactionPageState extends State<TransactionPage> {
+class _TransactionDetailPageState extends State<TransactionDetailPage> {
   late TransactionType? _selectedTransactionType = TransactionType.justMe;
   late TransactionUser? _selectedUser = TransactionUser.matheus;
 

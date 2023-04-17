@@ -37,7 +37,7 @@ class AppView extends StatelessWidget {
       ),
       GoRoute(
         path: '/transactions',
-        builder: (context, state) => const TransactionPage(),
+        builder: (context, state) => const TransactionDetailPage(),
       ),
     ],
   );

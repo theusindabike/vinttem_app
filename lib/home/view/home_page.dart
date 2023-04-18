@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:vinttem_app/transactions/transactions_list/transactions_list.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,6 +11,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int currentPageIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,11 +38,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: <Widget>[
-        Container(
-          color: Colors.white54,
-          alignment: Alignment.center,
-          child: const Text('Container 1'),
-        ),
+        const TransactionsListPage(),
         Container(
           color: Colors.white60,
           alignment: Alignment.center,

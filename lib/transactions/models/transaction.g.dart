@@ -11,10 +11,10 @@ Transaction _$TransactionFromJson(Map<String, dynamic> json) => $checkedCreate(
       json,
       ($checkedConvert) {
         final val = Transaction(
-          $checkedConvert('id', (v) => v as String?),
-          $checkedConvert('description', (v) => v as String?),
-          transactionUser: $checkedConvert('transaction_user',
-              (v) => $enumDecode(_$TransactionUserEnumMap, v)),
+          id: $checkedConvert('id', (v) => v as String?),
+          description: $checkedConvert('description', (v) => v as String?),
+          user: $checkedConvert(
+              'user', (v) => $enumDecode(_$TransactionUserEnumMap, v)),
           value: $checkedConvert('value', (v) => (v as num).toDouble()),
           category: $checkedConvert(
               'category', (v) => $enumDecode(_$TransactionCategoryEnumMap, v)),
@@ -23,13 +23,12 @@ Transaction _$TransactionFromJson(Map<String, dynamic> json) => $checkedCreate(
         );
         return val;
       },
-      fieldKeyMap: const {'transactionUser': 'transaction_user'},
     );
 
 Map<String, dynamic> _$TransactionToJson(Transaction instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'transaction_user': _$TransactionUserEnumMap[instance.transactionUser]!,
+      'user': _$TransactionUserEnumMap[instance.user]!,
       'value': instance.value,
       'category': _$TransactionCategoryEnumMap[instance.category]!,
       'type': _$TransactionTypeEnumMap[instance.type]!,
@@ -43,22 +42,22 @@ const _$TransactionUserEnumMap = {
 
 const _$TransactionCategoryEnumMap = {
   TransactionCategory.recreation: 'recreation',
-  TransactionCategory.marketStuff: 'marketStuff',
+  TransactionCategory.marketStuff: 'market_stuff',
   TransactionCategory.health: 'health',
   TransactionCategory.study: 'study',
   TransactionCategory.cloths: 'cloths',
   TransactionCategory.housing: 'housing',
   TransactionCategory.transport: 'transport',
-  TransactionCategory.appSubscription: 'appSubscription',
+  TransactionCategory.appSubscription: 'app_subscription',
   TransactionCategory.pets: 'pets',
   TransactionCategory.gifts: 'gifts',
-  TransactionCategory.personalCare: 'personalCare',
+  TransactionCategory.personalCare: 'personal_care',
   TransactionCategory.donations: 'donations',
-  TransactionCategory.buyingSomething: 'buyingSomething',
+  TransactionCategory.buyingSomething: 'buying_something',
 };
 
 const _$TransactionTypeEnumMap = {
-  TransactionType.justMe: 'justMe',
-  TransactionType.proportinal: 'proportinal',
+  TransactionType.justMe: 'just_me',
+  TransactionType.proportional: 'proportional',
   TransactionType.even: 'even',
 };

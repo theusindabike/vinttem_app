@@ -125,7 +125,8 @@ void main() {
         //   transactionsListBloc,
         //   Stream.fromIterable([
         //     const TransactionsListState(),
-        //     const TransactionsListState(status: TransactionsListStatus.failure)
+        //     const TransactionsListState(
+        //status: TransactionsListStatus.failure)
         //   ]),
         // );
 

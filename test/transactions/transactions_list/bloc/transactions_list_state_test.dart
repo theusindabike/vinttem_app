@@ -60,6 +60,7 @@ void main() {
       test('retains old values if all parameters are null', () {
         expect(
           createTransactionsListState()
+              // ignore: avoid_redundant_argument_values
               .copyWith(status: null, transactions: null),
           equals(
             createTransactionsListState(),

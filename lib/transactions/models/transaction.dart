@@ -5,17 +5,17 @@ part 'transaction.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class Transaction extends Equatable {
-  const Transaction(
+  const Transaction({
     this.id,
-    this.description, {
-    required this.transactionUser,
+    this.description,
+    required this.user,
     required this.value,
     required this.category,
     required this.type,
   });
 
   final String? id;
-  final TransactionUser transactionUser;
+  final TransactionUser user;
   final double value;
   final TransactionCategory category;
   final TransactionType type;
@@ -30,6 +30,7 @@ class Transaction extends Equatable {
   List<Object?> get props => [id];
 }
 
+@JsonEnum(fieldRename: FieldRename.snake)
 enum TransactionUser {
   matheus('matheus_id', 'Matheus'),
   bianca('bianca_id', 'Bianca');
@@ -40,6 +41,7 @@ enum TransactionUser {
   final String name;
 }
 
+@JsonEnum(fieldRename: FieldRename.snake)
 enum TransactionCategory {
   recreation('RECREATION', 'Recreation'),
   marketStuff('MARKET_STUFF', 'Market Stuff'),
@@ -61,9 +63,10 @@ enum TransactionCategory {
   final String name;
 }
 
+@JsonEnum(fieldRename: FieldRename.snake)
 enum TransactionType {
   justMe('JUST_ME', 'Just Me'),
-  proportinal('PROPORTIONAL', 'Proportional'),
+  proportional('PROPORTIONAL', 'Proportional'),
   even('EVEN', 'Even');
 
   const TransactionType(this.apiName, this.name);

@@ -25,7 +25,7 @@ coverage_tests:
 	open coverage/index.html
 
 lint:
-	fvm flutter analyze lib test
+	fvm flutter analyze lib test packages
 
 githubactions_build_runner:
 	flutter pub run build_runner build --delete-conflicting-outputs

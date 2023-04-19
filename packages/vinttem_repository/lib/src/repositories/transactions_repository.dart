@@ -1,4 +1,4 @@
-import 'package:vinttem_api/src/models/models.dart';
+import 'package:vinttem_repository/src/models/models.dart';
 
 class TransactionRepository {
   Future<List<Transaction>> getTransactions() async {

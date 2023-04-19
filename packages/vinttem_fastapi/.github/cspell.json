@@ -16,6 +16,6 @@
   ],
   "useGitignore": true,
   "words": [
-    "vinttem_api"
+    "vinttem_fastapi"
   ]
 }

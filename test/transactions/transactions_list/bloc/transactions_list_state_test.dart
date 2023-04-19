@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vinttem_api/vinttem_api.dart';
 import 'package:vinttem_app/transactions/transaction.dart'
     hide Transaction, TransactionCategory, TransactionType, TransactionUser;
+import 'package:vinttem_repository/vinttem_repository.dart';
 
 void main() {
   final mockTransaction = Transaction(

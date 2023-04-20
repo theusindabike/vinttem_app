@@ -1,0 +1,40 @@
+name: vinttem_app
+
+packages:
+  - .
+  - packages/*
+
+scripts:
+  qualitycheck:
+    run: |
+      melos run clean && \
+      melos run get
+
+  clean:
+    run: melos exec -c 1 -- \
+      fvm flutter clean
+
+  get:
+    run: melos exec -c 1 -- \
+      fvm flutter pub get
+
+  lint:all:
+    run: melos run analyze
+  lint:
+    run: melos exec -c 1  -- \
+      fvm dart analyze .
+  description: |
+    Run `dart analyze` in all packages.
+      - Note: you can also rely on your IDEs Dart Analysis / Issues window.
+
+  test:all:
+    run: melos run test
+  test:
+    run: melos exec -c 1 -- \
+      fvm flutter test --coverage --test-randomize-ordering-seed random
+
+  build_runner:all:
+    run: melos run build_runner
+  build_runner:
+    run: melos exec -c 1 -- \
+      fvm flutter pub run build_runner build --delete-conflicting-outputs

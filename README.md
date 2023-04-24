@@ -4,7 +4,13 @@ This simplifies financial life
 
 ---
 
-## To Run
+## Stack
+- [Flutter](https://docs.flutter.dev/release/release-notes) 3.7.9
+- [FVM](https://fvm.app/) (flutter version manager)
+- [Melos](https://melos.invertase.dev/) (multi-package manager)
+- [Bloc](https://bloclibrary.dev/) (as state manager)
+
+## First Run
 
 Using Flutter CLI:
 ```sh
@@ -18,7 +24,19 @@ $ flutter pub run build_runner build --delete-conflicting-outputs
 $ flutter run --flavor development --target lib/main_development.dart
 ```
 
-Using Makefile + [fvm](https://fvm.app/):
+Using Melos + Fvm:
+```sh
+# Get dependencies
+$ melos run get
+
+# Build runner
+$ melos run build_runner
+
+# Flutter run development flavor
+$ fvm flutter run --flavor development --target lib/main_development.dart
+```
+
+Using Makefile + Fvm:
 ```sh
 # Get dependencies
 $ make prebuild
@@ -38,22 +56,21 @@ Using Flutter CLI
 $ flutter test --coverage --test-randomize-ordering-seed random
 ```
 
-To view the generated coverage report you can use [lcov](https://github.com/linux-test-project/lcov).
-
+Using Melos + Fvm:
 ```sh
-# Generate Coverage Report
-$ genhtml coverage/lcov.info -o coverage/
+# Without coverage output
+$ melos run tests
 
-# Open Coverage Report
-$ open coverage/index.html
+# Generate coverage output
+$ melos run generate_coverage
 ```
 
-Using Makefile + [fvm](https://fvm.app/):
+Using Makefile + Fvm:
 ```sh
 # Without coverage output
 $ make tests
 
-# With coverage output
-$ make coverage_tests
+# Generate coverage output
+$ make generate_coverage
 ```
 ---

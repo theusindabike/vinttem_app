@@ -2,30 +2,22 @@ run:
 	fvm flutter run --flavor development --target lib/main_development.dart
 
 clean:
-	fvm flutter clean
+	melos run clean
 
 get:
-	fvm flutter pub get
+	melos run get
 
 build_runner:
-	fvm flutter pub run build_runner build --delete-conflicting-outputs
+	melos run build_runner
 
-prebuild:
-	fvm flutter clean
-	fvm flutter pub get
-	fvm flutter pub run build_runner build --delete-conflicting-outputs
+qualitycheck:
+	melos run qualitycheck
 
 tests:
-	fvm flutter test --coverage --test-randomize-ordering-seed random
+	melos run test
 
-coverage_tests:
-	fvm flutter test --coverage --test-randomize-ordering-seed random
-	lcov --remove coverage/lcov.info 'lib/**/*.g.dart' -o coverage/lcov.info
-	genhtml coverage/lcov.info -o coverage/
-	open coverage/index.html
+generate_coverage:
+	melos run generate_coverage
 
 lint:
-	fvm flutter analyze lib test packages
-
-githubactions_build_runner:
-	flutter pub run build_runner build --delete-conflicting-outputs
+	melos run lint

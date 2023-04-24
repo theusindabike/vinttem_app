@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vinttem_api/vinttem_api.dart';
 import 'package:vinttem_app/transactions/transaction.dart';
+import 'package:vinttem_repository/vinttem_repository.dart';
 
 class TransactionsListPage extends StatelessWidget {
   const TransactionsListPage({super.key});

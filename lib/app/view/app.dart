@@ -2,10 +2,10 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vinttem_api/vinttem_api.dart';
 import 'package:vinttem_app/home/view/view.dart';
 import 'package:vinttem_app/l10n/l10n.dart';
 import 'package:vinttem_app/transactions/transaction.dart';
+import 'package:vinttem_repository/vinttem_repository.dart';
 
 class App extends StatelessWidget {
   App({super.key});

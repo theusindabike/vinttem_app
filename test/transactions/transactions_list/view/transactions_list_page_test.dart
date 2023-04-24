@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
-
-import 'package:vinttem_api/vinttem_api.dart';
 import 'package:vinttem_app/transactions/transaction.dart'
     hide Transaction, TransactionCategory, TransactionType, TransactionUser;
+import 'package:vinttem_repository/vinttem_repository.dart';
 
 import '../../../helpers/helpers.dart';
 
@@ -20,7 +19,7 @@ void main() {
   final mockTransactions = <Transaction>[
     Transaction(
       id: 'fake_id_1',
-      transactionUser: TransactionUser.matheus,
+      user: TransactionUser.matheus,
       value: 123.45,
       category: TransactionCategory.marketStuff,
       type: TransactionType.even,
@@ -28,7 +27,7 @@ void main() {
     ),
     Transaction(
       id: 'fake_id_2',
-      transactionUser: TransactionUser.matheus,
+      user: TransactionUser.matheus,
       value: 23.45,
       category: TransactionCategory.cloths,
       type: TransactionType.proportinal,
@@ -36,7 +35,7 @@ void main() {
     ),
     Transaction(
       id: 'fake_id_3',
-      transactionUser: TransactionUser.matheus,
+      user: TransactionUser.matheus,
       value: 45.67,
       category: TransactionCategory.gifts,
       type: TransactionType.justMe,

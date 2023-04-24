@@ -1,3 +1,7 @@
+# non templates ones
+pubspec_overrides.yaml
+
+
 # Miscellaneous
 *.class
 *.lock

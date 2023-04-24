@@ -2,7 +2,6 @@
 
 This simplifies financial life
 
----
 
 ## Stack
 - [Flutter](https://docs.flutter.dev/release/release-notes) 3.7.9
@@ -58,7 +57,6 @@ $ flutter test --coverage --test-randomize-ordering-seed random
 
 Using Melos + Fvm:
 ```sh
-# Without coverage output
 $ melos run tests
 
 # Generate coverage output
@@ -67,7 +65,6 @@ $ melos run generate_coverage
 
 Using Makefile + Fvm:
 ```sh
-# Without coverage output
 $ make tests
 
 # Generate coverage output

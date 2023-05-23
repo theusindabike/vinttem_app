@@ -47,9 +47,10 @@ packages:
     dependency: "direct dev"
     description:
       name: bloc_test
-      url: "https://pub.dartlang.org"
+      sha256: "5f41a3e391c89ccdade81a96233e1e5e5d01564e29e5fe180741fb23579399b9"
+      url: "https://pub.dev"
     source: hosted
-    version: "9.1.1"
+    version: "9.1.2"
   boolean_selector:
     dependency: transitive
     description:

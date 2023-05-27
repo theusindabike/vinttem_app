@@ -5,7 +5,7 @@ import 'package:vinttem_app/transactions/transaction.dart'
     hide Transaction, TransactionCategory, TransactionType, TransactionUser;
 import 'package:vinttem_repository/vinttem_repository.dart';
 
-class MockTransactionRepository extends Mock implements TransactionRepository {}
+class MockTransactionRepository extends Mock implements VinttemRepository {}
 
 class FakeTransaction extends Fake implements Transaction {}
 
@@ -37,7 +37,7 @@ void main() {
     ),
   ];
   group('TransactionListBloc', () {
-    late TransactionRepository transactionRepository;
+    late VinttemRepository transactionRepository;
 
     setUpAll(() {
       registerFallbackValue(FakeTransaction());

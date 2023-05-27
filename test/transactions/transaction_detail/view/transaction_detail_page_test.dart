@@ -9,7 +9,7 @@ import 'package:vinttem_repository/vinttem_repository.dart';
 
 import '../../../helpers/helpers.dart';
 
-class MockTransactionRepository extends Mock implements TransactionRepository {}
+class MockTransactionRepository extends Mock implements VinttemRepository {}
 
 class MockTransactionsListBloc
     extends MockBloc<TransactionsListEvent, TransactionsListState>
@@ -43,7 +43,7 @@ void main() {
     ),
   ];
 
-  late TransactionRepository transactionRepository;
+  late VinttemRepository transactionRepository;
   group('TransactionDetailPage', () {
     setUp(() {});
     testWidgets('render TransactionDetailView', (tester) async {

@@ -17,7 +17,7 @@ class VinttemFastAPI {
 
   final http.Client _httpClient;
 
-  Future<List<Transaction>> getTransaction() async {
+  Future<List<Transaction>> getTransactions() async {
     final url = Uri.http(
       _vinttemFastAPIBaseURL,
       '${_vinttemFastAPIAPIURL}transactions/',

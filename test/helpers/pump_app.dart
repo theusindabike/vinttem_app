@@ -5,12 +5,12 @@ import 'package:mocktail/mocktail.dart';
 import 'package:vinttem_app/l10n/l10n.dart';
 import 'package:vinttem_repository/vinttem_repository.dart';
 
-class MockTransactionRepository extends Mock implements TransactionRepository {}
+class MockTransactionRepository extends Mock implements VinttemRepository {}
 
 extension PumpApp on WidgetTester {
   Future<void> pumpApp(
     Widget widget, {
-    TransactionRepository? transactionRepository,
+    VinttemRepository? transactionRepository,
   }) {
     return pumpWidget(
       RepositoryProvider(
@@ -27,7 +27,7 @@ extension PumpApp on WidgetTester {
 
   Future<void> pumpRoute(
     Route<dynamic> route, {
-    TransactionRepository? transactionRepository,
+    VinttemRepository? transactionRepository,
   }) {
     return pumpApp(
       Navigator(onGenerateRoute: (_) => route),

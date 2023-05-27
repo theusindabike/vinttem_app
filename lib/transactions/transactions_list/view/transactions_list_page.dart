@@ -11,7 +11,7 @@ class TransactionsListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => TransactionsListBloc(
-        transactionRepository: context.read<TransactionRepository>(),
+        transactionRepository: context.read<VinttemRepository>(),
       )..add(const TransactionsListSubscriptionRequested()),
       child: const TransactionsListView(),
     );

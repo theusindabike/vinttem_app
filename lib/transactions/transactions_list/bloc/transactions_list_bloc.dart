@@ -8,13 +8,13 @@ part 'transactions_list_state.dart';
 class TransactionsListBloc
     extends Bloc<TransactionsListEvent, TransactionsListState> {
   TransactionsListBloc({
-    required vinttem_api.TransactionRepository transactionRepository,
+    required vinttem_api.VinttemRepository transactionRepository,
   })  : _transactionRepository = transactionRepository,
         super(const TransactionsListState()) {
     on<TransactionsListSubscriptionRequested>(_onSubscriptionRequested);
   }
 
-  final vinttem_api.TransactionRepository _transactionRepository;
+  final vinttem_api.VinttemRepository _transactionRepository;
 
   Future<void> _onSubscriptionRequested(
     TransactionsListSubscriptionRequested event,

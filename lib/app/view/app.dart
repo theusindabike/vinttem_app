@@ -10,7 +10,7 @@ import 'package:vinttem_repository/vinttem_repository.dart';
 class App extends StatelessWidget {
   App({super.key});
 
-  final _transactionRepository = TransactionRepository();
+  final _transactionRepository = MockTransactionRepository();
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
-import 'package:vinttem_fastapi/src/models/models.dart';
 import 'package:vinttem_fastapi/vinttem_fastapi.dart';
 
 class MockHttpClient extends Mock implements http.Client {}
@@ -36,7 +35,7 @@ void main() {
         when(() => httpClient.get(any())).thenAnswer((_) async => response);
 
         try {
-          await vinttemFastAPI.getTransaction();
+          await vinttemFastAPI.getTransactions();
         } catch (_) {}
 
         verify(
@@ -52,7 +51,7 @@ void main() {
         when(() => httpClient.get(any())).thenAnswer((_) async => response);
 
         expect(
-          vinttemFastAPI.getTransaction(),
+          vinttemFastAPI.getTransactions(),
           throwsA(isA<TransactionRequestFailure>()),
         );
       });
@@ -64,7 +63,7 @@ void main() {
         when(() => httpClient.get(any())).thenAnswer((_) async => response);
 
         expect(
-          vinttemFastAPI.getTransaction(),
+          vinttemFastAPI.getTransactions(),
           throwsA(isA<TransactionNotFoundFailure>()),
         );
       });
@@ -88,7 +87,7 @@ void main() {
           ''');
         when(() => httpClient.get(any())).thenAnswer((_) async => response);
 
-        final request = await vinttemFastAPI.getTransaction();
+        final request = await vinttemFastAPI.getTransactions();
 
         expect(
           request.first,

@@ -30,10 +30,10 @@ enum TransactionUser {
   matheus('matheus_id', 'Matheus'),
   bianca('bianca_id', 'Bianca');
 
-  const TransactionUser(this.id, this.name);
+  const TransactionUser(this.id, this.description);
 
   final String id;
-  final String name;
+  final String description;
 }
 
 enum TransactionCategory {
@@ -51,10 +51,10 @@ enum TransactionCategory {
   donations('DONATIONS', 'Donations'),
   buyingSomething('BUYING_SOMETHING', 'Buying Something');
 
-  const TransactionCategory(this.apiName, this.name);
+  const TransactionCategory(this.apiName, this.description);
 
   final String apiName;
-  final String name;
+  final String description;
 }
 
 enum TransactionType {
@@ -62,8 +62,8 @@ enum TransactionType {
   proportinal('PROPORTIONAL', 'Proportional'),
   even('EVEN', 'Even');
 
-  const TransactionType(this.apiName, this.name);
+  const TransactionType(this.apiName, this.description);
 
   final String apiName;
-  final String name;
+  final String description;
 }

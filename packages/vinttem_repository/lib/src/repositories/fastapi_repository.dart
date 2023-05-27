@@ -14,17 +14,21 @@ class VinttemFastAPIRespository implements VinttemRepository {
 
   @override
   Future<List<Transaction>> getTransactions() async {
-    try {
-      final transactions = await _vinttemFastAPIClient.getTransactions();
-
-      for (final t in transactions) {
-        result.add(Transaction.fromJson(t as Map<String, dynamic>));
-      }
-
-      return result;
-    } catch (e) {
-      print(e.toString());
-      throw Error();
+    final transactions = await _vinttemFastAPIClient.getTransactions();
+    result = [];
+    for (final t in transactions) {
+      result.add(
+        Transaction(
+          id: t.id,
+          value: t.value,
+          description: t.description,
+          type: TransactionType.values.byName(t.type.name),
+          category: TransactionCategory.values.byName(t.category.name),
+          user: TransactionUser.values.byName(t.user.name),
+        ),
+      );
     }
+
+    return result;
   }
 }

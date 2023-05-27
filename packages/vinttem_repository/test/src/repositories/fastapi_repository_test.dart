@@ -1,6 +1,7 @@
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 import 'package:vinttem_fastapi/vinttem_fastapi.dart' as vinttem_fastapi_client;
+import 'package:vinttem_repository/src/models/transaction.dart';
 import 'package:vinttem_repository/src/repositories/fastapi_repository.dart';
 
 class MockTransaction extends Mock
@@ -33,6 +34,51 @@ void main() {
           await fastAPIRespository.getTransactions();
         } catch (_) {}
         verify(() => mockVinttemFastAPIClient.getTransactions()).called(1);
+      });
+
+      test('throws exeception when fastAPIClient fails', () async {
+        final exception = Exception('something went wrong');
+
+        when(() => mockVinttemFastAPIClient.getTransactions())
+            .thenThrow(exception);
+
+        expect(
+          () async => fastAPIRespository.getTransactions(),
+          throwsA(exception),
+        );
+      });
+
+      test('return a transaction list with success', () async {
+        final transaction_1 = MockTransaction();
+        when(() => transaction_1.id).thenReturn('fake_id_1');
+        when(() => transaction_1.user)
+            .thenReturn(vinttem_fastapi_client.TransactionUser.matheus);
+        when(() => transaction_1.value).thenReturn(69.69);
+        when(() => transaction_1.category)
+            .thenReturn(vinttem_fastapi_client.TransactionCategory.marketStuff);
+        when(() => transaction_1.type)
+            .thenReturn(vinttem_fastapi_client.TransactionType.proportinal);
+        when(() => transaction_1.description).thenReturn('fake description 1');
+
+        when(() => mockVinttemFastAPIClient.getTransactions()).thenAnswer(
+          (_) async => <vinttem_fastapi_client.Transaction>[transaction_1],
+        );
+
+        final actual = await fastAPIRespository.getTransactions();
+
+        expect(
+          actual,
+          <Transaction>[
+            Transaction(
+              id: 'fake_id_1',
+              user: TransactionUser.matheus,
+              value: 69.69,
+              category: TransactionCategory.marketStuff,
+              type: TransactionType.proportinal,
+              description: 'fake description 1'
+            )
+          ],
+        );
       });
     });
   });

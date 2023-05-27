@@ -57,11 +57,11 @@ class TransactionsListView extends StatelessWidget {
                   child: ListTile(
                     key: Key('transactionCard_${t.id}'),
                     leading: const Icon(Icons.shopping_bag),
-                    title: Text(t.category.name),
+                    title: Text(t.category.description),
                     subtitle: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Type: ${t.type.name}'),
+                        Text('Type: ${t.type.description}'),
                         Text(
                           'R\$ ${t.value.toString().replaceAll('.', ',')}',
                         ),

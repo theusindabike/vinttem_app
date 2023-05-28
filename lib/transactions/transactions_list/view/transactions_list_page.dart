@@ -2,19 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinttem_app/transactions/transaction.dart';
-import 'package:vinttem_repository/vinttem_repository.dart';
 
 class TransactionsListPage extends StatelessWidget {
   const TransactionsListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => TransactionsListBloc(
-        transactionRepository: context.read<VinttemRepository>(),
-      )..add(const TransactionsListSubscriptionRequested()),
-      child: const TransactionsListView(),
-    );
+    return const TransactionsListView();
   }
 }
 
@@ -23,6 +17,7 @@ class TransactionsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<TransactionsListBloc>().add(const TransactionsListRequested());
     return MultiBlocListener(
       listeners: [
         BlocListener<TransactionsListBloc, TransactionsListState>(

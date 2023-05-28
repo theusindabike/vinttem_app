@@ -5,7 +5,7 @@ part 'transaction.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class Transaction extends Equatable {
-  Transaction({
+  const Transaction({
     required this.id,
     required this.user,
     required this.value,
@@ -19,7 +19,7 @@ class Transaction extends Equatable {
   final double value;
   final TransactionCategory category;
   final TransactionType type;
-  String? description;
+  final String? description;
 
   factory Transaction.fromJson(Map<String, dynamic> json) =>
       _$TransactionFromJson(json);

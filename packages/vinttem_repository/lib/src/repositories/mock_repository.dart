@@ -4,7 +4,7 @@ class MockTransactionRepository implements VinttemRepository {
   @override
   Future<List<Transaction>> getTransactions() async {
     return <Transaction>[
-      Transaction(
+      const Transaction(
         id: 'fake_id_1',
         user: TransactionUser.matheus,
         value: 123.45,
@@ -12,7 +12,7 @@ class MockTransactionRepository implements VinttemRepository {
         type: TransactionType.even,
         description: 'fake description 1',
       ),
-      Transaction(
+      const Transaction(
         id: 'fake_id_2',
         user: TransactionUser.matheus,
         value: 23.45,
@@ -20,7 +20,7 @@ class MockTransactionRepository implements VinttemRepository {
         type: TransactionType.proportinal,
         description: 'fake description 2',
       ),
-      Transaction(
+      const Transaction(
         id: 'fake_id_3',
         user: TransactionUser.matheus,
         value: 45.67,

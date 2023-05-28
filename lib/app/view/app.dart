@@ -8,17 +8,21 @@ import 'package:vinttem_app/transactions/transaction.dart';
 import 'package:vinttem_repository/vinttem_repository.dart';
 
 class App extends StatelessWidget {
+  // const App({required VinttemRepository vinttemRepository, super.key})
+  // : _vinttemRepository = vinttemRepository;
   App({super.key});
 
-  final _transactionRepository = MockTransactionRepository();
+  // final _vinttemRepository = MockTransactionRepository();
+  final _vinttemRepository = VinttemFastAPIRespository();
 
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
-      value: _transactionRepository,
-      child: BlocProvider(
-        create: (_) =>
-            TransactionsListBloc(transactionRepository: _transactionRepository),
+      value: _vinttemRepository,
+      child: BlocProvider<TransactionsListBloc>(
+        create: (context) => TransactionsListBloc(
+          vinttemRepository: _vinttemRepository,
+        ),
         child: AppView(),
       ),
     );

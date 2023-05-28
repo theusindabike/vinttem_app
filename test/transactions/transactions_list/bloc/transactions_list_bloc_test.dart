@@ -11,7 +11,7 @@ class FakeTransaction extends Fake implements Transaction {}
 
 void main() {
   final mockTransactions = <Transaction>[
-    Transaction(
+    const Transaction(
       id: 'fake_id_1',
       user: TransactionUser.matheus,
       value: 123.45,
@@ -19,7 +19,7 @@ void main() {
       type: TransactionType.even,
       description: 'fake description 1',
     ),
-    Transaction(
+    const Transaction(
       id: 'fake_id_2',
       user: TransactionUser.matheus,
       value: 23.45,
@@ -27,7 +27,7 @@ void main() {
       type: TransactionType.proportinal,
       description: 'fake description 2',
     ),
-    Transaction(
+    const Transaction(
       id: 'fake_id_3',
       user: TransactionUser.matheus,
       value: 45.67,
@@ -52,7 +52,7 @@ void main() {
     });
 
     TransactionsListBloc buildBloc() {
-      return TransactionsListBloc(transactionRepository: transactionRepository);
+      return TransactionsListBloc(vinttemRepository: transactionRepository);
     }
 
     group('constructor', () {
@@ -70,7 +70,7 @@ void main() {
       blocTest<TransactionsListBloc, TransactionsListState>(
         'start subscription to Transactions repostiory',
         build: buildBloc,
-        act: (bloc) => bloc.add(const TransactionsListSubscriptionRequested()),
+        act: (bloc) => bloc.add(const TransactionsListRequested()),
         verify: (_) {
           verify(() => transactionRepository.getTransactions()).called(1);
         },
@@ -78,7 +78,7 @@ void main() {
       blocTest<TransactionsListBloc, TransactionsListState>(
         'emits updated status when a getTransctions call occurs',
         build: buildBloc,
-        act: (bloc) => bloc.add(const TransactionsListSubscriptionRequested()),
+        act: (bloc) => bloc.add(const TransactionsListRequested()),
         expect: () => [
           const TransactionsListState(
             status: TransactionsListStatus.loading,
@@ -102,7 +102,7 @@ void main() {
           );
         },
         build: buildBloc,
-        act: (bloc) => bloc.add(const TransactionsListSubscriptionRequested()),
+        act: (bloc) => bloc.add(const TransactionsListRequested()),
         expect: () => [
           const TransactionsListState(status: TransactionsListStatus.loading),
           const TransactionsListState(status: TransactionsListStatus.failure),

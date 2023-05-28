@@ -69,13 +69,13 @@ void main() {
         expect(
           actual,
           <Transaction>[
-            Transaction(
+            const Transaction(
               id: 'fake_id_1',
               user: TransactionUser.matheus,
               value: 69.69,
               category: TransactionCategory.marketStuff,
               type: TransactionType.proportinal,
-              description: 'fake description 1'
+              description: 'fake description 1',
             )
           ],
         );

@@ -7,6 +7,6 @@ abstract class TransactionsListEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class TransactionsListSubscriptionRequested extends TransactionsListEvent {
-  const TransactionsListSubscriptionRequested();
+class TransactionsListRequested extends TransactionsListEvent {
+  const TransactionsListRequested();
 }

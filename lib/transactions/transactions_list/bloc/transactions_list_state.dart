@@ -9,7 +9,7 @@ class TransactionsListState extends Equatable {
   });
 
   final TransactionsListStatus status;
-  final List<vinttem_api.Transaction> transactions;
+  final List<vinttem_repository.Transaction> transactions;
 
   @override
   List<Object> get props => [
@@ -18,7 +18,7 @@ class TransactionsListState extends Equatable {
       ];
   TransactionsListState copyWith({
     TransactionsListStatus? status,
-    List<vinttem_api.Transaction>? transactions,
+    List<vinttem_repository.Transaction>? transactions,
   }) {
     return TransactionsListState(
       status: status ?? this.status,

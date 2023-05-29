@@ -2,19 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinttem_app/transactions/transaction.dart';
-import 'package:vinttem_repository/vinttem_repository.dart';
 
 class TransactionsListPage extends StatelessWidget {
   const TransactionsListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => TransactionsListBloc(
-        transactionRepository: context.read<TransactionRepository>(),
-      )..add(const TransactionsListSubscriptionRequested()),
-      child: const TransactionsListView(),
-    );
+    return const TransactionsListView();
   }
 }
 
@@ -23,6 +17,8 @@ class TransactionsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<TransactionsListBloc>().add(const TransactionsListRequested());
+
     return MultiBlocListener(
       listeners: [
         BlocListener<TransactionsListBloc, TransactionsListState>(
@@ -57,11 +53,11 @@ class TransactionsListView extends StatelessWidget {
                   child: ListTile(
                     key: Key('transactionCard_${t.id}'),
                     leading: const Icon(Icons.shopping_bag),
-                    title: Text(t.category.name),
+                    title: Text(t.category.description),
                     subtitle: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Type: ${t.type.name}'),
+                        Text('Type: ${t.type.description}'),
                         Text(
                           'R\$ ${t.value.toString().replaceAll('.', ',')}',
                         ),

@@ -12,32 +12,37 @@ class VinttemFastAPI {
   VinttemFastAPI({http.Client? httpClient})
       : _httpClient = httpClient ?? http.Client();
 
-  static const _vinttemFastAPIBaseURL = '127.0.0.1:8000';
+  static const _vinttemFastAPIBaseURL = '10.0.2.2:8000';
   static const _vinttemFastAPIAPIURL = '/api/v1/';
 
   final http.Client _httpClient;
 
-  Future<List<Transaction>> getTransaction() async {
-    final url = Uri.http(
-      _vinttemFastAPIBaseURL,
-      '${_vinttemFastAPIAPIURL}transactions/',
-    );
-    final response = await _httpClient.get(url);
+  Future<List<Transaction>> getTransactions() async {
+    try {
+      final url = Uri.http(
+        _vinttemFastAPIBaseURL,
+        '${_vinttemFastAPIAPIURL}transactions/',
+      );
 
-    if (response.statusCode != 200) throw TransactionRequestFailure();
+      final response = await _httpClient.get(url);
 
-    final transactionJson = jsonDecode(response.body) as Map;
+      if (response.statusCode != 200) throw TransactionRequestFailure();
 
-    if (!transactionJson.containsKey('results')) {
-      throw TransactionNotFoundFailure();
+      final transactionJson = jsonDecode(response.body) as Map;
+
+      if (!transactionJson.containsKey('results')) {
+        throw TransactionNotFoundFailure();
+      }
+
+      final results = transactionJson['results'] as List;
+
+      if (results.isEmpty) throw TransactionNotFoundFailure();
+
+      return results
+          .map((item) => Transaction.fromJson(item as Map<String, dynamic>))
+          .toList();
+    } catch (e) {
+      rethrow;
     }
-
-    final results = transactionJson['results'] as List;
-
-    if (results.isEmpty) throw TransactionNotFoundFailure();
-
-    return results
-        .map((item) => Transaction.fromJson(item as Map<String, dynamic>))
-        .toList();
   }
 }

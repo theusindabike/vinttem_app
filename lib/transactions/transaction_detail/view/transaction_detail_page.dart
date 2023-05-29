@@ -12,8 +12,8 @@ class TransactionDetailPage extends StatefulWidget {
 }
 
 class _TransactionDetailPageState extends State<TransactionDetailPage> {
-  late TransactionType? _selectedTransactionType = TransactionType.justMe;
-  late TransactionUser? _selectedUser = TransactionUser.matheus;
+  final TransactionType _selectedTransactionType = TransactionType.justMe;
+  final TransactionUser _selectedUser = TransactionUser.matheus;
 
   @override
   Widget build(BuildContext context) {
@@ -54,11 +54,11 @@ class _TransactionDetailPageState extends State<TransactionDetailPage> {
                       children: TransactionUser.values.map((user) {
                         return ChoiceChip(
                           label: Text(user.name),
-                          selected: _selectedUser?.id == user.id,
+                          selected: _selectedUser.id == user.id,
                           onSelected: (bool selected) {
-                            setState(() {
-                              _selectedUser = selected ? user : null;
-                            });
+                            // setState(() {
+                            //   _selectedUser = selected ? user : null;
+                            // });
                           },
                         );
                       }).toList(),
@@ -121,11 +121,12 @@ class _TransactionDetailPageState extends State<TransactionDetailPage> {
                         return ChoiceChip(
                           label: Text(type.name),
                           selected:
-                              _selectedTransactionType?.apiName == type.apiName,
+                              _selectedTransactionType.apiName == type.apiName,
                           onSelected: (bool selected) {
-                            setState(() {
-                              _selectedTransactionType = selected ? type : null;
-                            });
+                            // setState(() {
+                            //   _selectedTransactionType =
+                            //selected ? type : null;
+                            // });
                           },
                         );
                       }).toList(),

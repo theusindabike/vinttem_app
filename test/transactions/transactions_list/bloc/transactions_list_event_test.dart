@@ -6,15 +6,15 @@ void main() {
     test(
       'support value equality',
       () => expect(
-        const TransactionsListSubscriptionRequested(),
-        equals(const TransactionsListSubscriptionRequested()),
+        const TransactionsListRequested(),
+        equals(const TransactionsListRequested()),
       ),
     );
 
     test(
       'empty props when TransactionsListSubscriptionRequested',
       () => expect(
-        const TransactionsListSubscriptionRequested().props,
+        const TransactionsListRequested().props,
         equals(<Object?>[]),
       ),
     );

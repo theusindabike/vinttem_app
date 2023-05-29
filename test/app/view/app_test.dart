@@ -6,9 +6,11 @@ import 'package:vinttem_repository/vinttem_repository.dart';
 void main() {
   group('App', () {
     testWidgets('renders HomePage', (tester) async {
-      await tester.pumpWidget(App(
-        vinttemRepository: VinttemMockRepository(),
-      ),);
+      await tester.pumpWidget(
+        App(
+          vinttemRepository: VinttemMockRepository(),
+        ),
+      );
       expect(find.byType(HomePage), findsOneWidget);
     });
   });

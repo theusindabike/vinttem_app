@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:vinttem_repository/vinttem_repository.dart' as vinttem_repository;
+import 'package:vinttem_repository/vinttem_repository.dart'
+    as vinttem_repository;
 
 part 'transactions_list_event.dart';
 part 'transactions_list_state.dart';

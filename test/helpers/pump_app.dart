@@ -14,8 +14,7 @@ extension PumpApp on WidgetTester {
   }) {
     return pumpWidget(
       RepositoryProvider(
-        create: (context) =>
-            vinttemRepository ?? MockTransactionRepository(),
+        create: (context) => vinttemRepository ?? MockTransactionRepository(),
         child: MaterialApp(
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,

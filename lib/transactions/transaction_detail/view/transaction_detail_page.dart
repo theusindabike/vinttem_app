@@ -124,7 +124,7 @@ class _TransactionDetailPageState extends State<TransactionDetailPage> {
                               _selectedTransactionType.apiName == type.apiName,
                           onSelected: (bool selected) {
                             // setState(() {
-                            //   _selectedTransactionType = 
+                            //   _selectedTransactionType =
                             //selected ? type : null;
                             // });
                           },

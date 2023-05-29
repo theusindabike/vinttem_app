@@ -3,5 +3,6 @@ linter:
   rules:
     public_member_api_docs: false
     sort_constructors_first: false
+    one_member_abstracts: false
 analyzer:
   exclude: [lib/**/*.g.dart]

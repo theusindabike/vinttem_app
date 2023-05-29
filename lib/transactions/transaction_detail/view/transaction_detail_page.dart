@@ -54,7 +54,7 @@ class _TransactionDetailPageState extends State<TransactionDetailPage> {
                       children: TransactionUser.values.map((user) {
                         return ChoiceChip(
                           label: Text(user.name),
-                          selected: _selectedUser?.id == user.id,
+                          selected: _selectedUser.id == user.id,
                           onSelected: (bool selected) {
                             // setState(() {
                             //   _selectedUser = selected ? user : null;
@@ -124,7 +124,8 @@ class _TransactionDetailPageState extends State<TransactionDetailPage> {
                               _selectedTransactionType.apiName == type.apiName,
                           onSelected: (bool selected) {
                             // setState(() {
-                            //   _selectedTransactionType = selected ? type : null;
+                            //   _selectedTransactionType = 
+                            //selected ? type : null;
                             // });
                           },
                         );

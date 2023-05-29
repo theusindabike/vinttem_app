@@ -4,7 +4,7 @@ import 'package:vinttem_app/transactions/transaction.dart'
 import 'package:vinttem_repository/vinttem_repository.dart';
 
 void main() {
-  final mockTransaction = Transaction(
+  const mockTransaction = Transaction(
     id: 'fake_id_1',
     user: TransactionUser.matheus,
     value: 123.45,

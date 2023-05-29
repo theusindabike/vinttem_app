@@ -3,9 +3,6 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
-import 'package:vinttem_repository/vinttem_repository.dart';
-
-import 'app/view/app.dart';
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();

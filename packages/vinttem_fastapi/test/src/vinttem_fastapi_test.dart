@@ -40,7 +40,7 @@ void main() {
 
         verify(
           () => httpClient.get(
-            Uri.http('127.0.0.1:8000', '/api/v1/transactions/'),
+            Uri.http('10.0.2.2:8000', '/api/v1/transactions/'),
           ),
         ).called(1);
       });

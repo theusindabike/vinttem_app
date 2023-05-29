@@ -10,12 +10,12 @@ class MockTransactionRepository extends Mock implements VinttemRepository {}
 extension PumpApp on WidgetTester {
   Future<void> pumpApp(
     Widget widget, {
-    VinttemRepository? transactionRepository,
+    VinttemRepository? vinttemRepository,
   }) {
     return pumpWidget(
       RepositoryProvider(
         create: (context) =>
-            transactionRepository ?? MockTransactionRepository(),
+            vinttemRepository ?? MockTransactionRepository(),
         child: MaterialApp(
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
@@ -31,7 +31,7 @@ extension PumpApp on WidgetTester {
   }) {
     return pumpApp(
       Navigator(onGenerateRoute: (_) => route),
-      transactionRepository: transactionRepository,
+      vinttemRepository: transactionRepository,
     );
   }
 }

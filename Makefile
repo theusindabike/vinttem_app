@@ -1,6 +1,9 @@
 run:
 	fvm flutter run --flavor development --target lib/main_development.dart
 
+run_staging:
+	fvm flutter run --flavor staging --target lib/main_staging.dart
+
 clean:
 	melos run clean
 

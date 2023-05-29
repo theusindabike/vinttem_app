@@ -1,6 +1,6 @@
 import 'package:vinttem_repository/vinttem_repository.dart';
 
-class MockTransactionRepository implements VinttemRepository {
+class VinttemMockRepository implements VinttemRepository {
   @override
   Future<List<Transaction>> getTransactions() async {
     return <Transaction>[

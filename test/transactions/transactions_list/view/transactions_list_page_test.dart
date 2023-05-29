@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
+import 'package:vinttem_app/app/app.dart';
 import 'package:vinttem_app/transactions/transaction.dart'
     hide Transaction, TransactionCategory, TransactionType, TransactionUser;
 import 'package:vinttem_repository/vinttem_repository.dart';
 
 import '../../../helpers/helpers.dart';
 
-class MockTransactionRepository extends Mock implements VinttemRepository {}
+class MockVinttemRepository extends Mock implements VinttemRepository {}
 
 class MockTransactionsListBloc
     extends MockBloc<TransactionsListEvent, TransactionsListState>
@@ -17,7 +18,7 @@ class MockTransactionsListBloc
 
 void main() {
   final mockTransactions = <Transaction>[
-    Transaction(
+    const Transaction(
       id: 'fake_id_1',
       user: TransactionUser.matheus,
       value: 123.45,
@@ -25,7 +26,7 @@ void main() {
       type: TransactionType.even,
       description: 'fake description 1',
     ),
-    Transaction(
+    const Transaction(
       id: 'fake_id_2',
       user: TransactionUser.matheus,
       value: 23.45,
@@ -33,7 +34,7 @@ void main() {
       type: TransactionType.proportinal,
       description: 'fake description 2',
     ),
-    Transaction(
+    const Transaction(
       id: 'fake_id_3',
       user: TransactionUser.matheus,
       value: 45.67,
@@ -43,30 +44,23 @@ void main() {
     ),
   ];
 
-  late VinttemRepository transactionRepository;
+  late VinttemRepository vinttemRepository;
   group('TransactionsListPage', () {
     setUp(() {
-      transactionRepository = MockTransactionRepository();
-      when(transactionRepository.getTransactions)
+      vinttemRepository = MockVinttemRepository();
+      when(vinttemRepository.getTransactions)
           .thenAnswer((_) => Future<List<Transaction>>.value([]));
     });
     testWidgets('render TransactionsListView', (tester) async {
-      await tester.pumpApp(
-        const TransactionsListPage(),
-        transactionRepository: transactionRepository,
-      );
+      await tester.pumpWidget(App(vinttemRepository: vinttemRepository));
       expect(find.byType(TransactionsListView), findsOneWidget);
     });
 
     testWidgets(
-      'on initialization calls getTransactions repo',
+      'on initialization calls getTransactions',
       (tester) async {
-        await tester.pumpApp(
-          const TransactionsListPage(),
-          transactionRepository: transactionRepository,
-        );
-
-        verify(() => transactionRepository.getTransactions()).called(1);
+        await tester.pumpWidget(App(vinttemRepository: vinttemRepository));
+        verify(() => vinttemRepository.getTransactions()).called(1);
       },
     );
   });
@@ -87,10 +81,10 @@ void main() {
         ),
       );
 
-      transactionRepository = MockTransactionRepository();
+      vinttemRepository = MockVinttemRepository();
 
       when(
-        () => transactionRepository.getTransactions(),
+        () => vinttemRepository.getTransactions(),
       ).thenAnswer((_) => Future.value(mockTransactions));
     });
 
@@ -107,7 +101,7 @@ void main() {
     testWidgets('renders transactionList cards', (tester) async {
       await tester.pumpApp(
         buildNavigatorRoute(),
-        transactionRepository: transactionRepository,
+        vinttemRepository: vinttemRepository,
       );
 
       expect(find.byType(ListView), findsOneWidget);
@@ -131,7 +125,7 @@ void main() {
 
         await tester.pumpApp(
           buildNavigatorRoute(),
-          transactionRepository: transactionRepository,
+          vinttemRepository: vinttemRepository,
         );
         await tester.pumpAndSettle();
 

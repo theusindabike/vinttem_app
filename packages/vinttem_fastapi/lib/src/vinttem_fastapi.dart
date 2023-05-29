@@ -42,7 +42,7 @@ class VinttemFastAPI {
           .map((item) => Transaction.fromJson(item as Map<String, dynamic>))
           .toList();
     } catch (e) {
-      throw Exception(e);
+      rethrow;
     }
   }
 }

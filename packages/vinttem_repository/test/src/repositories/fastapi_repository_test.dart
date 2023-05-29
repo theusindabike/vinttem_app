@@ -13,11 +13,11 @@ class MockVinttemFastAPIClient extends Mock
 void main() {
   group('FastAPIRepository', () {
     late vinttem_fastapi_client.VinttemFastAPI mockVinttemFastAPIClient;
-    late VinttemFastAPIRespository fastAPIRespository;
+    late VinttemFastAPIRespository mockFastAPIRespository;
 
     setUp(() {
       mockVinttemFastAPIClient = MockVinttemFastAPIClient();
-      fastAPIRespository = VinttemFastAPIRespository(
+      mockFastAPIRespository = VinttemFastAPIRespository(
         vinttemFastAPIClient: mockVinttemFastAPIClient,
       );
     });
@@ -31,7 +31,7 @@ void main() {
     group('getTranscations', () {
       test('calls getTransactions', () async {
         try {
-          await fastAPIRespository.getTransactions();
+          await mockFastAPIRespository.getTransactions();
         } catch (_) {}
         verify(() => mockVinttemFastAPIClient.getTransactions()).called(1);
       });
@@ -43,7 +43,7 @@ void main() {
             .thenThrow(exception);
 
         expect(
-          () async => fastAPIRespository.getTransactions(),
+          () async => mockFastAPIRespository.getTransactions(),
           throwsA(exception),
         );
       });
@@ -64,7 +64,7 @@ void main() {
           (_) async => <vinttem_fastapi_client.Transaction>[transaction_1],
         );
 
-        final actual = await fastAPIRespository.getTransactions();
+        final actual = await mockFastAPIRespository.getTransactions();
 
         expect(
           actual,

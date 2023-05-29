@@ -18,6 +18,7 @@ class TransactionsListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<TransactionsListBloc>().add(const TransactionsListRequested());
+
     return MultiBlocListener(
       listeners: [
         BlocListener<TransactionsListBloc, TransactionsListState>(

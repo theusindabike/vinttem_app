@@ -12,7 +12,7 @@ class TransactionDetailPage extends StatefulWidget {
 }
 
 class _TransactionDetailPageState extends State<TransactionDetailPage> {
-  final TransactionType _selectedTransactionType = TransactionType.justMe;
+  final TransactionType _selectedTransactionType = TransactionType.individual;
   final TransactionUser _selectedUser = TransactionUser.matheus;
 
   @override

@@ -75,7 +75,7 @@ void main() {
           {
             "results": [
               {
-                "id": "fake_id_1",
+                "id": 1,
                 "user": "matheus",
                 "value": 123.45,
                 "category": "marketStuff",
@@ -92,7 +92,7 @@ void main() {
         expect(
           request.first,
           isA<Transaction>()
-              .having((t) => t.id, 'id', 'fake_id_1')
+              .having((t) => t.id, 'id', 1)
               .having((t) => t.user, 'user', TransactionUser.matheus)
               .having((t) => t.value, 'value', 123.45)
               .having(

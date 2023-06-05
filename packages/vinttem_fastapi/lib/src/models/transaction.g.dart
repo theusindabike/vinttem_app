@@ -7,7 +7,7 @@ part of 'transaction.dart';
 // **************************************************************************
 
 Transaction _$TransactionFromJson(Map<String, dynamic> json) => Transaction(
-      id: json['id'] as String,
+      id: json['id'] as int,
       user: $enumDecode(_$TransactionUserEnumMap, json['user']),
       value: (json['value'] as num).toDouble(),
       category: $enumDecode(_$TransactionCategoryEnumMap, json['category']),
@@ -38,16 +38,17 @@ const _$TransactionCategoryEnumMap = {
   TransactionCategory.cloths: 'cloths',
   TransactionCategory.housing: 'housing',
   TransactionCategory.transport: 'transport',
-  TransactionCategory.appSubscription: 'appSubscription',
+  TransactionCategory.subscription: 'subscription',
   TransactionCategory.pets: 'pets',
   TransactionCategory.gifts: 'gifts',
   TransactionCategory.personalCare: 'personalCare',
   TransactionCategory.donations: 'donations',
-  TransactionCategory.buyingSomething: 'buyingSomething',
+  TransactionCategory.shopping: 'shopping',
+  TransactionCategory.travel: 'travel',
 };
 
 const _$TransactionTypeEnumMap = {
-  TransactionType.justMe: 'justMe',
-  TransactionType.proportinal: 'proportinal',
+  TransactionType.individual: 'individual',
+  TransactionType.proportional: 'proportional',
   TransactionType.even: 'even',
 };

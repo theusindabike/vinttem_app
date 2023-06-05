@@ -14,7 +14,7 @@ class Transaction extends Equatable {
     this.description,
   });
 
-  final String id;
+  final int id;
   final TransactionUser user;
   final double value;
   final TransactionCategory category;
@@ -25,7 +25,7 @@ class Transaction extends Equatable {
       _$TransactionFromJson(json);
 
   Map<String, dynamic> toJson() => _$TransactionToJson(this);
-  
+
   @override
   List<Object?> get props => [id, user, value, category, type, description];
 }
@@ -48,12 +48,13 @@ enum TransactionCategory {
   cloths('CLOTHS', 'Cloths'),
   housing('HOUSING', 'Housing'),
   transport('TRANSPORT', 'Transport'),
-  appSubscription('APP_SUBSCRIPTION', 'App Subscription'),
+  subscription('SUBSCRIPTION', 'Subscription'),
   pets('PETS', 'Pets'),
   gifts('GIFTS', 'Gifts'),
   personalCare('PERSONAL_CARE', 'Personal Care'),
   donations('DONATIONS', 'Donations'),
-  buyingSomething('BUYING_SOMETHING', 'Buying Something');
+  shopping('SHOPPING', 'Shopping'),
+  travel('TRAVEL', 'Travel');
 
   const TransactionCategory(this.apiName, this.description);
 
@@ -62,8 +63,8 @@ enum TransactionCategory {
 }
 
 enum TransactionType {
-  justMe('JUST_ME', 'Just Me'),
-  proportinal('PROPORTIONAL', 'Proportional'),
+  individual('INDIVIDUAL', 'Individual'),
+  proportional('PROPORTIONAL', 'Proportional'),
   even('EVEN', 'Even');
 
   const TransactionType(this.apiName, this.description);

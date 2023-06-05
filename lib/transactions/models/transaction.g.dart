@@ -11,7 +11,7 @@ Transaction _$TransactionFromJson(Map<String, dynamic> json) => $checkedCreate(
       json,
       ($checkedConvert) {
         final val = Transaction(
-          id: $checkedConvert('id', (v) => v as String?),
+          id: $checkedConvert('id', (v) => v as int?),
           description: $checkedConvert('description', (v) => v as String?),
           user: $checkedConvert(
               'user', (v) => $enumDecode(_$TransactionUserEnumMap, v)),
@@ -48,16 +48,17 @@ const _$TransactionCategoryEnumMap = {
   TransactionCategory.cloths: 'cloths',
   TransactionCategory.housing: 'housing',
   TransactionCategory.transport: 'transport',
-  TransactionCategory.appSubscription: 'app_subscription',
+  TransactionCategory.subscription: 'subscription',
   TransactionCategory.pets: 'pets',
   TransactionCategory.gifts: 'gifts',
   TransactionCategory.personalCare: 'personal_care',
   TransactionCategory.donations: 'donations',
-  TransactionCategory.buyingSomething: 'buying_something',
+  TransactionCategory.shopping: 'shopping',
+  TransactionCategory.travel: 'travel',
 };
 
 const _$TransactionTypeEnumMap = {
-  TransactionType.justMe: 'just_me',
+  TransactionType.individual: 'individual',
   TransactionType.proportional: 'proportional',
   TransactionType.even: 'even',
 };

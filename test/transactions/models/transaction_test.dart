@@ -3,17 +3,17 @@ import 'package:vinttem_app/transactions/models/models.dart';
 
 void main() {
   const transaction = Transaction(
-    id: 'fake_id_1',
+    id: 1,
     user: TransactionUser.bianca,
     value: 456.78,
-    category: TransactionCategory.buyingSomething,
+    category: TransactionCategory.shopping,
     type: TransactionType.proportional,
   );
 
   group('Transaction', () {
     group('constructor', () {
       test('props are correct', () {
-        expect(transaction.props, equals(['fake_id_1']));
+        expect(transaction.props, equals([1]));
       });
     });
 
@@ -21,7 +21,7 @@ void main() {
       test('returns a correct Transaction from json', () {
         expect(
           Transaction.fromJson(const <String, dynamic>{
-            'id': 'fake_id_1',
+            'id': 1,
             'user': 'matheus',
             'value': 123.45,
             'category': 'market_stuff',
@@ -32,7 +32,7 @@ void main() {
               .having(
                 (t) => t.id,
                 'id',
-                'fake_id_1',
+                1,
               )
               .having(
                 (t) => t.user,
@@ -68,10 +68,10 @@ void main() {
         expect(
           transaction.toJson(),
           equals(<String, dynamic>{
-            'id': 'fake_id_1',
+            'id': 1,
             'user': 'bianca',
             'value': 456.78,
-            'category': 'buying_something',
+            'category': 'shopping',
             'type': 'proportional',
             'description': null
           }),

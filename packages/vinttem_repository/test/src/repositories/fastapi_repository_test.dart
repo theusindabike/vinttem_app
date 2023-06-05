@@ -50,14 +50,14 @@ void main() {
 
       test('return a transaction list with success', () async {
         final transaction_1 = MockTransaction();
-        when(() => transaction_1.id).thenReturn('fake_id_1');
+        when(() => transaction_1.id).thenReturn(1);
         when(() => transaction_1.user)
             .thenReturn(vinttem_fastapi_client.TransactionUser.matheus);
         when(() => transaction_1.value).thenReturn(69.69);
         when(() => transaction_1.category)
             .thenReturn(vinttem_fastapi_client.TransactionCategory.marketStuff);
         when(() => transaction_1.type)
-            .thenReturn(vinttem_fastapi_client.TransactionType.proportinal);
+            .thenReturn(vinttem_fastapi_client.TransactionType.proportional);
         when(() => transaction_1.description).thenReturn('fake description 1');
 
         when(() => mockVinttemFastAPIClient.getTransactions()).thenAnswer(
@@ -70,11 +70,11 @@ void main() {
           actual,
           <Transaction>[
             const Transaction(
-              id: 'fake_id_1',
+              id: 1,
               user: TransactionUser.matheus,
               value: 69.69,
               category: TransactionCategory.marketStuff,
-              type: TransactionType.proportinal,
+              type: TransactionType.proportional,
               description: 'fake description 1',
             )
           ],

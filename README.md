@@ -71,3 +71,10 @@ $ make tests
 $ make generate_coverage
 ```
 ---
+
+## Build Runner
+Using Makefile + Fvm:
+```sh
+$ make build_runner
+```
+---

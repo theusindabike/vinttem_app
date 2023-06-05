@@ -28,7 +28,7 @@ class VinttemFastAPI {
 
       if (response.statusCode != 200) throw TransactionRequestFailure();
 
-      final transactionJson = jsonDecode(response.body) as Map;
+      final transactionJson = jsonDecode(response.body) as Map<String, dynamic>;
 
       if (!transactionJson.containsKey('results')) {
         throw TransactionNotFoundFailure();

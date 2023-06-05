@@ -12,7 +12,7 @@ class FakeTransaction extends Fake implements Transaction {}
 void main() {
   final mockTransactions = <Transaction>[
     const Transaction(
-      id: 'fake_id_1',
+      id: 1,
       user: TransactionUser.matheus,
       value: 123.45,
       category: TransactionCategory.marketStuff,
@@ -20,15 +20,15 @@ void main() {
       description: 'fake description 1',
     ),
     const Transaction(
-      id: 'fake_id_2',
+      id: 2,
       user: TransactionUser.matheus,
       value: 23.45,
       category: TransactionCategory.cloths,
-      type: TransactionType.proportinal,
+      type: TransactionType.proportional,
       description: 'fake description 2',
     ),
     const Transaction(
-      id: 'fake_id_3',
+      id: 3,
       user: TransactionUser.matheus,
       value: 45.67,
       category: TransactionCategory.gifts,

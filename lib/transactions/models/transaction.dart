@@ -66,7 +66,7 @@ enum TransactionCategory {
 
 @JsonEnum(fieldRename: FieldRename.snake)
 enum TransactionType {
-  justMe('JUST_ME', 'Just Me'),
+  individual('INDIVIDUAL', 'Individual'),
   proportional('PROPORTIONAL', 'Proportional'),
   even('EVEN', 'Even');
 

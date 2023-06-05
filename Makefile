@@ -25,5 +25,5 @@ generate_coverage:
 lint:
 	melos run lint
 
-githubactions_build_runner:
-	flutter pub run build_runner build --delete-conflicting-outputs
+format:
+	melos run format

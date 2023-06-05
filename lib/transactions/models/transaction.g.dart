@@ -58,7 +58,7 @@ const _$TransactionCategoryEnumMap = {
 };
 
 const _$TransactionTypeEnumMap = {
-  TransactionType.justMe: 'just_me',
+  TransactionType.individual: 'individual',
   TransactionType.proportional: 'proportional',
   TransactionType.even: 'even',
 };

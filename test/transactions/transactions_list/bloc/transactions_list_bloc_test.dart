@@ -32,7 +32,7 @@ void main() {
       user: TransactionUser.matheus,
       value: 45.67,
       category: TransactionCategory.gifts,
-      type: TransactionType.justMe,
+      type: TransactionType.individual,
       description: 'fake description 3',
     ),
   ];

@@ -63,7 +63,7 @@ enum TransactionCategory {
 }
 
 enum TransactionType {
-  justMe('JUST_ME', 'Just Me'),
+  individual('INDIVIDUAL', 'Individual'),
   proportional('PROPORTIONAL', 'Proportional'),
   even('EVEN', 'Even');
 

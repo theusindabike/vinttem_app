@@ -32,7 +32,7 @@ class TransactionsListBloc
           transactions: transactions,
         ),
       );
-    } catch (e){
+    } catch (e) {
       emit(state.copyWith(status: TransactionsListStatus.failure));
     }
   }

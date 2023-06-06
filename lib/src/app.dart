@@ -20,7 +20,7 @@ class App extends StatelessWidget {
         create: (context) => TransactionsListBloc(
           vinttemRepository: _vinttemRepository,
         ),
-        child: AppView(),
+        child: const AppView(),
       ),
     );
   }

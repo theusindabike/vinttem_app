@@ -2,9 +2,10 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vinttem_app/home/view/view.dart';
-import 'package:vinttem_app/l10n/l10n.dart';
-import 'package:vinttem_app/transactions/transaction.dart';
+import 'package:vinttem_app/src/features/home/view/view.dart';
+import 'package:vinttem_app/src/features/transactions/transaction.dart';
+import 'package:vinttem_app/src/features/transactions/transaction_form/view/new_transaction_page.dart';
+import 'package:vinttem_app/src/l10n/l10n.dart';
 import 'package:vinttem_repository/vinttem_repository.dart';
 
 class App extends StatelessWidget {
@@ -41,6 +42,10 @@ class AppView extends StatelessWidget {
         path: '/transactions',
         builder: (context, state) => const TransactionDetailPage(),
       ),
+      GoRoute(
+        path: '/new_transaction',
+        builder: (context, state) => const NewTransactionPage(),
+      )
     ],
   );
 

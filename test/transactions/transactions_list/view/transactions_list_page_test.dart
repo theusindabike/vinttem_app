@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
-import 'package:vinttem_app/app/app.dart';
-import 'package:vinttem_app/transactions/transaction.dart'
+import 'package:vinttem_app/src/app.dart';
+import 'package:vinttem_app/src/features/transactions/transaction.dart'
     hide Transaction, TransactionCategory, TransactionType, TransactionUser;
 import 'package:vinttem_repository/vinttem_repository.dart';
 

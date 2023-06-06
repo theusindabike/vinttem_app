@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:vinttem_app/transactions/models/models.dart';
+import 'package:vinttem_app/src/features/transactions/models/models.dart';
 
 void main() {
   const transaction = Transaction(

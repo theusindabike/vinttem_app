@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vinttem_app/transactions/transactions_list/transactions_list.dart';
+import 'package:vinttem_app/src/features/transactions/transactions_list/transactions_list.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -54,6 +54,13 @@ class _HomePageState extends State<HomePage> {
             },
             elevation: 4,
             label: const Icon(Icons.add),
+          ),
+          FloatingActionButton.extended(
+            onPressed: () {
+              context.push('/new_transaction');
+            },
+            elevation: 4,
+            label: const Icon(Icons.alarm_add),
           ),
         ],
       ),

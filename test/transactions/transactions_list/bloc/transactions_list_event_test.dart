@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vinttem_app/transactions/transaction.dart';
+import 'package:vinttem_app/src/features/transactions/transaction.dart';
 
 void main() {
   group('TransactionsListEvent', () {

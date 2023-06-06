@@ -1,4 +1,6 @@
+import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class NewTransactionPage extends StatefulWidget {
   const NewTransactionPage({super.key});
@@ -31,7 +33,6 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
               ),
               TextFormField(
                 validator: (value) {
-                  print('=== Trying to validate: $value');
                   if (value == null || value.isEmpty) {
                     return 'please fill this field';
                   }
@@ -42,6 +43,32 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
                   hintText: '(user)',
                 ),
               ),
+              Row(
+                children: [
+                  Text(
+                    'how much?',
+                    style: textTheme.titleLarge,
+                  ),
+                ],
+              ),
+              TextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'please fill this field';
+                  }
+                  return null;
+                },
+                keyboardType: TextInputType.number,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  CentavosInputFormatter(moeda: true)
+                ],
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: r'R$ 0,00',
+                ),
+              ),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -54,9 +81,7 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          print('=== Trying to save: ');
                           if (formKey.currentState!.validate()) {
-                            print('=== Trying to show snackbar: ');
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(content: Text('Saving...')));
                           }

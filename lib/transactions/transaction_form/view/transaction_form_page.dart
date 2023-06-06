@@ -12,11 +12,10 @@ class TransactionDetailPage extends StatefulWidget {
 }
 
 class _TransactionDetailPageState extends State<TransactionDetailPage> {
-  final TransactionType _selectedTransactionType = TransactionType.individual;
-  final TransactionUser _selectedUser = TransactionUser.matheus;
-
   @override
   Widget build(BuildContext context) {
+    const selectedTransactionType = TransactionType.individual;
+    const selectedUser = TransactionUser.matheus;
     final textTheme = Theme.of(context).textTheme;
     final formKey = GlobalKey<FormFieldState<dynamic>>();
 
@@ -39,14 +38,6 @@ class _TransactionDetailPageState extends State<TransactionDetailPage> {
             child: Column(
               children: [
                 Row(
-                  children: [
-                    Text(
-                      'who?',
-                      style: textTheme.titleLarge,
-                    ),
-                  ],
-                ),
-                Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Wrap(
@@ -54,7 +45,7 @@ class _TransactionDetailPageState extends State<TransactionDetailPage> {
                       children: TransactionUser.values.map((user) {
                         return ChoiceChip(
                           label: Text(user.name),
-                          selected: _selectedUser.id == user.id,
+                          selected: selectedUser.id == user.id,
                           onSelected: (bool selected) {
                             // setState(() {
                             //   _selectedUser = selected ? user : null;
@@ -121,7 +112,7 @@ class _TransactionDetailPageState extends State<TransactionDetailPage> {
                         return ChoiceChip(
                           label: Text(type.name),
                           selected:
-                              _selectedTransactionType.apiName == type.apiName,
+                              selectedTransactionType.apiName == type.apiName,
                           onSelected: (bool selected) {
                             // setState(() {
                             //   _selectedTransactionType =

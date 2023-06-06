@@ -40,7 +40,7 @@ class TransactionsListView extends StatelessWidget {
             } else if (state.status != TransactionsListStatus.success) {
               return const Center(child: CupertinoActivityIndicator());
             } else {
-              return const Center(child: Text('zero transações por aqui'));
+              return const Center(child: Text('no transactions were made'));
             }
           }
 

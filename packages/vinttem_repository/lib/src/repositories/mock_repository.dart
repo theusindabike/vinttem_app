@@ -30,4 +30,9 @@ class VinttemMockRepository implements VinttemRepository {
       ),
     ];
   }
+
+  @override
+  Future<Transaction> createTransaction(Transaction transaction) async {
+    return transaction;
+  }
 }

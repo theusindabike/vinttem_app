@@ -53,10 +53,21 @@ class NewTransactionBloc
     NewTransactionSubmitted event,
     Emitter<NewTransactionState> emit,
   ) async {
+    final user = NewTransactionUser.dirty(state.user.value);
+    final value = NewTransactionValue.dirty(state.value.value);
+
+    emit(
+      state.copyWith(
+        user: user,
+        value: value,
+        isValid: Formz.validate([user, value]),
+      ),
+    );
+
     if (state.isValid) {
       emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
       try {
-        await _vinttemRepository.getTransactions();
+        await _vinttemRepository.createTransaction('', 0);
         emit(state.copyWith(status: FormzSubmissionStatus.success));
       } catch (_) {
         emit(state.copyWith(status: FormzSubmissionStatus.failure));

@@ -35,4 +35,9 @@ class VinttemFastAPIRespository implements VinttemRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<Transaction> createTransaction(Transaction transaction) async {
+    return transaction;
+  }
 }

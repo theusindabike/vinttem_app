@@ -7,7 +7,7 @@ import 'package:vinttem_app/src/features/transactions/transaction.dart'
     hide Transaction, TransactionCategory, TransactionType, TransactionUser;
 import 'package:vinttem_repository/vinttem_repository.dart';
 
-import '../../../helpers/helpers.dart';
+import '../../../../../helpers/helpers.dart';
 
 class MockTransactionRepository extends Mock implements VinttemRepository {}
 

@@ -2,10 +2,10 @@ import 'package:formz/formz.dart';
 
 enum TransactionUserValidationError { invalid }
 
-class TransactionUser
+class TransactionFormUser
     extends FormzInput<String, TransactionUserValidationError> {
-  const TransactionUser.pure([super.value = '']) : super.pure();
-  const TransactionUser.dirty([super.value = '']) : super.dirty();
+  const TransactionFormUser.pure([super.value = '']) : super.pure();
+  const TransactionFormUser.dirty([super.value = '']) : super.dirty();
 
   @override
   TransactionUserValidationError? validator(String value) {

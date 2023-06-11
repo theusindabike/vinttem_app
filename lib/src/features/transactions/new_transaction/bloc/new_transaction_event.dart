@@ -1,4 +1,4 @@
-part of 'transaction_form_bloc.dart';
+part of 'new_transaction_bloc.dart';
 
 sealed class TransactionFormEvent extends Equatable {
   const TransactionFormEvent();
@@ -8,19 +8,19 @@ sealed class TransactionFormEvent extends Equatable {
 }
 
 final class TransactionUserChanged extends TransactionFormEvent {
-  const TransactionUserChanged({required this.transactionUser});
-  final String transactionUser;
+  const TransactionUserChanged({required this.user});
+  final String user;
 
   @override
-  List<Object> get props => [transactionUser];
+  List<Object> get props => [user];
 }
 
 final class TransactionValueChanged extends TransactionFormEvent {
-  const TransactionValueChanged({required this.transactionValue});
-  final String transactionValue;
+  const TransactionValueChanged({required this.value});
+  final double value;
 
   @override
-  List<Object> get props => [transactionValue];
+  List<Object> get props => [value];
 }
 
 final class TransactionSubmitted extends TransactionFormEvent {

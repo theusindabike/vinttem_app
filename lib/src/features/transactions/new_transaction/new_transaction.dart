@@ -1,3 +1,3 @@
-export 'bloc/transactions_list_bloc.dart';
+export 'bloc/new_transaction_bloc.dart';
 export 'models/models.dart';
 export 'view/view.dart';

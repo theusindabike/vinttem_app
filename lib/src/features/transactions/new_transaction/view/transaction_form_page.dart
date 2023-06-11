@@ -2,7 +2,7 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
-import 'package:vinttem_app/src/features/transactions/models/models.dart';
+import 'package:vinttem_app/src/features/transactions/transactions_list/models/models.dart';
 
 class TransactionDetailPage extends StatefulWidget {
   const TransactionDetailPage({super.key});

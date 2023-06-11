@@ -2,10 +2,10 @@ import 'package:formz/formz.dart';
 
 enum TransactionValueValidationError { invalid }
 
-class TransactionFormValue
+class NewTransactionValue
     extends FormzInput<double, TransactionValueValidationError> {
-  const TransactionFormValue.pure([super.value = 0]) : super.pure();
-  const TransactionFormValue.dirty([super.value = 0]) : super.dirty();
+  const NewTransactionValue.pure([super.value = 0]) : super.pure();
+  const NewTransactionValue.dirty([super.value = 0]) : super.dirty();
 
   @override
   TransactionValueValidationError? validator(double value) {

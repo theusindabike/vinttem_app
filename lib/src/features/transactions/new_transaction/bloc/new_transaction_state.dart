@@ -1,25 +1,25 @@
 part of 'new_transaction_bloc.dart';
 
-final class TransactionFormState extends Equatable {
-  const TransactionFormState({
+final class NewTransactionState extends Equatable {
+  const NewTransactionState({
     this.status = FormzSubmissionStatus.initial,
-    this.user = const TransactionFormUser.pure(),
-    this.value = const TransactionFormValue.pure(),
+    this.user = const NewTransactionUser.pure(),
+    this.value = const NewTransactionValue.pure(),
     this.isValid = false,
   });
 
   final FormzSubmissionStatus status;
-  final TransactionFormUser user;
-  final TransactionFormValue value;
+  final NewTransactionUser user;
+  final NewTransactionValue value;
   final bool isValid;
 
-  TransactionFormState copyWith({
-    TransactionFormUser? user,
-    TransactionFormValue? value,
+  NewTransactionState copyWith({
+    NewTransactionUser? user,
+    NewTransactionValue? value,
     bool? isValid,
     FormzSubmissionStatus? status,
   }) {
-    return TransactionFormState(
+    return NewTransactionState(
       status: status ?? this.status,
       user: user ?? this.user,
       value: value ?? this.value,

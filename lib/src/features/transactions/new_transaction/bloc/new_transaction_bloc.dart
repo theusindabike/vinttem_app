@@ -67,7 +67,15 @@ class NewTransactionBloc
     if (state.isValid) {
       emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
       try {
-        await _vinttemRepository.createTransaction('', 0);
+        await _vinttemRepository.createTransaction(
+          vinttem_repository.Transaction(
+            id: 0,
+            user: vinttem_repository.TransactionUser.matheus,
+            value: state.value.value,
+            category: vinttem_repository.TransactionCategory.cloths,
+            type: vinttem_repository.TransactionType.even,
+          ),
+        );
         emit(state.copyWith(status: FormzSubmissionStatus.success));
       } catch (_) {
         emit(state.copyWith(status: FormzSubmissionStatus.failure));

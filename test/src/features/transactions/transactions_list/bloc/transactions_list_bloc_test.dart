@@ -68,7 +68,7 @@ void main() {
 
     group('TransactionsListSubscriptionRequested', () {
       blocTest<TransactionsListBloc, TransactionsListState>(
-        'start subscription to Transactions repostiory',
+        'start subscription to Transactions repository',
         build: buildBloc,
         act: (bloc) => bloc.add(const TransactionsListRequested()),
         verify: (_) {
@@ -76,7 +76,7 @@ void main() {
         },
       );
       blocTest<TransactionsListBloc, TransactionsListState>(
-        'emits updated status when a getTransctions call occurs',
+        'emits updated status when a getTransactions call occurs',
         build: buildBloc,
         act: (bloc) => bloc.add(const TransactionsListRequested()),
         expect: () => [
@@ -91,7 +91,7 @@ void main() {
       );
 
       blocTest<TransactionsListBloc, TransactionsListState>(
-        'emits failure status when a getTransctions error occurs',
+        'emits failure status when a getTransactions error occurs',
         setUp: () {
           when(
             () => mockVinttemRepository.getTransactions(),

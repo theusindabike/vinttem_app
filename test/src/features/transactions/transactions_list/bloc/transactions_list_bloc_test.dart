@@ -5,7 +5,7 @@ import 'package:vinttem_app/src/features/transactions/transaction.dart'
     hide Transaction, TransactionCategory, TransactionType, TransactionUser;
 import 'package:vinttem_repository/vinttem_repository.dart';
 
-class MockTransactionRepository extends Mock implements VinttemRepository {}
+class MockVinttemRepository extends Mock implements VinttemRepository {}
 
 class FakeTransaction extends Fake implements Transaction {}
 
@@ -37,22 +37,22 @@ void main() {
     ),
   ];
   group('TransactionListBloc', () {
-    late VinttemRepository transactionRepository;
+    late VinttemRepository mockVinttemRepository;
 
     setUpAll(() {
       registerFallbackValue(FakeTransaction());
     });
 
     setUp(() {
-      transactionRepository = MockTransactionRepository();
+      mockVinttemRepository = MockVinttemRepository();
 
       when(
-        () => transactionRepository.getTransactions(),
+        () => mockVinttemRepository.getTransactions(),
       ).thenAnswer((_) => Future.value(mockTransactions));
     });
 
     TransactionsListBloc buildBloc() {
-      return TransactionsListBloc(vinttemRepository: transactionRepository);
+      return TransactionsListBloc(vinttemRepository: mockVinttemRepository);
     }
 
     group('constructor', () {
@@ -72,7 +72,7 @@ void main() {
         build: buildBloc,
         act: (bloc) => bloc.add(const TransactionsListRequested()),
         verify: (_) {
-          verify(() => transactionRepository.getTransactions()).called(1);
+          verify(() => mockVinttemRepository.getTransactions()).called(1);
         },
       );
       blocTest<TransactionsListBloc, TransactionsListState>(
@@ -94,7 +94,7 @@ void main() {
         'emits failure status when a getTransctions error occurs',
         setUp: () {
           when(
-            () => transactionRepository.getTransactions(),
+            () => mockVinttemRepository.getTransactions(),
           ).thenAnswer(
             (_) => Future.error(
               Exception('sorry to say, but something went wrong'),

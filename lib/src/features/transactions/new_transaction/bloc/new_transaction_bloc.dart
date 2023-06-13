@@ -76,6 +76,7 @@ class NewTransactionBloc
             type: vinttem_repository.TransactionType.even,
           ),
         );
+        // await _vinttemRepository.getTransactions();
         emit(state.copyWith(status: FormzSubmissionStatus.success));
       } catch (_) {
         emit(state.copyWith(status: FormzSubmissionStatus.failure));

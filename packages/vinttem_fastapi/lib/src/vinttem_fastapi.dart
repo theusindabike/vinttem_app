@@ -54,12 +54,12 @@ class VinttemFastAPI {
         '${_vinttemFastAPIPrefixURL}transactions/',
       );
 
+      final jsonData = transaction.toJson()
+        ..removeWhere((key, value) => value == null);
+
       final response = await _httpClient.post(
         url,
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8'
-        },
-        body: transaction.toJson(),
+        body: jsonData,
       );
 
       if (response.statusCode != 200) throw TransactionRequestFailure();

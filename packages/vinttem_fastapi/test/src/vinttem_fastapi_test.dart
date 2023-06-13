@@ -148,10 +148,18 @@ void main() {
       test('throws TransactionRequestFailure on non-200 request', () async {
         final response = MockResponse();
         when(() => response.statusCode).thenReturn(405);
-        when(() => mockHttpClient.get(any())).thenAnswer((_) async => response);
+        when(
+          () => mockHttpClient.post(
+            any(),
+            body: fakeTransaction.toJson(),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8'
+            },
+          ),
+        ).thenAnswer((_) async => response);
 
         expect(
-          mockVinttemFastAPI.getTransactions(),
+          mockVinttemFastAPI.createTransaction(fakeTransaction),
           throwsA(isA<TransactionRequestFailure>()),
         );
       });

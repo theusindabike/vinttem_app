@@ -79,7 +79,7 @@ void main() {
         );
       });
 
-      test('return a Transction object when valid response', () async {
+      test('return a Transaction object when valid response', () async {
         final response = MockResponse();
         when(() => response.statusCode).thenReturn(200);
         when(() => response.body).thenReturn('''
@@ -164,41 +164,34 @@ void main() {
         );
       });
 
-      test('throws TransactionNotFoundFailure on results empty', () async {
-        final response = MockResponse();
-        when(() => response.statusCode).thenReturn(200);
-        when(() => response.body).thenReturn('{"results": []}');
-        when(() => mockHttpClient.get(any())).thenAnswer((_) async => response);
-
-        expect(
-          mockVinttemFastAPI.getTransactions(),
-          throwsA(isA<TransactionNotFoundFailure>()),
-        );
-      });
-
-      test('return a Transction object when valid response', () async {
+      test('return a Transaction object when valid response', () async {
         final response = MockResponse();
         when(() => response.statusCode).thenReturn(200);
         when(() => response.body).thenReturn('''
           {
-            "results": [
-              {
-                "id": 1,
-                "user": "matheus",
-                "value": 123.45,
-                "category": "marketStuff",
-                "type": "even",
-                "description": "fake description 1"
-              }
-            ]
+            "id": 1,
+            "user": "matheus",
+            "value": 123.45,
+            "category": "marketStuff",
+            "type": "even",
+            "description": "fake description 1"
           }
           ''');
-        when(() => mockHttpClient.get(any())).thenAnswer((_) async => response);
+        when(
+          () => mockHttpClient.post(
+            any(),
+            body: fakeTransaction.toJson(),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8'
+            },
+          ),
+        ).thenAnswer((_) async => response);
 
-        final request = await mockVinttemFastAPI.getTransactions();
+        final request =
+            await mockVinttemFastAPI.createTransaction(fakeTransaction);
 
         expect(
-          request.first,
+          request,
           isA<Transaction>()
               .having((t) => t.id, 'id', 1)
               .having((t) => t.user, 'user', TransactionUser.matheus)

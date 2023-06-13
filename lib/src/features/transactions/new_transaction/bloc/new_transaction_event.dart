@@ -7,16 +7,16 @@ sealed class NewTransactionEvent extends Equatable {
   List<Object> get props => [];
 }
 
-final class UserChanged extends NewTransactionEvent {
-  const UserChanged({required this.user});
+final class NewTransactionUserChanged extends NewTransactionEvent {
+  const NewTransactionUserChanged({required this.user});
   final String user;
 
   @override
   List<Object> get props => [user];
 }
 
-final class ValueChanged extends NewTransactionEvent {
-  const ValueChanged({required this.value});
+final class NewTransactionValueChanged extends NewTransactionEvent {
+  const NewTransactionValueChanged({required this.value});
   final double value;
 
   @override

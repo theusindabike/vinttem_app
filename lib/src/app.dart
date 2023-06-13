@@ -16,10 +16,14 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
       value: _vinttemRepository,
-      child: BlocProvider<TransactionsListBloc>(
-        create: (context) => TransactionsListBloc(
-          vinttemRepository: _vinttemRepository,
-        ),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<TransactionsListBloc>(
+            create: (context) => TransactionsListBloc(
+              vinttemRepository: _vinttemRepository,
+            ),
+          ),
+        ],
         child: const AppView(),
       ),
     );

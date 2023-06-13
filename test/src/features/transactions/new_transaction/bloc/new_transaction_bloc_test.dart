@@ -56,8 +56,8 @@ void main() {
       build: buildBloc,
       act: (bloc) {
         bloc
-          ..add(const UserChanged(user: 'bianca'))
-          ..add(const ValueChanged(value: 6.66))
+          ..add(const NewTransactionUserChanged(user: 'bianca'))
+          ..add(const NewTransactionValueChanged(value: 6.66))
           ..add(const NewTransactionSubmitted());
       },
       expect: () => const <NewTransactionState>[
@@ -95,8 +95,8 @@ void main() {
       build: buildBloc,
       act: (bloc) {
         bloc
-          ..add(const UserChanged(user: 'bianca'))
-          ..add(const ValueChanged(value: 6.66))
+          ..add(const NewTransactionUserChanged(user: 'bianca'))
+          ..add(const NewTransactionValueChanged(value: 6.66))
           ..add(const NewTransactionSubmitted());
       },
       expect: () => const <NewTransactionState>[

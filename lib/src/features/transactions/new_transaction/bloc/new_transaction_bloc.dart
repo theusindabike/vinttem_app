@@ -14,15 +14,15 @@ class NewTransactionBloc
     required vinttem_repository.VinttemRepository vinttemRepository,
   })  : _vinttemRepository = vinttemRepository,
         super(const NewTransactionState()) {
-    on<UserChanged>(_onTransactionUserChanged);
-    on<ValueChanged>(_onTransactionValueChanged);
+    on<NewTransactionUserChanged>(_onTransactionUserChanged);
+    on<NewTransactionValueChanged>(_onTransactionValueChanged);
     on<NewTransactionSubmitted>(_onTransactionSubmitted);
   }
 
   final vinttem_repository.VinttemRepository _vinttemRepository;
 
   void _onTransactionUserChanged(
-    UserChanged event,
+    NewTransactionUserChanged event,
     Emitter<NewTransactionState> emit,
   ) {
     final user = NewTransactionUser.dirty(event.user);
@@ -36,7 +36,7 @@ class NewTransactionBloc
   }
 
   void _onTransactionValueChanged(
-    ValueChanged event,
+    NewTransactionValueChanged event,
     Emitter<NewTransactionState> emit,
   ) {
     final value = NewTransactionValue.dirty(event.value);
@@ -77,11 +77,12 @@ class NewTransactionBloc
             type: vinttem_repository.TransactionType.even,
           ),
         );
-        // await _vinttemRepository.getTransactions();
         emit(state.copyWith(status: FormzSubmissionStatus.success));
       } catch (_) {
         emit(state.copyWith(status: FormzSubmissionStatus.failure));
       }
+    } else {
+      emit(state.copyWith(status: FormzSubmissionStatus.failure));
     }
   }
 }

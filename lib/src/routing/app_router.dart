@@ -15,7 +15,7 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/new_transaction',
-      builder: (context, state) => const NewTransactionPage(),
+      builder: (context, state) => const TransactionCreatePage(),
     )
   ],
 );

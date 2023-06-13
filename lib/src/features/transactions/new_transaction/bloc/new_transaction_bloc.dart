@@ -69,8 +69,9 @@ class NewTransactionBloc
       try {
         await _vinttemRepository.createTransaction(
           vinttem_repository.Transaction(
-            id: 0,
-            user: vinttem_repository.TransactionUser.matheus,
+            id: 1,
+            user: vinttem_repository.TransactionUser.values
+                .byName(state.user.value),
             value: state.value.value,
             category: vinttem_repository.TransactionCategory.cloths,
             type: vinttem_repository.TransactionType.even,

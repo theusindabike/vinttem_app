@@ -17,6 +17,7 @@ class FakeTransaction extends Fake implements Transaction {}
 class FakeOptions extends Fake implements http.Options {}
 
 void main() {
+  const baseURL = '10.0.2.2:8000';
   group('VinttemFastapi', () {
     late http.Dio mockHttpClient;
     late VinttemFastAPI mockVinttemFastAPI;
@@ -45,20 +46,13 @@ void main() {
 
     group('getTransactions', () {
       test('makes http resquest', () async {
-        final response = MockResponse();
-        when(() => response.statusCode).thenReturn(200);
-        when(() => response.data).thenReturn(<String, dynamic>{});
-        when(
-          () => mockHttpClient.getUri<Map<String, dynamic>>(any()),
-        ).thenAnswer((_) async => response);
-
         try {
           await mockVinttemFastAPI.getTransactions();
         } catch (_) {}
 
         verify(
           () => mockHttpClient.getUri<Map<String, dynamic>>(
-            Uri.http('10.0.2.2:8000', '/api/v1/transactions/'),
+            Uri.http(baseURL, '/api/v1/transactions/'),
           ),
         ).called(1);
       });
@@ -135,9 +129,12 @@ void main() {
       test('makes http resquest', () async {
         final response = MockResponse();
         when(() => response.statusCode).thenReturn(200);
-        when(() => response.data).thenReturn(<String, dynamic>{});
+        when(() => response.data).thenReturn(fakeTransaction.toJson());
         when(
-          () => mockHttpClient.postUri<Map<String, dynamic>>(any()),
+          () => mockHttpClient.postUri<Map<String, dynamic>>(
+            any(),
+            data: fakeTransaction.toJson(),
+          ),
         ).thenAnswer((_) async => response);
 
         try {
@@ -146,7 +143,7 @@ void main() {
 
         verify(
           () => mockHttpClient.postUri<Map<String, dynamic>>(
-            Uri.http('10.0.2.2:8000', '/api/v1/transactions/'),
+            Uri.http(baseURL, '/api/v1/transactions/'),
             data: fakeTransaction.toJson(),
           ),
         ).called(1);
@@ -159,12 +156,6 @@ void main() {
           () => mockHttpClient.postUri<Map<String, dynamic>>(
             any(),
             data: fakeTransaction.toJson(),
-            options: http.Options(
-              headers: {
-                HttpHeaders.contentTypeHeader: 'application/json',
-                HttpHeaders.contentEncodingHeader: 'UTF-8'
-              },
-            ),
           ),
         ).thenAnswer((_) async => response);
 
@@ -189,12 +180,6 @@ void main() {
           () => mockHttpClient.postUri<Map<String, dynamic>>(
             any(),
             data: fakeTransaction.toJson(),
-            options: http.Options(
-              headers: {
-                HttpHeaders.contentTypeHeader: 'application/json',
-                HttpHeaders.contentEncodingHeader: 'UTF-8'
-              },
-            ),
           ),
         ).thenAnswer((_) async => response);
 

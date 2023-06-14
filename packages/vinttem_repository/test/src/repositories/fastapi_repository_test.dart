@@ -50,7 +50,6 @@ void main() {
 
       test('return a transaction list with success', () async {
         final transaction_1 = MockTransaction();
-        when(() => transaction_1.id).thenReturn(1);
         when(() => transaction_1.user)
             .thenReturn(vinttem_fastapi_client.TransactionUser.matheus);
         when(() => transaction_1.value).thenReturn(69.69);
@@ -70,7 +69,6 @@ void main() {
           actual,
           <Transaction>[
             const Transaction(
-              id: 1,
               user: TransactionUser.matheus,
               value: 69.69,
               category: TransactionCategory.marketStuff,

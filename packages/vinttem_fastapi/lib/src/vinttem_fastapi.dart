@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart' as http;
 
 import 'package:vinttem_fastapi/src/models/models.dart';
@@ -51,8 +53,8 @@ class VinttemFastAPI {
         '${_vinttemFastAPIPrefixURL}transactions/',
       );
 
-      final jsonData = transaction.toJson()
-        ..removeWhere((key, value) => value == null);
+      final jsonData = transaction.toJson();
+      // ..removeWhere((key, value) => value == null);
 
       final response = await _httpClient.postUri<Map<String, dynamic>>(
         uri,

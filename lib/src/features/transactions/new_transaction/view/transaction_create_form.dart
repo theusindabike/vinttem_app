@@ -39,26 +39,7 @@ class TransactionCreateForm extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         child: Column(
           children: [
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.end,
-            //   children: [
-            //     Wrap(
-            //       spacing: 8,
-            //       children: TransactionUser.values.map((user) {
-            //         return ChoiceChip(
-            //           label: Text(user.name),
-            //           selected: selectedUser.id == user.id,
-            //           onSelected: (bool selected) {
-            //             // setState(() {
-            //             //   _selectedUser = selected ? user : null;
-            //             // });
-            //           },
-            //         );
-            //       }).toList(),
-            //     ),
-            //   ],
-            // ),
-            _NewTransactionUserField(),
+            _NewTransactionUserChoiceChip(),
             Row(
               children: [
                 Text(
@@ -91,29 +72,31 @@ class TransactionCreateForm extends StatelessWidget {
   }
 }
 
-class _NewTransactionUserField extends StatelessWidget {
+class _NewTransactionUserChoiceChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NewTransactionBloc, NewTransactionState>(
-      builder: (context, state) {
-        return TextFormField(
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'please fill this field';
-            }
-            return null;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        BlocBuilder<NewTransactionBloc, NewTransactionState>(
+          builder: (context, state) {
+            return Wrap(
+              spacing: 8,
+              children: TransactionUser.values.map((user) {
+                return ChoiceChip(
+                  label: Text(user.name),
+                  selected: state.user.value == user.name,
+                  onSelected: (bool selected) {
+                    context
+                        .read<NewTransactionBloc>()
+                        .add(NewTransactionUserChanged(user: user.name));
+                  },
+                );
+              }).toList(),
+            );
           },
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: '(user)',
-          ),
-          onChanged: (value) {
-            context
-                .read<NewTransactionBloc>()
-                .add(NewTransactionUserChanged(user: value));
-          },
-        );
-      },
+        ),
+      ],
     );
   }
 }

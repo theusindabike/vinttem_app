@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vinttem_app/src/features/transactions/transaction.dart';
 
 class TransactionCreateForm extends StatelessWidget {
@@ -20,7 +21,7 @@ class TransactionCreateForm extends StatelessWidget {
             ..hideCurrentSnackBar()
             ..showSnackBar(
               const SnackBar(
-                content: Text('Somenthing went wrong'),
+                content: Text('Ops! Somenthing went wrong'),
               ),
             );
         } else {
@@ -28,9 +29,10 @@ class TransactionCreateForm extends StatelessWidget {
             ..hideCurrentSnackBar()
             ..showSnackBar(
               const SnackBar(
-                content: Text('Omg worked11!'),
+                content: Text('Transaction saved successfully'),
               ),
             );
+          context.pop();
         }
       },
       child: Container(

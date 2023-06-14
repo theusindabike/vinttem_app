@@ -1,23 +1,27 @@
-import 'package:http/http.dart' as http;
+import 'dart:io';
+
+import 'package:dio/dio.dart' as http;
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 import 'package:vinttem_fastapi/vinttem_fastapi.dart';
 
-class MockHttpClient extends Mock implements http.Client {}
+class MockHttpClient extends Mock implements http.Dio {}
 
-class MockResponse extends Mock implements http.Response {}
+class MockResponse extends Mock
+    implements http.Response<Map<String, dynamic>> {}
 
 class FakeUri extends Fake implements Uri {}
 
 class FakeTransaction extends Fake implements Transaction {}
 
+class FakeOptions extends Fake implements http.Options {}
+
 void main() {
   group('VinttemFastapi', () {
-    late http.Client mockHttpClient;
+    late http.Dio mockHttpClient;
     late VinttemFastAPI mockVinttemFastAPI;
 
     final fakeTransaction = Transaction(
-      id: 1,
       user: TransactionUser.bianca,
       value: 6.66,
       category: TransactionCategory.cloths,
@@ -27,6 +31,7 @@ void main() {
     setUpAll(() {
       registerFallbackValue(FakeUri());
       registerFallbackValue(FakeTransaction());
+      registerFallbackValue(FakeOptions());
     });
     setUp(() {
       mockHttpClient = MockHttpClient();
@@ -42,15 +47,17 @@ void main() {
       test('makes http resquest', () async {
         final response = MockResponse();
         when(() => response.statusCode).thenReturn(200);
-        when(() => response.body).thenReturn('{}');
-        when(() => mockHttpClient.get(any())).thenAnswer((_) async => response);
+        when(() => response.data).thenReturn(<String, dynamic>{});
+        when(
+          () => mockHttpClient.getUri<Map<String, dynamic>>(any()),
+        ).thenAnswer((_) async => response);
 
         try {
           await mockVinttemFastAPI.getTransactions();
         } catch (_) {}
 
         verify(
-          () => mockHttpClient.get(
+          () => mockHttpClient.getUri<Map<String, dynamic>>(
             Uri.http('10.0.2.2:8000', '/api/v1/transactions/'),
           ),
         ).called(1);
@@ -59,7 +66,8 @@ void main() {
       test('throws TransactionRequestFailure on non-200 request', () async {
         final response = MockResponse();
         when(() => response.statusCode).thenReturn(405);
-        when(() => mockHttpClient.get(any())).thenAnswer((_) async => response);
+        when(() => mockHttpClient.getUri<Map<String, dynamic>>(any()))
+            .thenAnswer((_) async => response);
 
         expect(
           mockVinttemFastAPI.getTransactions(),
@@ -70,8 +78,11 @@ void main() {
       test('throws TransactionNotFoundFailure on results empty', () async {
         final response = MockResponse();
         when(() => response.statusCode).thenReturn(200);
-        when(() => response.body).thenReturn('{"results": []}');
-        when(() => mockHttpClient.get(any())).thenAnswer((_) async => response);
+        when(() => response.data).thenReturn(<String, dynamic>{
+          'results': List.empty(),
+        });
+        when(() => mockHttpClient.getUri<Map<String, dynamic>>(any()))
+            .thenAnswer((_) async => response);
 
         expect(
           mockVinttemFastAPI.getTransactions(),
@@ -82,21 +93,20 @@ void main() {
       test('return a Transaction object when valid response', () async {
         final response = MockResponse();
         when(() => response.statusCode).thenReturn(200);
-        when(() => response.body).thenReturn('''
-          {
-            "results": [
-              {
-                "id": 1,
-                "user": "matheus",
-                "value": 123.45,
-                "category": "marketStuff",
-                "type": "even",
-                "description": "fake description 1"
-              }
-            ]
-          }
-          ''');
-        when(() => mockHttpClient.get(any())).thenAnswer((_) async => response);
+        when(() => response.data).thenReturn(<String, dynamic>{
+          'results': [
+            {
+              'id': 1,
+              'user': 'matheus',
+              'value': 123.45,
+              'category': 'marketStuff',
+              'type': 'even',
+              'description': 'fake description 1'
+            }
+          ]
+        });
+        when(() => mockHttpClient.getUri<Map<String, dynamic>>(any()))
+            .thenAnswer((_) async => response);
 
         final request = await mockVinttemFastAPI.getTransactions();
 
@@ -125,9 +135,9 @@ void main() {
       test('makes http resquest', () async {
         final response = MockResponse();
         when(() => response.statusCode).thenReturn(200);
-        when(() => response.body).thenReturn('{}');
+        when(() => response.data).thenReturn(<String, dynamic>{});
         when(
-          () => mockHttpClient.post(any()),
+          () => mockHttpClient.postUri<Map<String, dynamic>>(any()),
         ).thenAnswer((_) async => response);
 
         try {
@@ -135,12 +145,9 @@ void main() {
         } catch (_) {}
 
         verify(
-          () => mockHttpClient.post(
+          () => mockHttpClient.postUri<Map<String, dynamic>>(
             Uri.http('10.0.2.2:8000', '/api/v1/transactions/'),
-            headers: <String, String>{
-              'Content-Type': 'application/json; charset=UTF-8'
-            },
-            body: fakeTransaction.toJson(),
+            data: fakeTransaction.toJson(),
           ),
         ).called(1);
       });
@@ -149,12 +156,15 @@ void main() {
         final response = MockResponse();
         when(() => response.statusCode).thenReturn(405);
         when(
-          () => mockHttpClient.post(
+          () => mockHttpClient.postUri<Map<String, dynamic>>(
             any(),
-            body: fakeTransaction.toJson(),
-            headers: <String, String>{
-              'Content-Type': 'application/json; charset=UTF-8'
-            },
+            data: fakeTransaction.toJson(),
+            options: http.Options(
+              headers: {
+                HttpHeaders.contentTypeHeader: 'application/json',
+                HttpHeaders.contentEncodingHeader: 'UTF-8'
+              },
+            ),
           ),
         ).thenAnswer((_) async => response);
 
@@ -167,23 +177,24 @@ void main() {
       test('return a Transaction object when valid response', () async {
         final response = MockResponse();
         when(() => response.statusCode).thenReturn(200);
-        when(() => response.body).thenReturn('''
-          {
-            "id": 1,
-            "user": "matheus",
-            "value": 123.45,
-            "category": "marketStuff",
-            "type": "even",
-            "description": "fake description 1"
-          }
-          ''');
+        when(() => response.data).thenReturn(<String, dynamic>{
+          'id': 1,
+          'user': 'matheus',
+          'value': 123.45,
+          'category': 'marketStuff',
+          'type': 'even',
+          'description': 'fake description 1'
+        });
         when(
-          () => mockHttpClient.post(
+          () => mockHttpClient.postUri<Map<String, dynamic>>(
             any(),
-            body: fakeTransaction.toJson(),
-            headers: <String, String>{
-              'Content-Type': 'application/json; charset=UTF-8'
-            },
+            data: fakeTransaction.toJson(),
+            options: http.Options(
+              headers: {
+                HttpHeaders.contentTypeHeader: 'application/json',
+                HttpHeaders.contentEncodingHeader: 'UTF-8'
+              },
+            ),
           ),
         ).thenAnswer((_) async => response);
 

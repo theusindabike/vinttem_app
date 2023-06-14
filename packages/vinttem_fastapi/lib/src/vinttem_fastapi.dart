@@ -1,6 +1,4 @@
-import 'dart:convert';
-
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart' as http;
 
 import 'package:vinttem_fastapi/src/models/models.dart';
 
@@ -9,38 +7,63 @@ class TransactionRequestFailure implements Exception {}
 class TransactionNotFoundFailure implements Exception {}
 
 class VinttemFastAPI {
-  VinttemFastAPI({http.Client? httpClient})
-      : _httpClient = httpClient ?? http.Client();
+  VinttemFastAPI({http.Dio? httpClient})
+      : _httpClient = httpClient ?? http.Dio();
 
   static const _vinttemFastAPIBaseURL = '10.0.2.2:8000';
-  static const _vinttemFastAPIAPIURL = '/api/v1/';
+  static const _vinttemFastAPIPrefixURL = '/api/v1/';
 
-  final http.Client _httpClient;
+  final http.Dio _httpClient;
 
   Future<List<Transaction>> getTransactions() async {
     try {
-      final url = Uri.http(
+      final uri = Uri.http(
         _vinttemFastAPIBaseURL,
-        '${_vinttemFastAPIAPIURL}transactions/',
+        '${_vinttemFastAPIPrefixURL}transactions/',
       );
 
-      final response = await _httpClient.get(url);
+      final response = await _httpClient.getUri<Map<String, dynamic>>(uri);
 
       if (response.statusCode != 200) throw TransactionRequestFailure();
 
-      final transactionJson = jsonDecode(response.body) as Map<String, dynamic>;
+      final transactionsJson = response.data!;
 
-      if (!transactionJson.containsKey('results')) {
+      if (!transactionsJson.containsKey('results')) {
         throw TransactionNotFoundFailure();
       }
 
-      final results = transactionJson['results'] as List;
+      final results = transactionsJson['results'] as List;
 
       if (results.isEmpty) throw TransactionNotFoundFailure();
 
       return results
           .map((item) => Transaction.fromJson(item as Map<String, dynamic>))
           .toList();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<Transaction> createTransaction(Transaction transaction) async {
+    try {
+      final uri = Uri.http(
+        _vinttemFastAPIBaseURL,
+        '${_vinttemFastAPIPrefixURL}transactions/',
+      );
+
+      final jsonData = transaction.toJson();
+      // ..removeWhere((key, value) => value == null);
+
+      final response = await _httpClient.postUri<Map<String, dynamic>>(
+        uri,
+        data: jsonData,
+      );
+
+      if (response.statusCode != 200) throw TransactionRequestFailure();
+
+      final transactionJson = response.data!;
+
+      return Transaction.fromJson(transactionJson);
     } catch (e) {
       rethrow;
     }

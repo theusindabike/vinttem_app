@@ -5,7 +5,7 @@ part 'transaction.g.dart';
 @JsonSerializable(explicitToJson: true)
 class Transaction {
   Transaction({
-    required this.id,
+    this.id,
     required this.user,
     required this.value,
     required this.category,
@@ -13,7 +13,7 @@ class Transaction {
     this.description,
   });
 
-  final int id;
+  final int? id;
   final TransactionUser user;
   final double value;
   final TransactionCategory category;
@@ -30,10 +30,10 @@ enum TransactionUser {
   matheus('matheus_id', 'Matheus'),
   bianca('bianca_id', 'Bianca');
 
-  const TransactionUser(this.id, this.description);
+  const TransactionUser(this.userId, this.userName);
 
-  final String id;
-  final String description;
+  final String userId;
+  final String userName;
 }
 
 enum TransactionCategory {

@@ -6,7 +6,7 @@ part 'transaction.g.dart';
 @JsonSerializable(explicitToJson: true)
 class Transaction extends Equatable {
   const Transaction({
-    required this.id,
+    this.id,
     required this.user,
     required this.value,
     required this.category,
@@ -14,7 +14,7 @@ class Transaction extends Equatable {
     this.description,
   });
 
-  final int id;
+  final int? id;
   final TransactionUser user;
   final double value;
   final TransactionCategory category;

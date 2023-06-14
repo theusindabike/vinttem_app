@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart' as http;
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
@@ -73,7 +71,7 @@ void main() {
         final response = MockResponse();
         when(() => response.statusCode).thenReturn(200);
         when(() => response.data).thenReturn(<String, dynamic>{
-          'results': List.empty(),
+          'results': <dynamic>[],
         });
         when(() => mockHttpClient.getUri<Map<String, dynamic>>(any()))
             .thenAnswer((_) async => response);

@@ -11,7 +11,6 @@ class TransactionCreateForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    const selectedUser = TransactionUser.matheus;
 
     return BlocListener<NewTransactionBloc, NewTransactionState>(
       listenWhen: (previous, current) => previous.status != current.status,
@@ -142,7 +141,8 @@ class _NewTransactionValueField extends StatelessWidget {
           onChanged: (value) => {
             context.read<NewTransactionBloc>().add(
                   NewTransactionValueChanged(
-                      value: UtilBrasilFields.converterMoedaParaDouble(value)),
+                    value: UtilBrasilFields.converterMoedaParaDouble(value),
+                  ),
                 )
           },
         );

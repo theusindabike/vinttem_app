@@ -40,7 +40,7 @@ scripts:
       fvm flutter test --coverage --test-randomize-ordering-seed random
   generate_coverage:
     run: melos exec -c 1 -- \
-      "\$MELOS_ROOT_PATH/combine_coverage.sh"
+      "\$MELOS_ROOT_PATH/gen_cov.sh"
 
   build_runner:all:
     run: melos run build_runner

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart' as http;
 
 import 'package:vinttem_fastapi/src/models/models.dart';

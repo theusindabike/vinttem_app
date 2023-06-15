@@ -9,8 +9,7 @@ class TransactionCreatePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          AppBar(title: const Text('Vinttem - New Transaction'), elevation: 4),
+      appBar: AppBar(title: const Text('New Transaction'), elevation: 4),
       body: Container(
         padding: const EdgeInsets.all(8),
         child: BlocProvider(

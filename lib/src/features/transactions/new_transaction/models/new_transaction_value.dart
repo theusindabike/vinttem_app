@@ -9,6 +9,8 @@ class NewTransactionValue
 
   @override
   NewTransactionValueValidationError? validator(double value) {
-    return value.isNegative ? NewTransactionValueValidationError.invalid : null;
+    return value.isNegative || value == 0
+        ? NewTransactionValueValidationError.invalid
+        : null;
   }
 }

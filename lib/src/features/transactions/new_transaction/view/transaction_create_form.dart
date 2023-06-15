@@ -81,6 +81,7 @@ class _NewTransactionUserChoiceChip extends StatelessWidget {
         BlocBuilder<NewTransactionBloc, NewTransactionState>(
           builder: (context, state) {
             return Wrap(
+              key: const Key('newTransactionForm_user_wrap'),
               spacing: 8,
               children: TransactionUser.values.map((user) {
                 return ChoiceChip(
@@ -107,10 +108,13 @@ class _NewTransactionValueField extends StatelessWidget {
     return BlocBuilder<NewTransactionBloc, NewTransactionState>(
       builder: (context, state) {
         return TextFormField(
-          key: const Key('newTransactionForm_value'),
+          key: const Key('newTransactionForm_value_textField'),
+          autovalidateMode: state.isValid
+              ? AutovalidateMode.onUserInteraction
+              : AutovalidateMode.disabled,
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return 'please fill this field';
+              return 'please, fill this field';
             }
             return null;
           },

@@ -5,7 +5,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:vinttem_app/src/l10n/l10n.dart';
 import 'package:vinttem_repository/vinttem_repository.dart';
 
-class MockTransactionRepository extends Mock implements VinttemRepository {}
+class MockVinttemRepository extends Mock implements VinttemRepository {}
 
 extension PumpApp on WidgetTester {
   Future<void> pumpApp(
@@ -14,7 +14,7 @@ extension PumpApp on WidgetTester {
   }) {
     return pumpWidget(
       RepositoryProvider(
-        create: (context) => vinttemRepository ?? MockTransactionRepository(),
+        create: (context) => vinttemRepository ?? MockVinttemRepository(),
         child: MaterialApp(
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,

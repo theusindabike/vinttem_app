@@ -107,13 +107,14 @@ class _NewTransactionValueField extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<NewTransactionBloc, NewTransactionState>(
       builder: (context, state) {
+        late double parsedValue;
         return TextFormField(
           key: const Key('newTransactionForm_value_textField'),
           autovalidateMode: state.isValid
               ? AutovalidateMode.onUserInteraction
               : AutovalidateMode.disabled,
           validator: (value) {
-            if (value == null || value.isEmpty) {
+            if (value == null || value.isEmpty || state.value.isNotValid) {
               return 'please, fill this field';
             }
             return null;
@@ -127,12 +128,17 @@ class _NewTransactionValueField extends StatelessWidget {
             border: OutlineInputBorder(),
             hintText: r'R$ 0,00',
           ),
-          onChanged: (value) => {
+          onChanged: (value) {
+            try {
+              parsedValue = UtilBrasilFields.converterMoedaParaDouble(value);
+            } catch (_) {
+              parsedValue = 0;
+            }
             context.read<NewTransactionBloc>().add(
                   NewTransactionValueChanged(
-                    value: UtilBrasilFields.converterMoedaParaDouble(value),
+                    value: parsedValue,
                   ),
-                )
+                );
           },
         );
       },
@@ -145,13 +151,17 @@ class _SaveTransactionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<NewTransactionBloc, NewTransactionState>(
       builder: (context, state) {
-        return ElevatedButton(
-          key: const Key('newTransactionForm_save_raisedButton'),
-          onPressed: () {
+        void submit() {
+          if (state.isValid) {
             context
                 .read<NewTransactionBloc>()
                 .add(const NewTransactionSubmitted());
-          },
+          }
+        }
+
+        return ElevatedButton(
+          key: const Key('newTransactionForm_save_raisedButton'),
+          onPressed: state.isValid ? submit : null,
           child: const Text('Save'),
         );
       },

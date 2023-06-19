@@ -32,8 +32,8 @@ class Transaction extends Equatable {
 
 @JsonEnum(fieldRename: FieldRename.snake)
 enum TransactionUser {
-  matheus('matheus_id', 'matheus'),
-  bianca('bianca_id', 'bianca');
+  matheus('matheus_id', 'Matheus'),
+  bianca('bianca_id', 'Bianca');
 
   const TransactionUser(this.id, this.name);
 

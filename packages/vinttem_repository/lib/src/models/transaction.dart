@@ -36,6 +36,9 @@ enum TransactionUser {
 
   const TransactionUser(this.id, this.description);
 
+  static TransactionUser getByName(String description) =>
+      TransactionUser.values.firstWhere((u) => u.description == description);
+
   final String id;
   final String description;
 }

@@ -152,11 +152,9 @@ class _SaveTransactionButton extends StatelessWidget {
     return BlocBuilder<NewTransactionBloc, NewTransactionState>(
       builder: (context, state) {
         void submit() {
-          if (state.isValid) {
-            context
-                .read<NewTransactionBloc>()
-                .add(const NewTransactionSubmitted());
-          }
+          context
+              .read<NewTransactionBloc>()
+              .add(const NewTransactionSubmitted());
         }
 
         return ElevatedButton(

@@ -18,6 +18,9 @@ void main() {
     category: TransactionCategory.donations,
     type: TransactionType.even,
   );
+  const saveButtonKey = Key('newTransactionForm_save_raisedButton');
+  const userWrapKey = Key('newTransactionForm_user_wrap');
+  const valueFieldKey = Key('newTransactionForm_value_textField');
 
   group('TransactionCreateForm', () {
     setUp(() {
@@ -32,23 +35,62 @@ void main() {
               NewTransactionBloc(vinttemRepository: mockVinttemRepository),
           child: const TransactionCreateForm(),
         ),
-        vinttemRepository: mockVinttemRepository,
       );
 
       expect(
-        find.byKey(const Key('newTransactionForm_value_textField')),
+        find.byKey(userWrapKey),
         findsOneWidget,
       );
       expect(
-        find.byKey(const Key('newTransactionForm_user_wrap')),
+        find.byKey(valueFieldKey),
         findsOneWidget,
       );
       expect(
-        find.byKey(const Key('newTransactionForm_value_textField')),
+        find.byKey(saveButtonKey),
         findsOneWidget,
       );
     });
 
-    testWidgets('Throw error when invalid fields', (tester) async {});
+    testWidgets('Enabled submit button when valid fields', (tester) async {
+      await tester.pumpApp(
+        BlocProvider(
+          create: (context) =>
+              NewTransactionBloc(vinttemRepository: mockVinttemRepository),
+          child: const TransactionCreateForm(),
+        ),
+      );
+
+      await tester.tap(find.bySemanticsLabel('Matheus'));
+      await tester.pump();
+
+      await tester.enterText(find.byKey(valueFieldKey), '0,01');
+      await tester.pump();
+
+      expect(
+        tester.widget<ElevatedButton>(find.byKey(saveButtonKey)).enabled,
+        isTrue,
+      );
+    });
+
+    testWidgets('Disabled submit button when invalid fields', (tester) async {
+      await tester.pumpApp(
+        BlocProvider(
+          create: (context) =>
+              NewTransactionBloc(vinttemRepository: mockVinttemRepository),
+          child: const TransactionCreateForm(),
+        ),
+      );
+
+      await tester.tap(find.bySemanticsLabel('Matheus'));
+      await tester.pump();
+
+      await tester.enterText(find.byKey(valueFieldKey), '0,00');
+      await tester.pump();
+
+      expect(
+        tester.widget<ElevatedButton>(find.byKey(saveButtonKey)).enabled,
+        isFalse,
+      );
+    });
   });
 }

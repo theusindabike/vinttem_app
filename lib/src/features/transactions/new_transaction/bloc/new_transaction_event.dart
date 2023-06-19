@@ -23,6 +23,21 @@ final class NewTransactionValueChanged extends NewTransactionEvent {
   List<Object> get props => [value];
 }
 
+enum CategoryAction { insert, remove }
+
+final class NewTransactionCategoriesChanged extends NewTransactionEvent {
+  const NewTransactionCategoriesChanged({
+    required this.category,
+    required this.action,
+  });
+
+  final String category;
+  final CategoryAction action;
+
+  @override
+  List<Object> get props => [category, action];
+}
+
 final class NewTransactionSubmitted extends NewTransactionEvent {
   const NewTransactionSubmitted();
 }

@@ -50,6 +50,8 @@ class TransactionCreateForm extends StatelessWidget {
             ),
             _NewTransactionValueField(),
             const SizedBox(height: 10),
+            _NewTransactionCategoriesChoiceChip(),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -142,6 +144,46 @@ class _NewTransactionValueField extends StatelessWidget {
           },
         );
       },
+    );
+  }
+}
+
+class _NewTransactionCategoriesChoiceChip extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        BlocBuilder<NewTransactionBloc, NewTransactionState>(
+          builder: (context, state) {
+            return Expanded(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Wrap(
+                  key: const Key('newTransactionForm_categories_wrap'),
+                  spacing: 8,
+                  children: TransactionCategory.values.map((category) {
+                    return ChoiceChip(
+                      label: Text(category.name),
+                      selected: state.categories.value.contains(category.name),
+                      onSelected: (bool selected) {
+                        context.read<NewTransactionBloc>().add(
+                              NewTransactionCategoriesChanged(
+                                category: category.name,
+                                action: selected
+                                    ? CategoryAction.insert
+                                    : CategoryAction.remove,
+                              ),
+                            );
+                      },
+                    );
+                  }).toList(),
+                ),
+              ),
+            );
+          },
+        ),
+      ],
     );
   }
 }

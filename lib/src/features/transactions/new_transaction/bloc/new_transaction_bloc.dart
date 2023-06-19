@@ -16,6 +16,7 @@ class NewTransactionBloc
         super(const NewTransactionState()) {
     on<NewTransactionUserChanged>(_onTransactionUserChanged);
     on<NewTransactionValueChanged>(_onTransactionValueChanged);
+    on<NewTransactionCategoriesChanged>(_onTransactionCategoriesChanged);
     on<NewTransactionSubmitted>(_onTransactionSubmitted);
   }
 
@@ -49,18 +50,47 @@ class NewTransactionBloc
     );
   }
 
+  void _onTransactionCategoriesChanged(
+    NewTransactionCategoriesChanged event,
+    Emitter<NewTransactionState> emit,
+  ) {
+    final previousSelectedCategories = <String>{...state.categories.value};
+    var categories = NewTransactionCategories.dirt(previousSelectedCategories);
+
+    switch (event.action) {
+      case CategoryAction.insert:
+        previousSelectedCategories.add(event.category);
+        categories = NewTransactionCategories.dirt(previousSelectedCategories);
+      case CategoryAction.remove:
+        previousSelectedCategories.removeWhere((e) => e == event.category);
+        categories = NewTransactionCategories.dirt(previousSelectedCategories);
+      // ignore: no_default_cases
+      default:
+        break;
+    }
+
+    emit(
+      state.copyWith(
+        categories: categories,
+        isValid: Formz.validate([state.categories, categories]),
+      ),
+    );
+  }
+
   Future<void> _onTransactionSubmitted(
     NewTransactionSubmitted event,
     Emitter<NewTransactionState> emit,
   ) async {
     final user = NewTransactionUser.dirty(state.user.value);
     final value = NewTransactionValue.dirty(state.value.value);
+    final categories = NewTransactionCategories.dirt(state.categories.value);
 
     emit(
       state.copyWith(
         user: user,
         value: value,
-        isValid: Formz.validate([user, value]),
+        categories: categories,
+        isValid: Formz.validate([user, value, categories]),
       ),
     );
 

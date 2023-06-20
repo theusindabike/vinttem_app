@@ -11,7 +11,8 @@ class TransactionCreateForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final labelStyle = Theme.of(context).textTheme.titleMedium!;
+    final choiceChipLabelStyle = Theme.of(context).textTheme.bodyMedium!;
 
     return BlocListener<TransactionCreateBloc, TransactionCreateState>(
       listenWhen: (previous, current) => previous.status != current.status,
@@ -39,20 +40,18 @@ class TransactionCreateForm extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         child: Column(
           children: [
-            _TransactionCreateUserChoiceChip(),
-            Row(
-              children: [
-                Text(
-                  'how much?',
-                  style: textTheme.titleLarge,
-                ),
-              ],
-            ),
+            _RowLabel(label: 'who', textStyle: labelStyle),
+            _TransactionCreateUserChoiceChip(labelStyle: choiceChipLabelStyle),
+            _RowLabel(label: 'how much', textStyle: labelStyle),
             _TransactionCreateValueField(),
             const SizedBox(height: 10),
-            _TransactionCreateCategoryChoiceChip(),
+            _RowLabel(label: 'category', textStyle: labelStyle),
+            _TransactionCreateCategoryChoiceChip(
+              labelStyle: choiceChipLabelStyle,
+            ),
             const SizedBox(height: 10),
-            _TransactionCreateTypeChoiceChip(),
+            _RowLabel(label: 'type', textStyle: labelStyle),
+            _TransactionCreateTypeChoiceChip(labelStyle: choiceChipLabelStyle),
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -73,7 +72,33 @@ class TransactionCreateForm extends StatelessWidget {
   }
 }
 
+class _RowLabel extends StatelessWidget {
+  const _RowLabel({
+    required this.textStyle,
+    required this.label,
+  });
+
+  final String label;
+  final TextStyle textStyle;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Text(
+          label,
+          style: textStyle,
+        ),
+      ],
+    );
+  }
+}
+
 class _TransactionCreateUserChoiceChip extends StatelessWidget {
+  const _TransactionCreateUserChoiceChip({required this.labelStyle});
+
+  final TextStyle labelStyle;
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -87,6 +112,7 @@ class _TransactionCreateUserChoiceChip extends StatelessWidget {
               children: TransactionUser.values.map((user) {
                 return ChoiceChip(
                   label: Text(user.name),
+                  labelStyle: labelStyle,
                   selected: state.user.value == user.name,
                   onSelected: (bool selected) {
                     context
@@ -126,7 +152,7 @@ class _TransactionCreateValueField extends StatelessWidget {
             CentavosInputFormatter(moeda: true)
           ],
           decoration: const InputDecoration(
-            border: OutlineInputBorder(),
+            border: UnderlineInputBorder(),
             hintText: r'R$ 0,00',
           ),
           onChanged: (value) {
@@ -148,6 +174,9 @@ class _TransactionCreateValueField extends StatelessWidget {
 }
 
 class _TransactionCreateCategoryChoiceChip extends StatelessWidget {
+  const _TransactionCreateCategoryChoiceChip({required this.labelStyle});
+
+  final TextStyle labelStyle;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -164,6 +193,7 @@ class _TransactionCreateCategoryChoiceChip extends StatelessWidget {
                   children: TransactionCategory.values.map((category) {
                     return ChoiceChip(
                       label: Text(category.name),
+                      labelStyle: labelStyle,
                       selected: state.category.value == category.name,
                       onSelected: (bool selected) {
                         context.read<TransactionCreateBloc>().add(
@@ -185,6 +215,9 @@ class _TransactionCreateCategoryChoiceChip extends StatelessWidget {
 }
 
 class _TransactionCreateTypeChoiceChip extends StatelessWidget {
+  const _TransactionCreateTypeChoiceChip({required this.labelStyle});
+
+  final TextStyle labelStyle;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -201,6 +234,7 @@ class _TransactionCreateTypeChoiceChip extends StatelessWidget {
                   children: TransactionType.values.map((type) {
                     return ChoiceChip(
                       label: Text(type.name),
+                      labelStyle: labelStyle,
                       selected: state.type.value == type.name,
                       onSelected: (bool selected) {
                         context.read<TransactionCreateBloc>().add(

@@ -225,28 +225,23 @@ class _TransactionCreateTypeChoiceChip extends StatelessWidget {
       children: [
         BlocBuilder<TransactionCreateBloc, TransactionCreateState>(
           builder: (context, state) {
-            return Expanded(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Wrap(
-                  key: const Key('TransactionCreateForm_type_wrap'),
-                  spacing: 8,
-                  children: TransactionType.values.map((type) {
-                    return ChoiceChip(
-                      label: Text(type.name),
-                      labelStyle: labelStyle,
-                      selected: state.type.value == type.name,
-                      onSelected: (bool selected) {
-                        context.read<TransactionCreateBloc>().add(
-                              TransactionCreateTypeChanged(
-                                type: type.name,
-                              ),
-                            );
-                      },
-                    );
-                  }).toList(),
-                ),
-              ),
+            return Wrap(
+              key: const Key('TransactionCreateForm_type_wrap'),
+              spacing: 8,
+              children: TransactionType.values.map((type) {
+                return ChoiceChip(
+                  label: Text(type.name),
+                  labelStyle: labelStyle,
+                  selected: state.type.value == type.name,
+                  onSelected: (bool selected) {
+                    context.read<TransactionCreateBloc>().add(
+                          TransactionCreateTypeChanged(
+                            type: type.name,
+                          ),
+                        );
+                  },
+                );
+              }).toList(),
             );
           },
         ),

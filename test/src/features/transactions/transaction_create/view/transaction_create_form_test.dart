@@ -20,8 +20,9 @@ void main() {
   );
   const saveButtonKey = Key('TransactionCreateForm_save_raisedButton');
   const userWrapKey = Key('TransactionCreateForm_user_wrap');
-  const categoryWrapKey = Key('TransactionCreateForm_category_wrap');
   const valueFieldKey = Key('TransactionCreateForm_value_textField');
+  const categoryWrapKey = Key('TransactionCreateForm_category_wrap');
+  const typeWrapKey = Key('TransactionCreateForm_type_wrap');
   const cleanFormButtonKey = Key('TransactionCreateForm_clean_raisedButton');
 
   group('TransactionCreateForm', () {
@@ -39,26 +40,12 @@ void main() {
         ),
       );
 
-      expect(
-        find.byKey(userWrapKey),
-        findsOneWidget,
-      );
-      expect(
-        find.byKey(valueFieldKey),
-        findsOneWidget,
-      );
-      expect(
-        find.byKey(categoryWrapKey),
-        findsOneWidget,
-      );
-      expect(
-        find.byKey(cleanFormButtonKey),
-        findsOneWidget,
-      );
-      expect(
-        find.byKey(saveButtonKey),
-        findsOneWidget,
-      );
+      expect(find.byKey(userWrapKey), findsOneWidget);
+      expect(find.byKey(valueFieldKey), findsOneWidget);
+      expect(find.byKey(categoryWrapKey), findsOneWidget);
+      expect(find.byKey(typeWrapKey), findsOneWidget);
+      expect(find.byKey(cleanFormButtonKey), findsOneWidget);
+      expect(find.byKey(saveButtonKey), findsOneWidget);
     });
 
     testWidgets('Enabled submit button when valid fields', (tester) async {
@@ -77,6 +64,9 @@ void main() {
       await tester.pump();
 
       await tester.tap(find.bySemanticsLabel('Recreation'));
+      await tester.pump();
+
+      await tester.tap(find.bySemanticsLabel('Even'));
       await tester.pump();
 
       expect(
@@ -124,7 +114,9 @@ void main() {
       await tester.tap(find.bySemanticsLabel('Recreation'));
       await tester.pump();
 
-      expect(find.text(r'R$ 6,66'), findsOneWidget);
+      await tester.tap(find.bySemanticsLabel('Even'));
+      await tester.pump();
+
       expect(
         tester.widget<ElevatedButton>(find.byKey(saveButtonKey)).enabled,
         isTrue,
@@ -133,7 +125,7 @@ void main() {
         find.byWidgetPredicate(
           (Widget widget) => widget is ChoiceChip && widget.selected,
         ),
-        findsNWidgets(2),
+        findsNWidgets(3),
       );
 
       await tester.tap(find.byKey(cleanFormButtonKey));

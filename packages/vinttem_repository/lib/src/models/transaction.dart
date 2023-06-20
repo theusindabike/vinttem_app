@@ -76,6 +76,9 @@ enum TransactionType {
 
   const TransactionType(this.apiName, this.description);
 
+  static TransactionType getByName(String description) =>
+      TransactionType.values.firstWhere((u) => u.description == description);
+
   final String apiName;
   final String description;
 }

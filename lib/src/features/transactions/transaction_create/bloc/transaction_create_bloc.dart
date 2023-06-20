@@ -17,6 +17,7 @@ class TransactionCreateBloc
     on<TransactionCreateUserChanged>(_onTransactionUserChanged);
     on<TransactionCreateValueChanged>(_onTransactionValueChanged);
     on<TransactionCreateCategoryChanged>(_onTransactionCategoryChanged);
+    on<TransactionCreateTypeChanged>(_onTransactionTypeChanged);
     on<TransactionCreateFormCleaned>(_onTransactionCreateFormCleaned);
     on<TransactionCreateSubmitted>(_onTransactionSubmitted);
   }
@@ -36,6 +37,7 @@ class TransactionCreateBloc
           user,
           state.value,
           state.category,
+          state.type,
         ]),
       ),
     );
@@ -54,6 +56,7 @@ class TransactionCreateBloc
           state.user,
           value,
           state.category,
+          state.type,
         ]),
       ),
     );
@@ -72,6 +75,26 @@ class TransactionCreateBloc
           state.user,
           state.value,
           category,
+          state.type,
+        ]),
+      ),
+    );
+  }
+
+  void _onTransactionTypeChanged(
+    TransactionCreateTypeChanged event,
+    Emitter<TransactionCreateState> emit,
+  ) {
+    final type = TransactionCreateType.dirty(event.type);
+
+    emit(
+      state.copyWith(
+        type: type,
+        isValid: Formz.validate([
+          state.user,
+          state.value,
+          state.category,
+          type,
         ]),
       ),
     );
@@ -87,6 +110,7 @@ class TransactionCreateBloc
         user: const TransactionCreateUser.pure(),
         value: const TransactionCreateValue.pure(),
         category: const TransactionCreateCategory.pure(),
+        type: const TransactionCreateType.pure(),
         isValid: false,
       ),
     );
@@ -98,14 +122,16 @@ class TransactionCreateBloc
   ) async {
     final user = TransactionCreateUser.dirty(state.user.value);
     final value = TransactionCreateValue.dirty(state.value.value);
-    final categories = TransactionCreateCategory.dirty(state.category.value);
+    final category = TransactionCreateCategory.dirty(state.category.value);
+    final type = TransactionCreateType.dirty(state.type.value);
 
-    final validate = Formz.validate([user, value, categories]);
+    final validate = Formz.validate([user, value, category, type]);
     emit(
       state.copyWith(
         user: user,
         value: value,
-        category: categories,
+        category: category,
+        type: type,
         isValid: validate,
       ),
     );
@@ -115,13 +141,16 @@ class TransactionCreateBloc
       try {
         await _vinttemRepository.createTransaction(
           vinttem_repository.Transaction(
-            user:
-                vinttem_repository.TransactionUser.getByName(state.user.value),
+            user: vinttem_repository.TransactionUser.getByName(
+              state.user.value,
+            ),
             value: state.value.value,
             category: vinttem_repository.TransactionCategory.getByName(
               state.category.value,
             ),
-            type: vinttem_repository.TransactionType.even,
+            type: vinttem_repository.TransactionType.getByName(
+              state.type.value,
+            ),
           ),
         );
         emit(state.copyWith(status: FormzSubmissionStatus.success));

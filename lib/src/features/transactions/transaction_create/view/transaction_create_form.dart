@@ -50,7 +50,9 @@ class TransactionCreateForm extends StatelessWidget {
             ),
             _TransactionCreateValueField(),
             const SizedBox(height: 10),
-            _TransactionCreateCategoriesChoiceChip(),
+            _TransactionCreateCategoryChoiceChip(),
+            const SizedBox(height: 10),
+            _TransactionCreateTypeChoiceChip(),
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -145,7 +147,7 @@ class _TransactionCreateValueField extends StatelessWidget {
   }
 }
 
-class _TransactionCreateCategoriesChoiceChip extends StatelessWidget {
+class _TransactionCreateCategoryChoiceChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -167,6 +169,43 @@ class _TransactionCreateCategoriesChoiceChip extends StatelessWidget {
                         context.read<TransactionCreateBloc>().add(
                               TransactionCreateCategoryChanged(
                                 category: category.name,
+                              ),
+                            );
+                      },
+                    );
+                  }).toList(),
+                ),
+              ),
+            );
+          },
+        ),
+      ],
+    );
+  }
+}
+
+class _TransactionCreateTypeChoiceChip extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        BlocBuilder<TransactionCreateBloc, TransactionCreateState>(
+          builder: (context, state) {
+            return Expanded(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Wrap(
+                  key: const Key('TransactionCreateForm_type_wrap'),
+                  spacing: 8,
+                  children: TransactionType.values.map((type) {
+                    return ChoiceChip(
+                      label: Text(type.name),
+                      selected: state.type.value == type.name,
+                      onSelected: (bool selected) {
+                        context.read<TransactionCreateBloc>().add(
+                              TransactionCreateTypeChanged(
+                                type: type.name,
                               ),
                             );
                       },

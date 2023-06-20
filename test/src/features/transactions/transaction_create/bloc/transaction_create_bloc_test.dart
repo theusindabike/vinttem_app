@@ -58,11 +58,8 @@ void main() {
         bloc
           ..add(const TransactionCreateUserChanged(user: 'Bianca'))
           ..add(const TransactionCreateValueChanged(value: 6.66))
-          ..add(
-            const TransactionCreateCategoryChanged(
-              category: 'Cloths',
-            ),
-          )
+          ..add(const TransactionCreateCategoryChanged(category: 'Cloths'))
+          ..add(const TransactionCreateTypeChanged(type: 'Even'))
           ..add(const TransactionCreateSubmitted());
       },
       expect: () => const <TransactionCreateState>[
@@ -84,6 +81,14 @@ void main() {
           user: TransactionCreateUser.dirty('Bianca'),
           value: TransactionCreateValue.dirty(6.66),
           category: TransactionCreateCategory.dirty('Cloths'),
+          type: TransactionCreateType.dirty('Even'),
+          isValid: true,
+        ),
+        TransactionCreateState(
+          user: TransactionCreateUser.dirty('Bianca'),
+          value: TransactionCreateValue.dirty(6.66),
+          category: TransactionCreateCategory.dirty('Cloths'),
+          type: TransactionCreateType.dirty('Even'),
           isValid: true,
           status: FormzSubmissionStatus.inProgress,
         ),
@@ -91,6 +96,7 @@ void main() {
           user: TransactionCreateUser.dirty('Bianca'),
           value: TransactionCreateValue.dirty(6.66),
           category: TransactionCreateCategory.dirty('Cloths'),
+          type: TransactionCreateType.dirty('Even'),
           isValid: true,
           status: FormzSubmissionStatus.success,
         ),
@@ -112,11 +118,8 @@ void main() {
         bloc
           ..add(const TransactionCreateUserChanged(user: 'Bianca'))
           ..add(const TransactionCreateValueChanged(value: 6.66))
-          ..add(
-            const TransactionCreateCategoryChanged(
-              category: 'Cloths',
-            ),
-          )
+          ..add(const TransactionCreateCategoryChanged(category: 'Cloths'))
+          ..add(const TransactionCreateTypeChanged(type: 'Even'))
           ..add(const TransactionCreateSubmitted());
       },
       expect: () => const <TransactionCreateState>[
@@ -138,6 +141,14 @@ void main() {
           user: TransactionCreateUser.dirty('Bianca'),
           value: TransactionCreateValue.dirty(6.66),
           category: TransactionCreateCategory.dirty('Cloths'),
+          type: TransactionCreateType.dirty('Even'),
+          isValid: true,
+        ),
+        TransactionCreateState(
+          user: TransactionCreateUser.dirty('Bianca'),
+          value: TransactionCreateValue.dirty(6.66),
+          category: TransactionCreateCategory.dirty('Cloths'),
+          type: TransactionCreateType.dirty('Even'),
           isValid: true,
           status: FormzSubmissionStatus.inProgress,
         ),
@@ -145,6 +156,7 @@ void main() {
           user: TransactionCreateUser.dirty('Bianca'),
           value: TransactionCreateValue.dirty(6.66),
           category: TransactionCreateCategory.dirty('Cloths'),
+          type: TransactionCreateType.dirty('Even'),
           isValid: true,
           status: FormzSubmissionStatus.failure,
         ),
@@ -161,11 +173,8 @@ void main() {
         bloc
           ..add(const TransactionCreateUserChanged(user: 'Bianca'))
           ..add(const TransactionCreateValueChanged(value: 6.66))
-          ..add(
-            const TransactionCreateCategoryChanged(
-              category: 'Cloths',
-            ),
-          )
+          ..add(const TransactionCreateCategoryChanged(category: 'Cloths'))
+          ..add(const TransactionCreateTypeChanged(type: 'Even'))
           ..add(const TransactionCreateFormCleaned());
       },
       expect: () => const <TransactionCreateState>[
@@ -181,6 +190,13 @@ void main() {
           user: TransactionCreateUser.dirty('Bianca'),
           value: TransactionCreateValue.dirty(6.66),
           category: TransactionCreateCategory.dirty('Cloths'),
+          isValid: true,
+        ),
+        TransactionCreateState(
+          user: TransactionCreateUser.dirty('Bianca'),
+          value: TransactionCreateValue.dirty(6.66),
+          category: TransactionCreateCategory.dirty('Cloths'),
+          type: TransactionCreateType.dirty('Even'),
           isValid: true,
         ),
         TransactionCreateState(),

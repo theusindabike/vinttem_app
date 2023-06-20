@@ -17,6 +17,7 @@ class TransactionCreateBloc
     on<TransactionCreateUserChanged>(_onTransactionUserChanged);
     on<TransactionCreateValueChanged>(_onTransactionValueChanged);
     on<TransactionCreateCategoryChanged>(_onTransactionCategoryChanged);
+    on<TransactionCreateFormCleaned>(_onTransactionCreateFormCleaned);
     on<TransactionCreateSubmitted>(_onTransactionSubmitted);
   }
 
@@ -76,36 +77,20 @@ class TransactionCreateBloc
     );
   }
 
-  // void _onTransactionCategoriesChanged(
-  //   TransactionCreateCategoriesChanged event,
-  //   Emitter<TransactionCreateState> emit,
-  // ) {
-  //   final previousSelectedCategories = String>{...state.categories.value};
-  //   var categories = TransactionCreateCategory.dirty(previousSelectedCategories);
-
-  //   switch (event.action) {
-  //     case CategoryAction.insert:
-  //       previousSelectedCategories.add(event.category);
-  //       categories = TransactionCreateCategory.dirty(previousSelectedCategories);
-  //     case CategoryAction.remove:
-  //       previousSelectedCategories.removeWhere((e) => e == event.category);
-  //       categories = TransactionCreateCategory.dirty(previousSelectedCategories);
-  //     // ignore: no_default_cases
-  //     default:
-  //       break;
-  //   }
-
-  //   emit(
-  //     state.copyWith(
-  //       categories: categories,
-  //       isValid: Formz.validate([
-  //         state.user,
-  //         state.value,
-  //         categories,
-  //       ]),
-  //     ),
-  //   );
-  // }
+  void _onTransactionCreateFormCleaned(
+    TransactionCreateFormCleaned event,
+    Emitter<TransactionCreateState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        status: FormzSubmissionStatus.initial,
+        user: const TransactionCreateUser.pure(),
+        value: const TransactionCreateValue.pure(),
+        category: const TransactionCreateCategory.pure(),
+        isValid: false,
+      ),
+    );
+  }
 
   Future<void> _onTransactionSubmitted(
     TransactionCreateSubmitted event,

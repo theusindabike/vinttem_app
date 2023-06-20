@@ -151,4 +151,40 @@ void main() {
       ],
     );
   });
+
+  group('TransactionCreateFormClean', () {
+    blocTest<TransactionCreateBloc, TransactionCreateState>(
+      'emits [TransactionCreateFormCleaned] '
+      'when press Clean Button',
+      build: buildBloc,
+      act: (bloc) {
+        bloc
+          ..add(const TransactionCreateUserChanged(user: 'Bianca'))
+          ..add(const TransactionCreateValueChanged(value: 6.66))
+          ..add(
+            const TransactionCreateCategoryChanged(
+              category: 'Cloths',
+            ),
+          )
+          ..add(const TransactionCreateFormCleaned());
+      },
+      expect: () => const <TransactionCreateState>[
+        TransactionCreateState(
+          user: TransactionCreateUser.dirty('Bianca'),
+        ),
+        TransactionCreateState(
+          user: TransactionCreateUser.dirty('Bianca'),
+          value: TransactionCreateValue.dirty(6.66),
+          isValid: true,
+        ),
+        TransactionCreateState(
+          user: TransactionCreateUser.dirty('Bianca'),
+          value: TransactionCreateValue.dirty(6.66),
+          category: TransactionCreateCategory.dirty('Cloths'),
+          isValid: true,
+        ),
+        TransactionCreateState(),
+      ],
+    );
+  });
 }

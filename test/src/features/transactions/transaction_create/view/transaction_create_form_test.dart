@@ -20,7 +20,9 @@ void main() {
   );
   const saveButtonKey = Key('TransactionCreateForm_save_raisedButton');
   const userWrapKey = Key('TransactionCreateForm_user_wrap');
+  const categoryWrapKey = Key('TransactionCreateForm_category_wrap');
   const valueFieldKey = Key('TransactionCreateForm_value_textField');
+  const cleanFormButtonKey = Key('TransactionCreateForm_clean_raisedButton');
 
   group('TransactionCreateForm', () {
     setUp(() {
@@ -43,6 +45,14 @@ void main() {
       );
       expect(
         find.byKey(valueFieldKey),
+        findsOneWidget,
+      );
+      expect(
+        find.byKey(categoryWrapKey),
+        findsOneWidget,
+      );
+      expect(
+        find.byKey(cleanFormButtonKey),
         findsOneWidget,
       );
       expect(
@@ -88,6 +98,38 @@ void main() {
       await tester.pump();
 
       await tester.enterText(find.byKey(valueFieldKey), '0,00');
+      await tester.pump();
+
+      expect(
+        tester.widget<ElevatedButton>(find.byKey(saveButtonKey)).enabled,
+        isFalse,
+      );
+    });
+
+    testWidgets('Clean form when press Clean button', (tester) async {
+      await tester.pumpApp(
+        BlocProvider(
+          create: (context) =>
+              TransactionCreateBloc(vinttemRepository: mockVinttemRepository),
+          child: const TransactionCreateForm(),
+        ),
+      );
+
+      await tester.tap(find.bySemanticsLabel('Matheus'));
+      await tester.pump();
+
+      await tester.enterText(find.byKey(valueFieldKey), '6,66');
+      await tester.pump();
+
+      await tester.tap(find.bySemanticsLabel('Recreation'));
+      await tester.pump();
+
+      expect(
+        tester.widget<ElevatedButton>(find.byKey(saveButtonKey)).enabled,
+        isTrue,
+      );
+
+      await tester.tap(find.byKey(cleanFormButtonKey));
       await tester.pump();
 
       expect(

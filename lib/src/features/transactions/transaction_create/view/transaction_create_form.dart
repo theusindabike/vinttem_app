@@ -58,11 +58,8 @@ class TransactionCreateForm extends StatelessWidget {
                 Wrap(
                   spacing: 8,
                   children: [
-                    ElevatedButton(
-                      onPressed: () {},
-                      child: const Text('Clean'),
-                    ),
-                    _SaveTransactionButton(),
+                    _TransactionCreateClearFormButton(),
+                    _TransactionCreateSaveButton(),
                   ],
                 ),
               ],
@@ -160,7 +157,7 @@ class _TransactionCreateCategoriesChoiceChip extends StatelessWidget {
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Wrap(
-                  key: const Key('TransactionCreateForm_categories_wrap'),
+                  key: const Key('TransactionCreateForm_category_wrap'),
                   spacing: 8,
                   children: TransactionCategory.values.map((category) {
                     return ChoiceChip(
@@ -185,7 +182,24 @@ class _TransactionCreateCategoriesChoiceChip extends StatelessWidget {
   }
 }
 
-class _SaveTransactionButton extends StatelessWidget {
+class _TransactionCreateClearFormButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<TransactionCreateBloc, TransactionCreateState>(
+      builder: (context, state) {
+        return ElevatedButton(
+          key: const Key('TransactionCreateForm_clean_raisedButton'),
+          onPressed: () => context.read<TransactionCreateBloc>().add(
+                const TransactionCreateFormCleaned(),
+              ),
+          child: const Text('Clean'),
+        );
+      },
+    );
+  }
+}
+
+class _TransactionCreateSaveButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TransactionCreateBloc, TransactionCreateState>(

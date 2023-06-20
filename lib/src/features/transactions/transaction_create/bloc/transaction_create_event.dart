@@ -32,6 +32,10 @@ final class TransactionCreateCategoryChanged extends TransactionCreateEvent {
   List<Object> get props => [category];
 }
 
+final class TransactionCreateFormCleaned extends TransactionCreateEvent {
+  const TransactionCreateFormCleaned();
+}
+
 final class TransactionCreateSubmitted extends TransactionCreateEvent {
   const TransactionCreateSubmitted();
 }

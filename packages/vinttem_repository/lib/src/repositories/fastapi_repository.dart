@@ -50,11 +50,11 @@ class VinttemFastAPIRespository implements VinttemRepository {
           await _vinttemFastAPIClient.createTransaction(parsedTransaction);
 
       return Transaction(
-        user: TransactionUser.values.byName(result.user.name),
-        value: result.value,
-        category: TransactionCategory.values.byName(result.category.name),
-        type: TransactionType.values.byName(result.type.name),
-      );
+          user: TransactionUser.values.byName(result.user.name),
+          value: result.value,
+          category: TransactionCategory.values.byName(result.category.name),
+          type: TransactionType.values.byName(result.type.name),
+          description: result.description);
     } catch (e) {
       rethrow;
     }

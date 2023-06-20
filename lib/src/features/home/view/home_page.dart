@@ -20,11 +20,7 @@ class _HomePageState extends State<HomePage> {
         elevation: 4,
       ),
       bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (int index) {
-          setState(() {
-            currentPageIndex = index;
-          });
-        },
+        onDestinationSelected: (int index) {},
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
           NavigationDestination(

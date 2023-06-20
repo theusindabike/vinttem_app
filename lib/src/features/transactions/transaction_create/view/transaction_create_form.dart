@@ -13,7 +13,7 @@ class TransactionCreateForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return BlocListener<NewTransactionBloc, NewTransactionState>(
+    return BlocListener<TransactionCreateBloc, TransactionCreateState>(
       listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
         if (state.status.isFailure || !state.isValid) {
@@ -39,7 +39,7 @@ class TransactionCreateForm extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         child: Column(
           children: [
-            _NewTransactionUserChoiceChip(),
+            _TransactionCreateUserChoiceChip(),
             Row(
               children: [
                 Text(
@@ -48,9 +48,9 @@ class TransactionCreateForm extends StatelessWidget {
                 ),
               ],
             ),
-            _NewTransactionValueField(),
+            _TransactionCreateValueField(),
             const SizedBox(height: 10),
-            _NewTransactionCategoriesChoiceChip(),
+            _TransactionCreateCategoriesChoiceChip(),
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -74,16 +74,16 @@ class TransactionCreateForm extends StatelessWidget {
   }
 }
 
-class _NewTransactionUserChoiceChip extends StatelessWidget {
+class _TransactionCreateUserChoiceChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        BlocBuilder<NewTransactionBloc, NewTransactionState>(
+        BlocBuilder<TransactionCreateBloc, TransactionCreateState>(
           builder: (context, state) {
             return Wrap(
-              key: const Key('newTransactionForm_user_wrap'),
+              key: const Key('TransactionCreateForm_user_wrap'),
               spacing: 8,
               children: TransactionUser.values.map((user) {
                 return ChoiceChip(
@@ -91,8 +91,8 @@ class _NewTransactionUserChoiceChip extends StatelessWidget {
                   selected: state.user.value == user.name,
                   onSelected: (bool selected) {
                     context
-                        .read<NewTransactionBloc>()
-                        .add(NewTransactionUserChanged(user: user.name));
+                        .read<TransactionCreateBloc>()
+                        .add(TransactionCreateUserChanged(user: user.name));
                   },
                 );
               }).toList(),
@@ -104,14 +104,14 @@ class _NewTransactionUserChoiceChip extends StatelessWidget {
   }
 }
 
-class _NewTransactionValueField extends StatelessWidget {
+class _TransactionCreateValueField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NewTransactionBloc, NewTransactionState>(
+    return BlocBuilder<TransactionCreateBloc, TransactionCreateState>(
       builder: (context, state) {
         late double parsedValue;
         return TextFormField(
-          key: const Key('newTransactionForm_value_textField'),
+          key: const Key('TransactionCreateForm_value_textField'),
           autovalidateMode: state.isValid
               ? AutovalidateMode.onUserInteraction
               : AutovalidateMode.disabled,
@@ -136,8 +136,8 @@ class _NewTransactionValueField extends StatelessWidget {
             } catch (_) {
               parsedValue = 0;
             }
-            context.read<NewTransactionBloc>().add(
-                  NewTransactionValueChanged(
+            context.read<TransactionCreateBloc>().add(
+                  TransactionCreateValueChanged(
                     value: parsedValue,
                   ),
                 );
@@ -148,27 +148,27 @@ class _NewTransactionValueField extends StatelessWidget {
   }
 }
 
-class _NewTransactionCategoriesChoiceChip extends StatelessWidget {
+class _TransactionCreateCategoriesChoiceChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        BlocBuilder<NewTransactionBloc, NewTransactionState>(
+        BlocBuilder<TransactionCreateBloc, TransactionCreateState>(
           builder: (context, state) {
             return Expanded(
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Wrap(
-                  key: const Key('newTransactionForm_categories_wrap'),
+                  key: const Key('TransactionCreateForm_categories_wrap'),
                   spacing: 8,
                   children: TransactionCategory.values.map((category) {
                     return ChoiceChip(
                       label: Text(category.name),
                       selected: state.category.value == category.name,
                       onSelected: (bool selected) {
-                        context.read<NewTransactionBloc>().add(
-                              NewTransactionCategoryChanged(
+                        context.read<TransactionCreateBloc>().add(
+                              TransactionCreateCategoryChanged(
                                 category: category.name,
                               ),
                             );
@@ -188,16 +188,16 @@ class _NewTransactionCategoriesChoiceChip extends StatelessWidget {
 class _SaveTransactionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NewTransactionBloc, NewTransactionState>(
+    return BlocBuilder<TransactionCreateBloc, TransactionCreateState>(
       builder: (context, state) {
         void submit() {
           context
-              .read<NewTransactionBloc>()
-              .add(const NewTransactionSubmitted());
+              .read<TransactionCreateBloc>()
+              .add(const TransactionCreateSubmitted());
         }
 
         return ElevatedButton(
-          key: const Key('newTransactionForm_save_raisedButton'),
+          key: const Key('TransactionCreateForm_save_raisedButton'),
           onPressed: state.isValid ? submit : null,
           child: const Text('Save'),
         );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vinttem_app/src/features/transactions/new_transaction/new_transaction.dart';
+import 'package:vinttem_app/src/features/transactions/transaction_create/transaction_create.dart';
 import 'package:vinttem_repository/vinttem_repository.dart';
 
 class TransactionCreatePage extends StatelessWidget {
@@ -14,7 +14,7 @@ class TransactionCreatePage extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         child: BlocProvider(
           create: (context) {
-            return NewTransactionBloc(
+            return TransactionCreateBloc(
               vinttemRepository: context.read<VinttemRepository>(),
             );
           },

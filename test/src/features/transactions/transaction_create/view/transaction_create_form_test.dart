@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:vinttem_app/src/features/transactions/new_transaction/new_transaction.dart';
+import 'package:vinttem_app/src/features/transactions/transaction_create/transaction_create.dart';
 import 'package:vinttem_repository/vinttem_repository.dart';
 
 import '../../../../../helpers/pump_app.dart';
@@ -18,9 +18,9 @@ void main() {
     category: TransactionCategory.donations,
     type: TransactionType.even,
   );
-  const saveButtonKey = Key('newTransactionForm_save_raisedButton');
-  const userWrapKey = Key('newTransactionForm_user_wrap');
-  const valueFieldKey = Key('newTransactionForm_value_textField');
+  const saveButtonKey = Key('TransactionCreateForm_save_raisedButton');
+  const userWrapKey = Key('TransactionCreateForm_user_wrap');
+  const valueFieldKey = Key('TransactionCreateForm_value_textField');
 
   group('TransactionCreateForm', () {
     setUp(() {
@@ -32,7 +32,7 @@ void main() {
       await tester.pumpApp(
         BlocProvider(
           create: (context) =>
-              NewTransactionBloc(vinttemRepository: mockVinttemRepository),
+              TransactionCreateBloc(vinttemRepository: mockVinttemRepository),
           child: const TransactionCreateForm(),
         ),
       );
@@ -55,7 +55,7 @@ void main() {
       await tester.pumpApp(
         BlocProvider(
           create: (context) =>
-              NewTransactionBloc(vinttemRepository: mockVinttemRepository),
+              TransactionCreateBloc(vinttemRepository: mockVinttemRepository),
           child: const TransactionCreateForm(),
         ),
       );
@@ -76,7 +76,7 @@ void main() {
       await tester.pumpApp(
         BlocProvider(
           create: (context) =>
-              NewTransactionBloc(vinttemRepository: mockVinttemRepository),
+              TransactionCreateBloc(vinttemRepository: mockVinttemRepository),
           child: const TransactionCreateForm(),
         ),
       );

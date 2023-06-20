@@ -1,32 +1,32 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
-import 'package:vinttem_app/src/features/transactions/new_transaction/new_transaction.dart';
+import 'package:vinttem_app/src/features/transactions/transaction_create/transaction_create.dart';
 import 'package:vinttem_repository/vinttem_repository.dart'
     as vinttem_repository;
 
-part 'new_transaction_event.dart';
-part 'new_transaction_state.dart';
+part 'transaction_create_event.dart';
+part 'transaction_create_state.dart';
 
-class NewTransactionBloc
-    extends Bloc<NewTransactionEvent, NewTransactionState> {
-  NewTransactionBloc({
+class TransactionCreateBloc
+    extends Bloc<TransactionCreateEvent, TransactionCreateState> {
+  TransactionCreateBloc({
     required vinttem_repository.VinttemRepository vinttemRepository,
   })  : _vinttemRepository = vinttemRepository,
-        super(const NewTransactionState()) {
-    on<NewTransactionUserChanged>(_onTransactionUserChanged);
-    on<NewTransactionValueChanged>(_onTransactionValueChanged);
-    on<NewTransactionCategoryChanged>(_onTransactionCategoryChanged);
-    on<NewTransactionSubmitted>(_onTransactionSubmitted);
+        super(const TransactionCreateState()) {
+    on<TransactionCreateUserChanged>(_onTransactionUserChanged);
+    on<TransactionCreateValueChanged>(_onTransactionValueChanged);
+    on<TransactionCreateCategoryChanged>(_onTransactionCategoryChanged);
+    on<TransactionCreateSubmitted>(_onTransactionSubmitted);
   }
 
   final vinttem_repository.VinttemRepository _vinttemRepository;
 
   void _onTransactionUserChanged(
-    NewTransactionUserChanged event,
-    Emitter<NewTransactionState> emit,
+    TransactionCreateUserChanged event,
+    Emitter<TransactionCreateState> emit,
   ) {
-    final user = NewTransactionUser.dirty(event.user);
+    final user = TransactionCreateUser.dirty(event.user);
 
     emit(
       state.copyWith(
@@ -41,10 +41,10 @@ class NewTransactionBloc
   }
 
   void _onTransactionValueChanged(
-    NewTransactionValueChanged event,
-    Emitter<NewTransactionState> emit,
+    TransactionCreateValueChanged event,
+    Emitter<TransactionCreateState> emit,
   ) {
-    final value = NewTransactionValue.dirty(event.value);
+    final value = TransactionCreateValue.dirty(event.value);
 
     emit(
       state.copyWith(
@@ -59,10 +59,10 @@ class NewTransactionBloc
   }
 
   void _onTransactionCategoryChanged(
-    NewTransactionCategoryChanged event,
-    Emitter<NewTransactionState> emit,
+    TransactionCreateCategoryChanged event,
+    Emitter<TransactionCreateState> emit,
   ) {
-    final category = NewTransactionCategory.dirty(event.category);
+    final category = TransactionCreateCategory.dirty(event.category);
 
     emit(
       state.copyWith(
@@ -77,19 +77,19 @@ class NewTransactionBloc
   }
 
   // void _onTransactionCategoriesChanged(
-  //   NewTransactionCategoriesChanged event,
-  //   Emitter<NewTransactionState> emit,
+  //   TransactionCreateCategoriesChanged event,
+  //   Emitter<TransactionCreateState> emit,
   // ) {
   //   final previousSelectedCategories = String>{...state.categories.value};
-  //   var categories = NewTransactionCategory.dirty(previousSelectedCategories);
+  //   var categories = TransactionCreateCategory.dirty(previousSelectedCategories);
 
   //   switch (event.action) {
   //     case CategoryAction.insert:
   //       previousSelectedCategories.add(event.category);
-  //       categories = NewTransactionCategory.dirty(previousSelectedCategories);
+  //       categories = TransactionCreateCategory.dirty(previousSelectedCategories);
   //     case CategoryAction.remove:
   //       previousSelectedCategories.removeWhere((e) => e == event.category);
-  //       categories = NewTransactionCategory.dirty(previousSelectedCategories);
+  //       categories = TransactionCreateCategory.dirty(previousSelectedCategories);
   //     // ignore: no_default_cases
   //     default:
   //       break;
@@ -108,12 +108,12 @@ class NewTransactionBloc
   // }
 
   Future<void> _onTransactionSubmitted(
-    NewTransactionSubmitted event,
-    Emitter<NewTransactionState> emit,
+    TransactionCreateSubmitted event,
+    Emitter<TransactionCreateState> emit,
   ) async {
-    final user = NewTransactionUser.dirty(state.user.value);
-    final value = NewTransactionValue.dirty(state.value.value);
-    final categories = NewTransactionCategory.dirty(state.category.value);
+    final user = TransactionCreateUser.dirty(state.user.value);
+    final value = TransactionCreateValue.dirty(state.value.value);
+    final categories = TransactionCreateCategory.dirty(state.category.value);
 
     final validate = Formz.validate([user, value, categories]);
     emit(

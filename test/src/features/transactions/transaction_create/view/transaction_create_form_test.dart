@@ -66,6 +66,9 @@ void main() {
       await tester.enterText(find.byKey(valueFieldKey), '0,01');
       await tester.pump();
 
+      await tester.tap(find.bySemanticsLabel('Recreation'));
+      await tester.pump();
+
       expect(
         tester.widget<ElevatedButton>(find.byKey(saveButtonKey)).enabled,
         isTrue,

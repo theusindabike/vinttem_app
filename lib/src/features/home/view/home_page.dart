@@ -50,17 +50,10 @@ class _HomePageState extends State<HomePage> {
         children: [
           FloatingActionButton.extended(
             onPressed: () {
-              context.push('/transactions');
-            },
-            elevation: 4,
-            label: const Icon(Icons.add),
-          ),
-          FloatingActionButton.extended(
-            onPressed: () {
               context.push('/transaction_create');
             },
             elevation: 4,
-            label: const Icon(Icons.alarm_add),
+            label: const Icon(Icons.add),
           ),
         ],
       ),

@@ -124,18 +124,39 @@ void main() {
       await tester.tap(find.bySemanticsLabel('Recreation'));
       await tester.pump();
 
+      expect(find.text(r'R$ 6,66'), findsOneWidget);
       expect(
         tester.widget<ElevatedButton>(find.byKey(saveButtonKey)).enabled,
         isTrue,
+      );
+      expect(
+        find.byWidgetPredicate(
+          (Widget widget) => widget is ChoiceChip && widget.selected,
+        ),
+        findsNWidgets(2),
       );
 
       await tester.tap(find.byKey(cleanFormButtonKey));
       await tester.pump();
 
+      expect(find.text(r'R$ 0,00'), findsOneWidget);
       expect(
         tester.widget<ElevatedButton>(find.byKey(saveButtonKey)).enabled,
         isFalse,
       );
+      expect(
+        find.byWidgetPredicate(
+          (Widget widget) => widget is ChoiceChip && widget.selected,
+        ),
+        findsNothing,
+      );
+
+      // expect(
+      //   find.byKey(userWrapKey),
+      //   predicate<ChoiceChip>((e) {
+      //     expect(e, isFalse);
+      //   }),
+      // );
     });
   });
 }

@@ -61,6 +61,10 @@ enum TransactionCategory {
 
   const TransactionCategory(this.apiName, this.description);
 
+  static TransactionCategory getByName(String description) =>
+      TransactionCategory.values
+          .firstWhere((u) => u.description == description);
+
   final String apiName;
   final String description;
 }

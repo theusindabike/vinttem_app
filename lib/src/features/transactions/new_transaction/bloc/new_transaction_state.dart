@@ -5,20 +5,20 @@ final class NewTransactionState extends Equatable {
     this.status = FormzSubmissionStatus.initial,
     this.user = const NewTransactionUser.pure(),
     this.value = const NewTransactionValue.pure(),
-    this.categories = const NewTransactionCategories.pure(),
+    this.category = const NewTransactionCategory.pure(),
     this.isValid = false,
   });
 
   final FormzSubmissionStatus status;
   final NewTransactionUser user;
   final NewTransactionValue value;
-  final NewTransactionCategories categories;
+  final NewTransactionCategory category;
   final bool isValid;
 
   NewTransactionState copyWith({
     NewTransactionUser? user,
     NewTransactionValue? value,
-    NewTransactionCategories? categories,
+    NewTransactionCategory? category,
     bool? isValid,
     FormzSubmissionStatus? status,
   }) {
@@ -26,11 +26,11 @@ final class NewTransactionState extends Equatable {
       status: status ?? this.status,
       user: user ?? this.user,
       value: value ?? this.value,
-      categories: categories ?? this.categories,
+      category: category ?? this.category,
       isValid: isValid ?? this.isValid,
     );
   }
 
   @override
-  List<Object> get props => [status, user, value, categories];
+  List<Object> get props => [status, user, value, category];
 }

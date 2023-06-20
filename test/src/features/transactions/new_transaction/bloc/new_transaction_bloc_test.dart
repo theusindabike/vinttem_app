@@ -43,7 +43,7 @@ void main() {
   group('NewTransactionSubmitted', () {
     blocTest<NewTransactionBloc, NewTransactionState>(
       'emits [newTransactionInProgress, newTransactionCreated] '
-      'when newTransaction succeeds',
+      'when submit a newTransaction successfully',
       setUp: () {
         when(
           () => mockVinttemRepository.createTransaction(
@@ -56,26 +56,41 @@ void main() {
       build: buildBloc,
       act: (bloc) {
         bloc
-          ..add(const NewTransactionUserChanged(user: 'bianca'))
+          ..add(const NewTransactionUserChanged(user: 'Bianca'))
           ..add(const NewTransactionValueChanged(value: 6.66))
+          ..add(
+            const NewTransactionCategoryChanged(
+              category: 'Cloths',
+            ),
+          )
           ..add(const NewTransactionSubmitted());
       },
       expect: () => const <NewTransactionState>[
-        NewTransactionState(user: NewTransactionUser.dirty('bianca')),
         NewTransactionState(
-          user: NewTransactionUser.dirty('bianca'),
+          user: NewTransactionUser.dirty('Bianca'),
+        ),
+        NewTransactionState(
+          user: NewTransactionUser.dirty('Bianca'),
           value: NewTransactionValue.dirty(6.66),
           isValid: true,
         ),
         NewTransactionState(
-          user: NewTransactionUser.dirty('bianca'),
+          user: NewTransactionUser.dirty('Bianca'),
           value: NewTransactionValue.dirty(6.66),
+          category: NewTransactionCategory.dirty('Cloths'),
+          isValid: true,
+        ),
+        NewTransactionState(
+          user: NewTransactionUser.dirty('Bianca'),
+          value: NewTransactionValue.dirty(6.66),
+          category: NewTransactionCategory.dirty('Cloths'),
           isValid: true,
           status: FormzSubmissionStatus.inProgress,
         ),
         NewTransactionState(
-          user: NewTransactionUser.dirty('bianca'),
+          user: NewTransactionUser.dirty('Bianca'),
           value: NewTransactionValue.dirty(6.66),
+          category: NewTransactionCategory.dirty('Cloths'),
           isValid: true,
           status: FormzSubmissionStatus.success,
         ),
@@ -95,26 +110,41 @@ void main() {
       build: buildBloc,
       act: (bloc) {
         bloc
-          ..add(const NewTransactionUserChanged(user: 'bianca'))
+          ..add(const NewTransactionUserChanged(user: 'Bianca'))
           ..add(const NewTransactionValueChanged(value: 6.66))
+          ..add(
+            const NewTransactionCategoryChanged(
+              category: 'Cloths',
+            ),
+          )
           ..add(const NewTransactionSubmitted());
       },
       expect: () => const <NewTransactionState>[
-        NewTransactionState(user: NewTransactionUser.dirty('bianca')),
         NewTransactionState(
-          user: NewTransactionUser.dirty('bianca'),
+          user: NewTransactionUser.dirty('Bianca'),
+        ),
+        NewTransactionState(
+          user: NewTransactionUser.dirty('Bianca'),
           value: NewTransactionValue.dirty(6.66),
           isValid: true,
         ),
         NewTransactionState(
-          user: NewTransactionUser.dirty('bianca'),
+          user: NewTransactionUser.dirty('Bianca'),
           value: NewTransactionValue.dirty(6.66),
+          category: NewTransactionCategory.dirty('Cloths'),
+          isValid: true,
+        ),
+        NewTransactionState(
+          user: NewTransactionUser.dirty('Bianca'),
+          value: NewTransactionValue.dirty(6.66),
+          category: NewTransactionCategory.dirty('Cloths'),
           isValid: true,
           status: FormzSubmissionStatus.inProgress,
         ),
         NewTransactionState(
-          user: NewTransactionUser.dirty('bianca'),
+          user: NewTransactionUser.dirty('Bianca'),
           value: NewTransactionValue.dirty(6.66),
+          category: NewTransactionCategory.dirty('Cloths'),
           isValid: true,
           status: FormzSubmissionStatus.failure,
         ),

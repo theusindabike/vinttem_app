@@ -16,7 +16,7 @@ class NewTransactionBloc
         super(const NewTransactionState()) {
     on<NewTransactionUserChanged>(_onTransactionUserChanged);
     on<NewTransactionValueChanged>(_onTransactionValueChanged);
-    on<NewTransactionCategoriesChanged>(_onTransactionCategoriesChanged);
+    on<NewTransactionCategoryChanged>(_onTransactionCategoryChanged);
     on<NewTransactionSubmitted>(_onTransactionSubmitted);
   }
 
@@ -31,7 +31,11 @@ class NewTransactionBloc
     emit(
       state.copyWith(
         user: user,
-        isValid: Formz.validate([state.value, user]),
+        isValid: Formz.validate([
+          user,
+          state.value,
+          state.category,
+        ]),
       ),
     );
   }
@@ -45,37 +49,63 @@ class NewTransactionBloc
     emit(
       state.copyWith(
         value: value,
-        isValid: Formz.validate([state.user, value]),
+        isValid: Formz.validate([
+          state.user,
+          value,
+          state.category,
+        ]),
       ),
     );
   }
 
-  void _onTransactionCategoriesChanged(
-    NewTransactionCategoriesChanged event,
+  void _onTransactionCategoryChanged(
+    NewTransactionCategoryChanged event,
     Emitter<NewTransactionState> emit,
   ) {
-    final previousSelectedCategories = <String>{...state.categories.value};
-    var categories = NewTransactionCategories.dirt(previousSelectedCategories);
-
-    switch (event.action) {
-      case CategoryAction.insert:
-        previousSelectedCategories.add(event.category);
-        categories = NewTransactionCategories.dirt(previousSelectedCategories);
-      case CategoryAction.remove:
-        previousSelectedCategories.removeWhere((e) => e == event.category);
-        categories = NewTransactionCategories.dirt(previousSelectedCategories);
-      // ignore: no_default_cases
-      default:
-        break;
-    }
+    final category = NewTransactionCategory.dirty(event.category);
 
     emit(
       state.copyWith(
-        categories: categories,
-        isValid: Formz.validate([state.categories, categories]),
+        category: category,
+        isValid: Formz.validate([
+          state.user,
+          state.value,
+          category,
+        ]),
       ),
     );
   }
+
+  // void _onTransactionCategoriesChanged(
+  //   NewTransactionCategoriesChanged event,
+  //   Emitter<NewTransactionState> emit,
+  // ) {
+  //   final previousSelectedCategories = String>{...state.categories.value};
+  //   var categories = NewTransactionCategory.dirty(previousSelectedCategories);
+
+  //   switch (event.action) {
+  //     case CategoryAction.insert:
+  //       previousSelectedCategories.add(event.category);
+  //       categories = NewTransactionCategory.dirty(previousSelectedCategories);
+  //     case CategoryAction.remove:
+  //       previousSelectedCategories.removeWhere((e) => e == event.category);
+  //       categories = NewTransactionCategory.dirty(previousSelectedCategories);
+  //     // ignore: no_default_cases
+  //     default:
+  //       break;
+  //   }
+
+  //   emit(
+  //     state.copyWith(
+  //       categories: categories,
+  //       isValid: Formz.validate([
+  //         state.user,
+  //         state.value,
+  //         categories,
+  //       ]),
+  //     ),
+  //   );
+  // }
 
   Future<void> _onTransactionSubmitted(
     NewTransactionSubmitted event,
@@ -83,18 +113,19 @@ class NewTransactionBloc
   ) async {
     final user = NewTransactionUser.dirty(state.user.value);
     final value = NewTransactionValue.dirty(state.value.value);
-    final categories = NewTransactionCategories.dirt(state.categories.value);
+    final categories = NewTransactionCategory.dirty(state.category.value);
 
+    final validate = Formz.validate([user, value, categories]);
     emit(
       state.copyWith(
         user: user,
         value: value,
-        categories: categories,
-        isValid: Formz.validate([user, value, categories]),
+        category: categories,
+        isValid: validate,
       ),
     );
 
-    if (state.isValid) {
+    if (validate) {
       emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
       try {
         await _vinttemRepository.createTransaction(
@@ -102,7 +133,9 @@ class NewTransactionBloc
             user:
                 vinttem_repository.TransactionUser.getByName(state.user.value),
             value: state.value.value,
-            category: vinttem_repository.TransactionCategory.cloths,
+            category: vinttem_repository.TransactionCategory.getByName(
+              state.category.value,
+            ),
             type: vinttem_repository.TransactionType.even,
           ),
         );

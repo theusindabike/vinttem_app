@@ -165,14 +165,11 @@ class _NewTransactionCategoriesChoiceChip extends StatelessWidget {
                   children: TransactionCategory.values.map((category) {
                     return ChoiceChip(
                       label: Text(category.name),
-                      selected: state.categories.value.contains(category.name),
+                      selected: state.category.value == category.name,
                       onSelected: (bool selected) {
                         context.read<NewTransactionBloc>().add(
-                              NewTransactionCategoriesChanged(
+                              NewTransactionCategoryChanged(
                                 category: category.name,
-                                action: selected
-                                    ? CategoryAction.insert
-                                    : CategoryAction.remove,
                               ),
                             );
                       },

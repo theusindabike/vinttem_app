@@ -34,27 +34,27 @@ class VinttemFastAPIRespository implements VinttemRepository {
   }
 
   @override
-  Future<Transaction> createTransaction(Transaction newTransaction) async {
+  Future<Transaction> createTransaction(Transaction transactionCreate) async {
     final parsedTransaction = vinttem_fastapi_client.Transaction(
       user: vinttem_fastapi_client.TransactionUser.values
-          .byName(newTransaction.user.name),
-      value: newTransaction.value,
+          .byName(transactionCreate.user.name),
+      value: transactionCreate.value,
       category: vinttem_fastapi_client.TransactionCategory.values
-          .byName(newTransaction.category.name),
+          .byName(transactionCreate.category.name),
       type: vinttem_fastapi_client.TransactionType.values
-          .byName(newTransaction.type.name),
-      description: newTransaction.description,
+          .byName(transactionCreate.type.name),
+      description: transactionCreate.description,
     );
     try {
       final result =
           await _vinttemFastAPIClient.createTransaction(parsedTransaction);
 
       return Transaction(
-        user: TransactionUser.values.byName(result.user.name),
-        value: result.value,
-        category: TransactionCategory.values.byName(result.category.name),
-        type: TransactionType.values.byName(result.type.name),
-      );
+          user: TransactionUser.values.byName(result.user.name),
+          value: result.value,
+          category: TransactionCategory.values.byName(result.category.name),
+          type: TransactionType.values.byName(result.type.name),
+          description: result.description);
     } catch (e) {
       rethrow;
     }

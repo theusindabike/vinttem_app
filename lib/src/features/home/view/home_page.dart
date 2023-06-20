@@ -20,11 +20,7 @@ class _HomePageState extends State<HomePage> {
         elevation: 4,
       ),
       bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (int index) {
-          setState(() {
-            currentPageIndex = index;
-          });
-        },
+        onDestinationSelected: (int index) {},
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
           NavigationDestination(
@@ -50,17 +46,10 @@ class _HomePageState extends State<HomePage> {
         children: [
           FloatingActionButton.extended(
             onPressed: () {
-              context.push('/transactions');
+              context.push('/transaction_create');
             },
             elevation: 4,
             label: const Icon(Icons.add),
-          ),
-          FloatingActionButton.extended(
-            onPressed: () {
-              context.push('/new_transaction');
-            },
-            elevation: 4,
-            label: const Icon(Icons.alarm_add),
           ),
         ],
       ),

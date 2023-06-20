@@ -36,6 +36,9 @@ enum TransactionUser {
 
   const TransactionUser(this.id, this.description);
 
+  static TransactionUser getByName(String description) =>
+      TransactionUser.values.firstWhere((u) => u.description == description);
+
   final String id;
   final String description;
 }
@@ -58,6 +61,10 @@ enum TransactionCategory {
 
   const TransactionCategory(this.apiName, this.description);
 
+  static TransactionCategory getByName(String description) =>
+      TransactionCategory.values
+          .firstWhere((u) => u.description == description);
+
   final String apiName;
   final String description;
 }
@@ -68,6 +75,9 @@ enum TransactionType {
   even('EVEN', 'Even');
 
   const TransactionType(this.apiName, this.description);
+
+  static TransactionType getByName(String description) =>
+      TransactionType.values.firstWhere((u) => u.description == description);
 
   final String apiName;
   final String description;

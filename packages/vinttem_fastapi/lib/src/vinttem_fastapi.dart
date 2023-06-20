@@ -52,7 +52,6 @@ class VinttemFastAPI {
       );
 
       final jsonData = transaction.toJson();
-      // ..removeWhere((key, value) => value == null);
 
       final response = await _httpClient.postUri<Map<String, dynamic>>(
         uri,

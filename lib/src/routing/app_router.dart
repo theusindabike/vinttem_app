@@ -10,11 +10,7 @@ final router = GoRouter(
       builder: (context, state) => const HomePage(),
     ),
     GoRoute(
-      path: '/transactions',
-      builder: (context, state) => const TransactionDetailPage(),
-    ),
-    GoRoute(
-      path: '/new_transaction',
+      path: '/transaction_create',
       builder: (context, state) => const TransactionCreatePage(),
     )
   ],

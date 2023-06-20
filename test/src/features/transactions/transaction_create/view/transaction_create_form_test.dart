@@ -150,13 +150,6 @@ void main() {
         ),
         findsNothing,
       );
-
-      // expect(
-      //   find.byKey(userWrapKey),
-      //   predicate<ChoiceChip>((e) {
-      //     expect(e, isFalse);
-      //   }),
-      // );
     });
   });
 }

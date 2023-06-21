@@ -72,7 +72,7 @@ class VinttemFastAPI {
     try {
       final uri = Uri.http(
         _vinttemFastAPIBaseURL,
-        '${_vinttemFastAPIPrefixURL}transactions/$transactionId',
+        '${_vinttemFastAPIPrefixURL}transactions/$transactionId/',
       );
 
       final response = await _httpClient.deleteUri<void>(

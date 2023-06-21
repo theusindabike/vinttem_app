@@ -42,11 +42,8 @@ class TransactionsListBloc
     TransactionsListDeleteRequested event,
     Emitter<TransactionsListState> emit,
   ) async {
-    emit(state.copyWith(status: TransactionsListStatus.loading));
-
     try {
-      await _vinttemRepository.deleteTransaction(state.transactionIdToDelete);
-      emit(state.copyWith(status: TransactionsListStatus.success));
+      await _vinttemRepository.deleteTransaction(event.transactionId);
     } catch (e) {
       emit(state.copyWith(status: TransactionsListStatus.failure));
     }

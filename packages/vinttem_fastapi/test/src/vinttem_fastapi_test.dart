@@ -213,7 +213,7 @@ void main() {
 
         verify(
           () => mockHttpClient.deleteUri<void>(
-            Uri.http(baseURL, '/api/v1/transactions/1'),
+            Uri.http(baseURL, '/api/v1/transactions/1/'),
           ),
         ).called(1);
       });

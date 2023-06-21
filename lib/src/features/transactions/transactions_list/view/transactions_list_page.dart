@@ -66,7 +66,9 @@ class TrasactionsListView extends StatelessWidget {
             ),
             direction: DismissDirection.endToStart,
             onDismissed: (direction) {
-              print('bomdia para voce id: ${t.id}');
+              context
+                  .read<TransactionsListBloc>()
+                  .add(TransactionsListDeleteRequested(transactionId: t.id!));
             },
             child: Card(
               margin: const EdgeInsets.only(top: 10),

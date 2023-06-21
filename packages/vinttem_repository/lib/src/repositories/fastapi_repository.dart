@@ -18,6 +18,7 @@ class VinttemFastAPIRespository implements VinttemRepository {
       for (final t in transactions) {
         result.add(
           Transaction(
+            id: t.id,
             user: TransactionUser.values.byName(t.user.name),
             value: t.value,
             type: TransactionType.values.byName(t.type.name),

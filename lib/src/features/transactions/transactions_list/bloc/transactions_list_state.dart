@@ -6,18 +6,15 @@ class TransactionsListState extends Equatable {
   const TransactionsListState({
     this.status = TransactionsListStatus.initial,
     this.transactions = const [],
-    this.transactionIdToDelete = 0,
   });
 
   final TransactionsListStatus status;
   final List<vinttem_repository.Transaction> transactions;
-  final int transactionIdToDelete;
 
   @override
   List<Object> get props => [
         status,
         transactions,
-        transactionIdToDelete,
       ];
   TransactionsListState copyWith({
     TransactionsListStatus? status,
@@ -27,8 +24,6 @@ class TransactionsListState extends Equatable {
     return TransactionsListState(
       status: status ?? this.status,
       transactions: transactions ?? this.transactions,
-      transactionIdToDelete:
-          transactionIdToDelete ?? this.transactionIdToDelete,
     );
   }
 }

@@ -158,6 +158,19 @@ void main() {
         } catch (_) {}
         verify(() => mockVinttemFastAPIClient.deleteTransaction(1)).called(1);
       });
+
+      test('throws exeception when fastAPIClient fails', () async {
+        final exception = Exception('something went wrong');
+
+        when(
+          () => mockVinttemFastAPIClient.deleteTransaction(1),
+        ).thenThrow(exception);
+
+        expect(
+          () async => mockFastAPIRespository.deleteTransaction(1),
+          throwsA(exception),
+        );
+      });
     });
   });
 }

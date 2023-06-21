@@ -63,7 +63,7 @@ class VinttemFastAPIRespository implements VinttemRepository {
   @override
   Future<void> deleteTransaction(int transactionId) async {
     try {
-      _vinttemFastAPIClient.deleteTransaction(transactionId);
+      await _vinttemFastAPIClient.deleteTransaction(transactionId);
     } catch (_) {
       rethrow;
     }

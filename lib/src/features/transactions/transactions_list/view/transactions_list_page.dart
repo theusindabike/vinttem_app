@@ -17,66 +17,65 @@ class TransactionsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<TransactionsListBloc>().add(const TransactionsListRequested());
+    _fetchTransactions(context);
 
-    return MultiBlocListener(
-      listeners: [
-        BlocListener<TransactionsListBloc, TransactionsListState>(
-          listenWhen: (previous, current) => previous.status != current.status,
-          listener: (context, state) {
-            if (state.status == TransactionsListStatus.failure) {
-              ScaffoldMessenger.of(context)
-                ..hideCurrentSnackBar()
-                ..showSnackBar(const SnackBar(content: Text('deu ruim')));
-            }
-          },
-        )
-      ],
+    return RefreshIndicator(
+      onRefresh: () async {
+        _fetchTransactions(context);
+      },
       child: BlocBuilder<TransactionsListBloc, TransactionsListState>(
         builder: (context, state) {
-          if (state.transactions.isEmpty) {
-            if (state.status == TransactionsListStatus.loading) {
-              return const Center(child: CupertinoActivityIndicator());
-            } else if (state.status != TransactionsListStatus.success) {
-              return const Center(child: CupertinoActivityIndicator());
-            } else {
-              return const Center(child: Text('no transactions were made'));
-            }
-          }
-
-          return ListView(
-            padding: const EdgeInsets.all(8),
-            children: <Widget>[
-              for (final t in state.transactions)
-                Card(
-                  margin: const EdgeInsets.only(top: 10),
-                  child: ListTile(
-                    key: Key('transactionCard_${t.id}'),
-                    leading: const Icon(Icons.shopping_bag),
-                    title: Text(t.category.description),
-                    subtitle: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Type: ${t.type.description}'),
-                        Text(
-                          'R\$ ${t.value.toString().replaceAll('.', ',')}',
-                        ),
-                      ],
-                    ),
-                    trailing: const Icon(Icons.more_vert),
-                    onTap: () {
-                      ScaffoldMessenger.of(context)
-                        ..hideCurrentSnackBar()
-                        ..showSnackBar(
-                          const SnackBar(content: Text('working in progress')),
-                        );
-                    },
-                  ),
-                )
-            ],
-          );
+          return switch (state.status) {
+            TransactionsListStatus.initial ||
+            TransactionsListStatus.loading =>
+              const Center(child: CupertinoActivityIndicator()),
+            TransactionsListStatus.success => TrasactionsListView(state: state),
+            TransactionsListStatus.failure =>
+              const Center(child: Text('No transactions made')),
+          };
         },
       ),
+    );
+  }
+
+  void _fetchTransactions(BuildContext context) => context
+      .read<TransactionsListBloc>()
+      .add(const TransactionsListRequested());
+}
+
+class TrasactionsListView extends StatelessWidget {
+  const TrasactionsListView({
+    super.key,
+    required this.state,
+  });
+
+  final TransactionsListState state;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      padding: const EdgeInsets.all(8),
+      children: <Widget>[
+        for (final t in state.transactions)
+          Card(
+            margin: const EdgeInsets.only(top: 10),
+            child: ListTile(
+              key: Key('transactionCard_${t.id}'),
+              leading: const Icon(Icons.shopping_bag),
+              title: Text(t.category.description),
+              subtitle: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Type: ${t.type.description}'),
+                  Text(
+                    'R\$ ${t.value.toString().replaceAll('.', ',')}',
+                  ),
+                ],
+              ),
+              trailing: const Icon(Icons.more_vert),
+            ),
+          )
+      ],
     );
   }
 }

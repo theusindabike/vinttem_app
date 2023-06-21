@@ -137,8 +137,11 @@ void main() {
           );
         },
         build: buildBloc,
-        act: (bloc) =>
-            bloc.add(const TransactionsListDeleteRequested(transactionId: 0)),
+        act: (bloc) => bloc.add(
+          const TransactionsListDeleteRequested(
+            transactionId: 0,
+          ),
+        ),
         expect: () => [
           const TransactionsListState(status: TransactionsListStatus.failure),
         ],

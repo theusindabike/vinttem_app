@@ -65,6 +65,9 @@ class TrasactionsListView extends StatelessWidget {
               color: Colors.red,
             ),
             direction: DismissDirection.endToStart,
+            onDismissed: (direction) {
+              print('bomdia');
+            },
             child: Card(
               margin: const EdgeInsets.only(top: 10),
               child: TransactionListTile(transaction: t),

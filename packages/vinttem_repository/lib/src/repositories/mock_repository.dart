@@ -35,4 +35,7 @@ class VinttemMockRepository implements VinttemRepository {
   Future<Transaction> createTransaction(Transaction transaction) async {
     return transaction;
   }
+
+  @override
+  Future<void> deleteTransaction(int transactionId) async {}
 }

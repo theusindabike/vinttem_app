@@ -67,4 +67,21 @@ class VinttemFastAPI {
       rethrow;
     }
   }
+
+  Future<void> deleteTransaction(int transactionId) async {
+    try {
+      final uri = Uri.http(
+        _vinttemFastAPIBaseURL,
+        '${_vinttemFastAPIPrefixURL}transactions/$transactionId',
+      );
+
+      final response = await _httpClient.deleteUri<void>(
+        uri,
+      );
+
+      if (response.statusCode != 200) throw TransactionRequestFailure();
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

@@ -150,5 +150,14 @@ void main() {
         );
       });
     });
+
+    group('deleteTransaction', () {
+      test('calls deleteTransaction', () async {
+        try {
+          await mockFastAPIRespository.deleteTransaction(1);
+        } catch (_) {}
+        verify(() => mockVinttemFastAPIClient.deleteTransaction(1)).called(1);
+      });
+    });
   });
 }

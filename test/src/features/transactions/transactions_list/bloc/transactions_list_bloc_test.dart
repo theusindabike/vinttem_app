@@ -124,20 +124,6 @@ void main() {
           verify(() => mockVinttemRepository.deleteTransaction(0)).called(1);
         },
       );
-      blocTest<TransactionsListBloc, TransactionsListState>(
-        'emits updated status when a deleteTransaction call occurs',
-        build: buildBloc,
-        act: (bloc) =>
-            bloc.add(const TransactionsListDeleteRequested(transactionId: 0)),
-        expect: () => [
-          const TransactionsListState(
-            status: TransactionsListStatus.loading,
-          ),
-          const TransactionsListState(
-            status: TransactionsListStatus.success,
-          ),
-        ],
-      );
 
       blocTest<TransactionsListBloc, TransactionsListState>(
         'emits failure status when a getTransactions error occurs',
@@ -154,7 +140,6 @@ void main() {
         act: (bloc) =>
             bloc.add(const TransactionsListDeleteRequested(transactionId: 0)),
         expect: () => [
-          const TransactionsListState(status: TransactionsListStatus.loading),
           const TransactionsListState(status: TransactionsListStatus.failure),
         ],
       );

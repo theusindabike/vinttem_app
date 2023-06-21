@@ -18,6 +18,7 @@ class VinttemFastAPIRespository implements VinttemRepository {
       for (final t in transactions) {
         result.add(
           Transaction(
+            id: t.id,
             user: TransactionUser.values.byName(t.user.name),
             value: t.value,
             type: TransactionType.values.byName(t.type.name),
@@ -50,12 +51,22 @@ class VinttemFastAPIRespository implements VinttemRepository {
           await _vinttemFastAPIClient.createTransaction(parsedTransaction);
 
       return Transaction(
-          user: TransactionUser.values.byName(result.user.name),
-          value: result.value,
-          category: TransactionCategory.values.byName(result.category.name),
-          type: TransactionType.values.byName(result.type.name),
-          description: result.description);
+        user: TransactionUser.values.byName(result.user.name),
+        value: result.value,
+        category: TransactionCategory.values.byName(result.category.name),
+        type: TransactionType.values.byName(result.type.name),
+        description: result.description,
+      );
     } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> deleteTransaction(int transactionId) async {
+    try {
+      await _vinttemFastAPIClient.deleteTransaction(transactionId);
+    } catch (_) {
       rethrow;
     }
   }

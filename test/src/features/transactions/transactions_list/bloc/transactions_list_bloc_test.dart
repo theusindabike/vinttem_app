@@ -49,6 +49,10 @@ void main() {
       when(
         () => mockVinttemRepository.getTransactions(),
       ).thenAnswer((_) => Future.value(mockTransactions));
+
+      when(
+        () => mockVinttemRepository.deleteTransaction(any()),
+      ).thenAnswer((_) async => Future.value());
     });
 
     TransactionsListBloc buildBloc() {
@@ -66,7 +70,7 @@ void main() {
       });
     });
 
-    group('TransactionsListSubscriptionRequested', () {
+    group('TransactionsListRequested', () {
       blocTest<TransactionsListBloc, TransactionsListState>(
         'start subscription to Transactions repository',
         build: buildBloc,
@@ -105,6 +109,40 @@ void main() {
         act: (bloc) => bloc.add(const TransactionsListRequested()),
         expect: () => [
           const TransactionsListState(status: TransactionsListStatus.loading),
+          const TransactionsListState(status: TransactionsListStatus.failure),
+        ],
+      );
+    });
+
+    group('TransactionsListDeleteRequested', () {
+      blocTest<TransactionsListBloc, TransactionsListState>(
+        'start subscription to Transactions Delete repository',
+        build: buildBloc,
+        act: (bloc) =>
+            bloc.add(const TransactionsListDeleteRequested(transactionId: 0)),
+        verify: (_) {
+          verify(() => mockVinttemRepository.deleteTransaction(0)).called(1);
+        },
+      );
+
+      blocTest<TransactionsListBloc, TransactionsListState>(
+        'emits failure status when a getTransactions error occurs',
+        setUp: () {
+          when(
+            () => mockVinttemRepository.deleteTransaction(0),
+          ).thenAnswer(
+            (_) => Future.error(
+              Exception('sorry to say, but something went wrong'),
+            ),
+          );
+        },
+        build: buildBloc,
+        act: (bloc) => bloc.add(
+          const TransactionsListDeleteRequested(
+            transactionId: 0,
+          ),
+        ),
+        expect: () => [
           const TransactionsListState(status: TransactionsListStatus.failure),
         ],
       );

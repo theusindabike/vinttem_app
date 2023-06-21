@@ -19,6 +19,7 @@ class TransactionsListState extends Equatable {
   TransactionsListState copyWith({
     TransactionsListStatus? status,
     List<vinttem_repository.Transaction>? transactions,
+    int? transactionIdToDelete,
   }) {
     return TransactionsListState(
       status: status ?? this.status,

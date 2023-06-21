@@ -204,5 +204,34 @@ void main() {
         );
       });
     });
+
+    group('deleteTransaction', () {
+      test('makes http resquest', () async {
+        try {
+          await mockVinttemFastAPI.deleteTransaction(1);
+        } catch (_) {}
+
+        verify(
+          () => mockHttpClient.deleteUri<void>(
+            Uri.http(baseURL, '/api/v1/transactions/1/'),
+          ),
+        ).called(1);
+      });
+
+      test('throws TransactionRequestFailure on non-200 request', () async {
+        final response = MockResponse();
+        when(() => response.statusCode).thenReturn(405);
+        when(
+          () => mockHttpClient.deleteUri<void>(
+            any(),
+          ),
+        ).thenAnswer((_) async => response);
+
+        expect(
+          mockVinttemFastAPI.deleteTransaction(1),
+          throwsA(isA<TransactionRequestFailure>()),
+        );
+      });
+    });
   });
 }

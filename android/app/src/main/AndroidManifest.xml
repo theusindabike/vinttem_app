@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.verygoodcore.vinttem_app">
+    package="com.vinttem">
    <application
         android:label="vinttem_app"
         android:name="${applicationName}"

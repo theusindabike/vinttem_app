@@ -1,4 +1,4 @@
-package com.example.verygoodcore.vinttem_app
+package com.vinttem
 
 import io.flutter.embedding.android.FlutterActivity
 

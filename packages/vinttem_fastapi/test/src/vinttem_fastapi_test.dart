@@ -50,7 +50,7 @@ void main() {
 
         verify(
           () => mockHttpClient.getUri<Map<String, dynamic>>(
-            Uri.http(baseURL, '/api/v1/transactions/'),
+            Uri.https(baseURL, '/api/v1/transactions/'),
           ),
         ).called(1);
       });
@@ -141,7 +141,7 @@ void main() {
 
         verify(
           () => mockHttpClient.postUri<Map<String, dynamic>>(
-            Uri.http(baseURL, '/api/v1/transactions/'),
+            Uri.https(baseURL, '/api/v1/transactions/'),
             data: fakeTransaction.toJson(),
           ),
         ).called(1);
@@ -213,7 +213,7 @@ void main() {
 
         verify(
           () => mockHttpClient.deleteUri<void>(
-            Uri.http(baseURL, '/api/v1/transactions/1/'),
+            Uri.https(baseURL, '/api/v1/transactions/1/'),
           ),
         ).called(1);
       });

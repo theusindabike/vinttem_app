@@ -17,7 +17,7 @@ class VinttemFastAPI {
 
   Future<List<Transaction>> getTransactions() async {
     try {
-      final uri = Uri.http(
+      final uri = Uri.https(
         _vinttemFastAPIBaseURL,
         '${_vinttemFastAPIPrefixURL}transactions/',
       );
@@ -46,7 +46,7 @@ class VinttemFastAPI {
 
   Future<Transaction> createTransaction(Transaction transaction) async {
     try {
-      final uri = Uri.http(
+      final uri = Uri.https(
         _vinttemFastAPIBaseURL,
         '${_vinttemFastAPIPrefixURL}transactions/',
       );
@@ -70,7 +70,7 @@ class VinttemFastAPI {
 
   Future<void> deleteTransaction(int transactionId) async {
     try {
-      final uri = Uri.http(
+      final uri = Uri.https(
         _vinttemFastAPIBaseURL,
         '${_vinttemFastAPIPrefixURL}transactions/$transactionId/',
       );

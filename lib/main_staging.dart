@@ -4,6 +4,6 @@ import 'package:vinttem_repository/vinttem_repository.dart';
 
 void main() {
   bootstrap(
-    () => App(vinttemRepository: VinttemFastAPIRespository()),
+    () => App(vinttemRepository: VinttemMockRepository()),
   );
 }

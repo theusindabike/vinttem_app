@@ -15,7 +15,7 @@ class FakeTransaction extends Fake implements Transaction {}
 class FakeOptions extends Fake implements http.Options {}
 
 void main() {
-  const baseURL = '10.0.2.2:8000';
+  const baseURL = 'vinttem.com';
   group('VinttemFastapi', () {
     late http.Dio mockHttpClient;
     late VinttemFastAPI mockVinttemFastAPI;

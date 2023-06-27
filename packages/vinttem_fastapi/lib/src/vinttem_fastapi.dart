@@ -10,7 +10,7 @@ class VinttemFastAPI {
   VinttemFastAPI({http.Dio? httpClient})
       : _httpClient = httpClient ?? http.Dio();
 
-  static const _vinttemFastAPIBaseURL = '10.0.2.2:8000';
+  static const _vinttemFastAPIBaseURL = 'vinttem.com';
   static const _vinttemFastAPIPrefixURL = '/api/v1/';
 
   final http.Dio _httpClient;

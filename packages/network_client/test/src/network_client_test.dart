@@ -92,6 +92,13 @@ void main() {
       );
     });
 
-    test('can be instantiated', () {});
+    test('can be instantiated', () {
+      expect(
+        NetworkClient(
+          baseUrl: 'http://localhost',
+        ),
+        isNotNull,
+      );
+    });
   });
 }

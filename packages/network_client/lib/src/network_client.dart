@@ -60,4 +60,16 @@ class NetworkClient {
   final PutCall _put;
   final PatchCall _patch;
   final PatchCall _delete;
+
+  Future<http.Response> get(
+    String path, {
+    Map<String, dynamic>? queryParameters,
+  }) async {
+    return _get(
+      _baseUrl.replace(
+        path: path,
+        queryParameters: queryParameters,
+      ),
+    );
+  }
 }

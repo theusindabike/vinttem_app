@@ -33,7 +33,7 @@ void main() {
   setUpAll(() {
     registerFallbackValue(Uri.parse('http://localhost'));
   });
-  // ignore: flutter_style_todos, flutter_style_todos
+
   group('NetworkClient', () {
     const baseUrl = 'http://baseurl.com';
 

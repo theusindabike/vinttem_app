@@ -15,9 +15,11 @@ class VinttemFastAPIRepository implements VinttemRepository {
 
   final NetworkClient _networkClient;
 
+  static const v1BaseUrl = '/api/v1/transactions';
+
   @override
   Future<List<Transaction>> getTransactions() async {
-    final response = await _networkClient.get('/');
+    final response = await _networkClient.get('$v1BaseUrl/');
 
     if (response.statusCode != HttpStatus.ok) {
       throw NetworkClientError(
@@ -57,11 +59,9 @@ class VinttemFastAPIRepository implements VinttemRepository {
 
   @override
   Future<Transaction> createTransaction(Transaction transaction) async {
-    final jsonData = transaction.toJson();
-
     final response = await _networkClient.post(
-      '/',
-      body: jsonData,
+      '$v1BaseUrl/',
+      body: jsonEncode(transaction),
     );
 
     if (response.statusCode != HttpStatus.ok) {
@@ -86,7 +86,7 @@ class VinttemFastAPIRepository implements VinttemRepository {
   @override
   Future<void> deleteTransaction(int transactionId) async {
     final response = await _networkClient.delete(
-      '/',
+      '$v1BaseUrl/$transactionId/',
     );
 
     if (response.statusCode != HttpStatus.ok) {

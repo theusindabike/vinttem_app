@@ -22,6 +22,8 @@ dependencies:
   go_router: ^7.1.1
   intl: ^0.18.0
   json_annotation: ^4.8.0
+  network_client:
+    path: packages/network_client
   vinttem_repository:
     path: packages/vinttem_repository
 

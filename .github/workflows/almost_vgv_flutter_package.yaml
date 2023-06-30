@@ -82,3 +82,13 @@ jobs:
           path: ${{inputs.working_directory}}/coverage/lcov.info
           exclude: ${{inputs.coverage_excludes}}
           min_coverage: ${{inputs.min_coverage}}
+
+      - name: Create Badges
+        uses: schneegans/dynamic-badges-action@v1.6.0
+        with:
+          auth: ${{ secrets.BADGE_GIST_SECRET }}
+          gistID: <gist-ID>
+          filename: test.json
+          label: Hello
+          message: World
+          color: orange

@@ -1,7 +1,6 @@
 # Vinttem
 
-This simplifies financial life
-
+A new way of tracking expenses that considers how much each person earns.
 
 ## Stack
 - [Flutter](https://docs.flutter.dev/release/release-notes) 3.7.9

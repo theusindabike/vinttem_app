@@ -87,7 +87,7 @@ jobs:
         uses: schneegans/dynamic-badges-action@v1.6.0
         with:
           auth: ${{ secrets.BADGE_GIST_SECRET }}
-          gistID: 20ac9cc8304341a26aa399344a8892df
+          gistID: 99e3c08008657d65b77d8b1dc6b01d9c
           filename: badges_config.json
           label: Hello
           message: World

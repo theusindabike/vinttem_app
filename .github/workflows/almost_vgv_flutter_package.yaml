@@ -88,7 +88,7 @@ jobs:
         with:
           auth: ${{ secrets.BADGE_GIST_SECRET }}
           gistID: <gist-ID>
-          filename: test.json
+          filename: badges_config.json
           label: Hello
           message: World
           color: orange

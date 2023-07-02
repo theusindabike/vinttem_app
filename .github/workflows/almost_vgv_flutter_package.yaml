@@ -1,6 +1,5 @@
 name: Flutter Package Workflow
 
-
 on:
   workflow_call:
     inputs:
@@ -33,21 +32,17 @@ on:
         type: string
         default: "ubuntu-latest"
 
-
 jobs:
   build:
     defaults:
       run:
         working-directory: ${{inputs.working_directory}}
 
-
     runs-on: ${{inputs.runs_on}}
-
 
     steps:
       - name: 📚 Git Checkout
         uses: actions/checkout@v3
-
 
       - name: 🐦 Setup Flutter
         uses: subosito/flutter-action@v2
@@ -55,7 +50,6 @@ jobs:
           flutter-version: ${{inputs.flutter_version}}
           channel: ${{inputs.flutter_channel}}
           cache: true
-
 
       - name: 📦 Install Dependencies
         run: |
@@ -67,14 +61,11 @@ jobs:
       - name: ✨ Check Formatting
         run: dart format --set-exit-if-changed lib test
 
-
       - name: 🕵️ Analyze
         run: flutter analyze lib test
 
-
       - name: 🧪 Run Tests
         run: flutter test --coverage --test-randomize-ordering-seed random
-
 
       - name: 📊 Check Code Coverage
         uses: VeryGoodOpenSource/very_good_coverage@v2
@@ -82,3 +73,9 @@ jobs:
           path: ${{inputs.working_directory}}/coverage/lcov.info
           exclude: ${{inputs.coverage_excludes}}
           min_coverage: ${{inputs.min_coverage}}
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{secrets.CODECOV_TOKEN}}
+          file: ${{inputs.working_directory}}/coverage/lcov.info

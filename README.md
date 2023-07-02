@@ -1,3 +1,5 @@
+![codecov][codecov_badge]
+
 # Vinttem
 
 A new way of tracking expenses that considers how much each person earns.
@@ -77,3 +79,7 @@ Using Makefile + Fvm:
 $ make build_runner
 ```
 ---
+
+
+
+[codecov_badge]: https://codecov.io/gh/theusindabike/vinttem_app/branch/main/graph/badge.svg?token=FEAR98ITPB

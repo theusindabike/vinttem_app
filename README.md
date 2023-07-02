@@ -4,81 +4,63 @@
 
 A new way of tracking expenses that considers how much each person earns.
 
-## Stack
-- [Flutter](https://docs.flutter.dev/release/release-notes) 3.7.9
+## Stack 👨‍💻
+- [Flutter](https://docs.flutter.dev/release/release-notes) 3.10.1
 - [FVM](https://fvm.app/) (flutter version manager)
 - [Melos](https://melos.invertase.dev/) (multi-package manager)
-- [Bloc](https://bloclibrary.dev/) (as state manager)
 
-## First Run
+## Backend 🖥️
+Check [vinttem-fastapi](https://github.com/theusindabike/vinttem-fastapi) repo for more information.
 
-Using Flutter CLI:
-```sh
-# Get dependencies
-$ flutter pub get
-
-# Build runner
-$ flutter pub run build_runner build --delete-conflicting-outputs
-
-# Flutter run development flavor
-$ flutter run --flavor development --target lib/main_development.dart
-```
-
-Using Melos + Fvm:
-```sh
-# Get dependencies
-$ melos run get
-
-# Build runner
-$ melos run build_runner
-
-# Flutter run development flavor
-$ fvm flutter run --flavor development --target lib/main_development.dart
-```
-
-Using Makefile + Fvm:
-```sh
-# Get dependencies
-$ make prebuild
-
-# Build runner
-$ make build_runner
-
-# Flutter run development flavor
-$ make run
-```
 ---
 
-## Running Tests
+## Getting Started 🚀
 
-Using Flutter CLI
+This project contains 3 flavors:
+
+- development
+- staging
+- production
+
+To run the desired flavor either use the launch configuration in VSCode/Android Studio or use the following commands:
+
+```sh
+# Development
+$ flutter run --flavor development --target lib/main_development.dart
+
+# Staging
+$ flutter run --flavor staging --target lib/main_staging.dart
+
+# Production
+$ flutter run --flavor production --target lib/main_production.dart
+```
+
+---
+
+## Running Tests 🧪
+
+To run all unit and widget tests use the following command:
+
 ```sh
 $ flutter test --coverage --test-randomize-ordering-seed random
 ```
 
-Using Melos + Fvm:
-```sh
-$ melos run tests
+To view the generated coverage report you can use [lcov](https://github.com/linux-test-project/lcov).
 
-# Generate coverage output
-$ melos run generate_coverage
+```sh
+# Generate Coverage Report
+$ genhtml coverage/lcov.info -o coverage/
+
+# Open Coverage Report
+$ open coverage/index.html
 ```
 
-Using Makefile + Fvm:
-```sh
-$ make tests
-
-# Generate coverage output
-$ make generate_coverage
-```
 ---
 
-## Build Runner
-Using Makefile + Fvm:
-```sh
-$ make build_runner
-```
----
+## Tips 🗣️
+Check [Makefile](Makefile) and [melos.yaml](melos.yaml) for usefull commands.
+
+
 
 
 

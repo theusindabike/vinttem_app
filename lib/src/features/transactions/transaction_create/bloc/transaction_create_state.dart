@@ -1,6 +1,6 @@
 part of 'transaction_create_bloc.dart';
 
-final class TransactionCreateState extends Equatable {
+class TransactionCreateState extends Equatable {
   const TransactionCreateState({
     this.status = FormzSubmissionStatus.initial,
     this.user = const TransactionCreateUser.pure(),

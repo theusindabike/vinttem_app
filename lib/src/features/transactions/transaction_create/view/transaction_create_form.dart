@@ -40,6 +40,7 @@ class TransactionCreateForm extends StatelessWidget {
           children: [
             const _RowLabel(label: 'paid by'),
             MultiChoiceChips<TransactionUser>(
+              key: const Key('TransactionCreateForm_user_wrap'),
               options: TransactionUser.values
                   .map(
                     (e) => ChoiceChipItem<TransactionUser>(
@@ -64,6 +65,7 @@ class TransactionCreateForm extends StatelessWidget {
             const SizedBox(height: 10),
             const _RowLabel(label: 'category'),
             MultiChoiceChips<TransactionCategory>(
+              key: const Key('TransactionCreateForm_category_wrap'),
               options: TransactionCategory.values
                   .map(
                     (e) => ChoiceChipItem<TransactionCategory>(
@@ -85,6 +87,7 @@ class TransactionCreateForm extends StatelessWidget {
             const SizedBox(height: 10),
             const _RowLabel(label: 'type'),
             MultiChoiceChips<TransactionType>(
+              key: const Key('TransactionCreateForm_type_wrap'),
               options: TransactionType.values
                   .map(
                     (e) => ChoiceChipItem<TransactionType>(

@@ -29,7 +29,6 @@ class MultiChoiceChips<T> extends StatelessWidget {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Wrap(
-        key: key,
         spacing: 8,
         children: options.map((element) {
           return ChoiceChip(

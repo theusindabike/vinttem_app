@@ -62,7 +62,7 @@ class TrasactionsListView extends StatelessWidget {
           Dismissible(
             key: Key('dismissibleTransactionCard_${t.id}'),
             background: Container(
-              color: Colors.red,
+              color: Colors.redAccent,
             ),
             direction: DismissDirection.endToStart,
             onDismissed: (direction) {

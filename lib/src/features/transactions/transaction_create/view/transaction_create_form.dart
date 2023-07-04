@@ -115,6 +115,7 @@ class TransactionCreateForm extends StatelessWidget {
               TextFormField(
                 key: const Key('TransactionCreateForm_description_textField'),
                 decoration: const InputDecoration(hintText: '<optional>'),
+                textInputAction: TextInputAction.done,
                 onChanged: (value) => context.read<TransactionCreateBloc>().add(
                       TransactionCreateDescriptionChanged(
                         description: value,

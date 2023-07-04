@@ -39,7 +39,6 @@ class TransactionCreateBloc
           state.value,
           state.category,
           state.type,
-          state.description,
         ]),
       ),
     );
@@ -59,7 +58,6 @@ class TransactionCreateBloc
           value,
           state.category,
           state.type,
-          state.description,
         ]),
       ),
     );
@@ -79,7 +77,6 @@ class TransactionCreateBloc
           state.value,
           category,
           state.type,
-          state.description,
         ]),
       ),
     );
@@ -99,7 +96,6 @@ class TransactionCreateBloc
           state.value,
           state.category,
           type,
-          state.description,
         ]),
       ),
     );
@@ -119,7 +115,6 @@ class TransactionCreateBloc
           state.value,
           state.category,
           state.type,
-          description,
         ]),
       ),
     );
@@ -153,7 +148,7 @@ class TransactionCreateBloc
     final description =
         TransactionCreateDescription.dirty(state.description.value);
 
-    final validate = Formz.validate([user, value, category, type, description]);
+    final validate = Formz.validate([user, value, category, type]);
     emit(
       state.copyWith(
         user: user,

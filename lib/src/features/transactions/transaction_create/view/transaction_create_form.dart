@@ -114,6 +114,11 @@ class TransactionCreateForm extends StatelessWidget {
               ),
               TextFormField(
                 decoration: const InputDecoration(hintText: '<optional>'),
+                onChanged: (value) => context.read<TransactionCreateBloc>().add(
+                      TransactionCreateDescriptionChanged(
+                        description: value,
+                      ),
+                    ),
               ),
               const SizedBox(height: 10),
               Row(

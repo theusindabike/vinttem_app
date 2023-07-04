@@ -7,6 +7,7 @@ class TransactionCreateState extends Equatable {
     this.value = const TransactionCreateValue.pure(),
     this.category = const TransactionCreateCategory.pure(),
     this.type = const TransactionCreateType.pure(),
+    this.description = const TransactionCreateDescription.pure(),
     this.isValid = false,
   });
 
@@ -15,6 +16,7 @@ class TransactionCreateState extends Equatable {
   final TransactionCreateValue value;
   final TransactionCreateCategory category;
   final TransactionCreateType type;
+  final TransactionCreateDescription description;
   final bool isValid;
 
   TransactionCreateState copyWith({
@@ -23,6 +25,7 @@ class TransactionCreateState extends Equatable {
     TransactionCreateValue? value,
     TransactionCreateCategory? category,
     TransactionCreateType? type,
+    TransactionCreateDescription? description,
     bool? isValid,
   }) {
     return TransactionCreateState(
@@ -31,10 +34,11 @@ class TransactionCreateState extends Equatable {
       value: value ?? this.value,
       category: category ?? this.category,
       type: type ?? this.type,
+      description: description ?? this.description,
       isValid: isValid ?? this.isValid,
     );
   }
 
   @override
-  List<Object> get props => [status, user, value, category, type];
+  List<Object> get props => [status, user, value, category, type, description];
 }

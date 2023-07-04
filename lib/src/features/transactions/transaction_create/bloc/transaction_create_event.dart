@@ -41,6 +41,15 @@ final class TransactionCreateTypeChanged extends TransactionCreateEvent {
   List<Object> get props => [type];
 }
 
+final class TransactionCreateDescriptionChanged extends TransactionCreateEvent {
+  const TransactionCreateDescriptionChanged({required this.description});
+
+  final String description;
+
+  @override
+  List<Object> get props => [description];
+}
+
 final class TransactionCreateFormCleaned extends TransactionCreateEvent {
   const TransactionCreateFormCleaned();
 }

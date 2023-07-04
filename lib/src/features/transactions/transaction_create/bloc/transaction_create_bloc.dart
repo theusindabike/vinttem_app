@@ -18,6 +18,7 @@ class TransactionCreateBloc
     on<TransactionCreateValueChanged>(_onTransactionValueChanged);
     on<TransactionCreateCategoryChanged>(_onTransactionCategoryChanged);
     on<TransactionCreateTypeChanged>(_onTransactionTypeChanged);
+    on<TransactionCreateDescriptionChanged>(_onTransactionDescriptionChanged);
     on<TransactionCreateFormCleaned>(_onTransactionCreateFormCleaned);
     on<TransactionCreateSubmitted>(_onTransactionSubmitted);
   }
@@ -100,6 +101,25 @@ class TransactionCreateBloc
     );
   }
 
+  void _onTransactionDescriptionChanged(
+    TransactionCreateDescriptionChanged event,
+    Emitter<TransactionCreateState> emit,
+  ) {
+    final description = TransactionCreateDescription.dirty(event.description);
+
+    emit(
+      state.copyWith(
+        description: description,
+        isValid: Formz.validate([
+          state.user,
+          state.value,
+          state.category,
+          state.type,
+        ]),
+      ),
+    );
+  }
+
   void _onTransactionCreateFormCleaned(
     TransactionCreateFormCleaned event,
     Emitter<TransactionCreateState> emit,
@@ -111,6 +131,7 @@ class TransactionCreateBloc
         value: const TransactionCreateValue.pure(),
         category: const TransactionCreateCategory.pure(),
         type: const TransactionCreateType.pure(),
+        description: const TransactionCreateDescription.pure(),
         isValid: false,
       ),
     );
@@ -124,6 +145,8 @@ class TransactionCreateBloc
     final value = TransactionCreateValue.dirty(state.value.value);
     final category = TransactionCreateCategory.dirty(state.category.value);
     final type = TransactionCreateType.dirty(state.type.value);
+    final description =
+        TransactionCreateDescription.dirty(state.description.value);
 
     final validate = Formz.validate([user, value, category, type]);
     emit(
@@ -132,6 +155,7 @@ class TransactionCreateBloc
         value: value,
         category: category,
         type: type,
+        description: description,
         isValid: validate,
       ),
     );
@@ -151,6 +175,7 @@ class TransactionCreateBloc
             type: vinttem_repository.TransactionType.getByName(
               state.type.value,
             ),
+            description: state.description.value,
           ),
         );
         emit(state.copyWith(status: FormzSubmissionStatus.success));

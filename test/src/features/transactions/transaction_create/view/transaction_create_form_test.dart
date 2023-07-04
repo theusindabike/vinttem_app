@@ -20,9 +20,11 @@ void main() {
   );
   const saveButtonKey = Key('TransactionCreateForm_save_raisedButton');
   const userWrapKey = Key('TransactionCreateForm_user_wrap');
-  const valueFieldKey = Key('TransactionCreateForm_value_textField');
+  const valueTextFieldKey = Key('TransactionCreateForm_value_textField');
   const categoryWrapKey = Key('TransactionCreateForm_category_wrap');
   const typeWrapKey = Key('TransactionCreateForm_type_wrap');
+  const descriptionTextFieldKey =
+      Key('TransactionCreateForm_description_textField');
   const cleanFormButtonKey = Key('TransactionCreateForm_clean_raisedButton');
 
   group('TransactionCreateForm', () {
@@ -41,9 +43,10 @@ void main() {
       );
 
       expect(find.byKey(userWrapKey), findsOneWidget);
-      expect(find.byKey(valueFieldKey), findsOneWidget);
+      expect(find.byKey(valueTextFieldKey), findsOneWidget);
       expect(find.byKey(categoryWrapKey), findsOneWidget);
       expect(find.byKey(typeWrapKey), findsOneWidget);
+      expect(find.byKey(descriptionTextFieldKey), findsOneWidget);
       expect(find.byKey(cleanFormButtonKey), findsOneWidget);
       expect(find.byKey(saveButtonKey), findsOneWidget);
     });
@@ -60,7 +63,7 @@ void main() {
       await tester.tap(find.bySemanticsLabel('Matheus'));
       await tester.pump();
 
-      await tester.enterText(find.byKey(valueFieldKey), '0,01');
+      await tester.enterText(find.byKey(valueTextFieldKey), '0,01');
       await tester.pump();
 
       await tester.tap(find.bySemanticsLabel('Recreation'));
@@ -87,7 +90,7 @@ void main() {
       await tester.tap(find.bySemanticsLabel('Matheus'));
       await tester.pump();
 
-      await tester.enterText(find.byKey(valueFieldKey), '0,00');
+      await tester.enterText(find.byKey(valueTextFieldKey), '0,00');
       await tester.pump();
 
       expect(
@@ -108,7 +111,7 @@ void main() {
       await tester.tap(find.bySemanticsLabel('Matheus'));
       await tester.pump();
 
-      await tester.enterText(find.byKey(valueFieldKey), '6,66');
+      await tester.enterText(find.byKey(valueTextFieldKey), '6,66');
       await tester.pump();
 
       await tester.tap(find.bySemanticsLabel('Recreation'));

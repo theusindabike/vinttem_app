@@ -26,6 +26,8 @@ dependencies:
     path: packages/network_client
   vinttem_repository:
     path: packages/vinttem_repository
+  vinttem_ui:
+    path: packages/vinttem_ui
 
 dev_dependencies:
   bloc_test: ^9.1.2

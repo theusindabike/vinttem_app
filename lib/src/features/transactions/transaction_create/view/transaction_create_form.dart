@@ -36,90 +36,100 @@ class TransactionCreateForm extends StatelessWidget {
       },
       builder: (context, state) => Container(
         padding: const EdgeInsets.all(8),
-        child: Column(
-          children: [
-            const _RowLabel(label: 'paid by'),
-            MultiChoiceChips<TransactionUser>(
-              key: const Key('TransactionCreateForm_user_wrap'),
-              options: TransactionUser.values
-                  .map(
-                    (e) => ChoiceChipItem<TransactionUser>(
-                      id: e.name,
-                      label: e.name,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              const _RowLabel(label: 'paid by'),
+              MultiChoiceChips<TransactionUser>(
+                key: const Key('TransactionCreateForm_user_wrap'),
+                options: TransactionUser.values
+                    .map(
+                      (e) => ChoiceChipItem<TransactionUser>(
+                        id: e.name,
+                        label: e.name,
+                      ),
+                    )
+                    .toList(),
+                onSelected: (e) => context.read<TransactionCreateBloc>().add(
+                      TransactionCreateUserChanged(
+                        user: e.label,
+                      ),
                     ),
-                  )
-                  .toList(),
-              onSelected: (e) => context.read<TransactionCreateBloc>().add(
-                    TransactionCreateUserChanged(
-                      user: e.label,
-                    ),
-                  ),
-              selectedItem: ChoiceChipItem(
-                id: state.user.value,
-                label: state.user.value,
-              ),
-            ),
-            const SizedBox(height: 10),
-            const _RowLabel(label: 'how much'),
-            _TransactionCreateValueField(),
-            const SizedBox(height: 10),
-            const _RowLabel(label: 'category'),
-            MultiChoiceChips<TransactionCategory>(
-              key: const Key('TransactionCreateForm_category_wrap'),
-              options: TransactionCategory.values
-                  .map(
-                    (e) => ChoiceChipItem<TransactionCategory>(
-                      id: e.name,
-                      label: e.name,
-                    ),
-                  )
-                  .toList(),
-              onSelected: (e) => context.read<TransactionCreateBloc>().add(
-                    TransactionCreateCategoryChanged(
-                      category: e.label,
-                    ),
-                  ),
-              selectedItem: ChoiceChipItem(
-                id: state.category.value,
-                label: state.category.value,
-              ),
-            ),
-            const SizedBox(height: 10),
-            const _RowLabel(label: 'type'),
-            MultiChoiceChips<TransactionType>(
-              key: const Key('TransactionCreateForm_type_wrap'),
-              options: TransactionType.values
-                  .map(
-                    (e) => ChoiceChipItem<TransactionType>(
-                      id: e.name,
-                      label: e.name,
-                    ),
-                  )
-                  .toList(),
-              onSelected: (e) => context.read<TransactionCreateBloc>().add(
-                    TransactionCreateTypeChanged(
-                      type: e.label,
-                    ),
-                  ),
-              selectedItem: ChoiceChipItem(
-                id: state.type.value,
-                label: state.type.value,
-              ),
-            ),
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Wrap(
-                  spacing: 8,
-                  children: [
-                    _TransactionCreateClearFormButton(),
-                    _TransactionCreateSaveButton(),
-                  ],
+                selectedItem: ChoiceChipItem(
+                  id: state.user.value,
+                  label: state.user.value,
                 ),
-              ],
-            ),
-          ],
+              ),
+              const SizedBox(height: 10),
+              const _RowLabel(label: 'how much'),
+              _TransactionCreateValueField(),
+              const SizedBox(height: 10),
+              const _RowLabel(label: 'category'),
+              MultiChoiceChips<TransactionCategory>(
+                key: const Key('TransactionCreateForm_category_wrap'),
+                options: TransactionCategory.values
+                    .map(
+                      (e) => ChoiceChipItem<TransactionCategory>(
+                        id: e.name,
+                        label: e.name,
+                      ),
+                    )
+                    .toList(),
+                onSelected: (e) => context.read<TransactionCreateBloc>().add(
+                      TransactionCreateCategoryChanged(
+                        category: e.label,
+                      ),
+                    ),
+                selectedItem: ChoiceChipItem(
+                  id: state.category.value,
+                  label: state.category.value,
+                ),
+              ),
+              const SizedBox(height: 10),
+              const _RowLabel(label: 'type'),
+              MultiChoiceChips<TransactionType>(
+                key: const Key('TransactionCreateForm_type_wrap'),
+                options: TransactionType.values
+                    .map(
+                      (e) => ChoiceChipItem<TransactionType>(
+                        id: e.name,
+                        label: e.name,
+                      ),
+                    )
+                    .toList(),
+                onSelected: (e) => context.read<TransactionCreateBloc>().add(
+                      TransactionCreateTypeChanged(
+                        type: e.label,
+                      ),
+                    ),
+                selectedItem: ChoiceChipItem(
+                  id: state.type.value,
+                  label: state.type.value,
+                ),
+              ),
+              const SizedBox(height: 10),
+              const _RowLabel(
+                label: 'description',
+              ),
+              TextFormField(
+                decoration: const InputDecoration(hintText: '<optional>'),
+              ),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Wrap(
+                    spacing: 8,
+                    children: [
+                      _TransactionCreateClearFormButton(),
+                      _TransactionCreateSaveButton(),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -169,8 +179,8 @@ class _TransactionCreateValueField extends StatelessWidget {
             FilteringTextInputFormatter.digitsOnly,
             CentavosInputFormatter(moeda: true)
           ],
+          textInputAction: TextInputAction.done,
           decoration: const InputDecoration(
-            border: UnderlineInputBorder(),
             hintText: r'R$ 0,00',
           ),
           onChanged: (value) {

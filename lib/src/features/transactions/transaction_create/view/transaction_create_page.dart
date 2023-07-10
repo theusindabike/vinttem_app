@@ -10,7 +10,7 @@ class TransactionCreatePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(title: const Text('New Transaction')),
+      appBar: AppBar(title: const Text('New Transaction'), elevation: 4),
       body: Container(
         padding: const EdgeInsets.all(8),
         child: BlocProvider(

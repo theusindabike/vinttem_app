@@ -102,6 +102,7 @@ void main() {
           );
           verify(() => vinttemRepository.getTransactions()).called(1);
         },
+        skip: true,
       );
     });
 

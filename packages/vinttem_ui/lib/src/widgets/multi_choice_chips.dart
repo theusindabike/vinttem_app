@@ -26,21 +26,19 @@ class MultiChoiceChips<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Wrap(
-        spacing: 8,
-        children: options.map((element) {
-          return ChoiceChip(
-            label: Text(element.label),
-            labelStyle: theme.textTheme.bodyMedium,
-            selected: _selectedOption!.id == element.id,
-            onSelected: (e) {
-              _onSelected!.call(element);
-            },
-          );
-        }).toList(),
-      ),
+    return Wrap(
+      spacing: 8,
+      children: options.map((element) {
+        return FilterChip(
+          showCheckmark: false,
+          label: Text(element.label),
+          labelStyle: theme.textTheme.bodyMedium,
+          selected: _selectedOption!.id == element.id,
+          onSelected: (e) {
+            _onSelected!.call(element);
+          },
+        );
+      }).toList(),
     );
   }
 }

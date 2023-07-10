@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vinttem_app/src/features/historic/view/view.dart';
 import 'package:vinttem_app/src/features/home/home.dart';
 import 'package:vinttem_app/src/features/transactions/transaction.dart';
 
@@ -49,6 +48,7 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/transaction_create',
+      parentNavigatorKey: _rootNavigatorKey,
       builder: (context, state) => const TransactionCreatePage(),
     ),
   ],
@@ -104,7 +104,7 @@ class ScaffoldWithNavigationBar extends StatelessWidget {
         children: [
           FloatingActionButton.extended(
             onPressed: () {
-              context.push('/transaction_create');
+              GoRouter.of(context).push('/transaction_create');
             },
             label: const Icon(Icons.add),
           ),
@@ -112,6 +112,10 @@ class ScaffoldWithNavigationBar extends StatelessWidget {
       ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: selectedIndex,
+        // Here, the items of BottomNavigationBar are hard coded. In a real
+        // world scenario, the items would most likely be generated from the
+        // branches of the shell route, which can be fetched using
+        // `navigationShell.route.branches`.
         destinations: const [
           NavigationDestination(label: 'Home', icon: Icon(Icons.home)),
           NavigationDestination(

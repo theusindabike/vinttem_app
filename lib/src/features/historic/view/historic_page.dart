@@ -5,12 +5,8 @@ import 'package:vinttem_app/src/features/transactions/transaction.dart';
 import 'package:vinttem_repository/vinttem_repository.dart'
     as vinttem_repository;
 
-class TransactionsListPage extends StatelessWidget {
-  const TransactionsListPage({super.key});
-
-  factory TransactionsListPage.routeBuilder(_, __) {
-    return const TransactionsListPage(key: Key('transaction_list'));
-  }
+class LastTransactionsPage extends StatelessWidget {
+  const LastTransactionsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +71,7 @@ class TrasactionsListView extends StatelessWidget {
                   .add(TransactionsListDeleteRequested(transactionId: t.id!));
             },
             child: Card(
+              color: Colors.red,
               margin: const EdgeInsets.only(top: 10),
               child: TransactionListTile(transaction: t),
             ),

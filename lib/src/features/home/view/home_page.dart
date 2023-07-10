@@ -1,46 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:vinttem_app/src/features/historic/historic.dart';
+import 'package:vinttem_app/src/features/home/home.dart';
 import 'package:vinttem_app/src/features/transactions/transactions_list/transactions_list.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  int currentPageIndex = 0;
+  factory HomePage.routerBuilder(_, __) {
+    return const HomePage(key: Key('home_page'));
+  }
 
   @override
   Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => HomeCubit(),
+      child: const HomeView(),
+    );
+  }
+}
+
+class HomeView extends StatelessWidget {
+  const HomeView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final selectedTab = context.select((HomeCubit cubit) => cubit.state.tab);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Vinttem'),
         elevation: 4,
       ),
-      bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (int index) {},
-        selectedIndex: currentPageIndex,
-        destinations: const <Widget>[
-          NavigationDestination(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.history),
-            label: 'History',
-          ),
+      body: IndexedStack(
+        index: selectedTab.index,
+        children: const [
+          TransactionsListPage(),
+          LastTransactionsPage(),
         ],
       ),
-      body: <Widget>[
-        const TransactionsListPage(),
-        Container(
-          color: Colors.white60,
-          alignment: Alignment.center,
-          child: const Text('Container 2'),
-        ),
-      ][currentPageIndex],
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -48,8 +47,23 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {
               context.push('/transaction_create');
             },
-            elevation: 4,
             label: const Icon(Icons.add),
+          ),
+        ],
+      ),
+      bottomNavigationBar: NavigationBar(
+        onDestinationSelected: (int index) {
+          context.read<HomeCubit>().setTab(HomeTab.historic);
+        },
+        selectedIndex: selectedTab.index,
+        destinations: const <Widget>[
+          NavigationDestination(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.history),
+            label: 'Historic',
           ),
         ],
       ),

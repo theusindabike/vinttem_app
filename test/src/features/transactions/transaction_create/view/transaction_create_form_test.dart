@@ -126,7 +126,7 @@ void main() {
       );
       expect(
         find.byWidgetPredicate(
-          (Widget widget) => widget is ChoiceChip && widget.selected,
+          (Widget widget) => widget is FilterChip && widget.selected,
         ),
         findsNWidgets(3),
       );

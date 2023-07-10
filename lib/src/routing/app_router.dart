@@ -59,30 +59,23 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
     Key? key,
     required this.navigationShell,
   }) : super(
-            key: key ?? const ValueKey<String>('ScaffoldWithNestedNavigation'));
+          key: key ?? const ValueKey<String>('ScaffoldWithNestedNavigation'),
+        );
   final StatefulNavigationShell navigationShell;
 
   void _goBranch(int index) {
     navigationShell.goBranch(
       index,
-      // A common pattern when using bottom navigation bars is to support
-      // navigating to the initial location when tapping the item that is
-      // already active. This example demonstrates how to support this behavior,
-      // using the initialLocation parameter of goBranch.
       initialLocation: index == navigationShell.currentIndex,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return ScaffoldWithNavigationBar(
-          body: navigationShell,
-          selectedIndex: navigationShell.currentIndex,
-          onDestinationSelected: _goBranch,
-        );
-      },
+    return ScaffoldWithNavigationBar(
+      body: navigationShell,
+      selectedIndex: navigationShell.currentIndex,
+      onDestinationSelected: _goBranch,
     );
   }
 }
@@ -101,12 +94,30 @@ class ScaffoldWithNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Vinttem'),
+        elevation: 4,
+      ),
       body: body,
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton.extended(
+            onPressed: () {
+              context.push('/transaction_create');
+            },
+            label: const Icon(Icons.add),
+          ),
+        ],
+      ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: selectedIndex,
         destinations: const [
-          NavigationDestination(label: 'Section A', icon: Icon(Icons.home)),
-          NavigationDestination(label: 'Section B', icon: Icon(Icons.settings)),
+          NavigationDestination(label: 'Home', icon: Icon(Icons.home)),
+          NavigationDestination(
+            label: 'Last Transactions',
+            icon: Icon(Icons.history),
+          ),
         ],
         onDestinationSelected: onDestinationSelected,
       ),

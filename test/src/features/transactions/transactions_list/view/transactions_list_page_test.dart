@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
-import 'package:vinttem_app/src/app.dart';
 import 'package:vinttem_app/src/features/transactions/transaction.dart'
     hide Transaction, TransactionCategory, TransactionType, TransactionUser;
 import 'package:vinttem_repository/vinttem_repository.dart';
@@ -45,27 +44,8 @@ void main() {
   ];
 
   late VinttemRepository vinttemRepository;
-  group('TransactionsListPage', () {
-    setUp(() {
-      vinttemRepository = MockVinttemRepository();
-      when(vinttemRepository.getTransactions)
-          .thenAnswer((_) => Future<List<Transaction>>.value([]));
-    });
-    testWidgets('render TransactionsListView', (tester) async {
-      await tester.pumpWidget(App(vinttemRepository: vinttemRepository));
-      expect(find.byType(TransactionsListView), findsOneWidget);
-    });
 
-    testWidgets(
-      'on initialization calls getTransactions',
-      (tester) async {
-        await tester.pumpWidget(App(vinttemRepository: vinttemRepository));
-        verify(() => vinttemRepository.getTransactions()).called(1);
-      },
-    );
-  });
-
-  group('TransactionsListView', () {
+  group('TransactionsList', () {
     late MockNavigator navigator;
     late TransactionsListBloc transactionsListBloc;
 
@@ -98,40 +78,70 @@ void main() {
       );
     }
 
-    testWidgets('renders transactionList cards', (tester) async {
-      await tester.pumpApp(
-        buildNavigatorRoute(),
-        vinttemRepository: vinttemRepository,
-      );
-
-      expect(find.byType(ListView), findsOneWidget);
-    });
-
-    testWidgets(
-      'shows an error snackbar when getTransactionList fails',
-      (tester) async {
-        when(() => transactionsListBloc.state).thenReturn(
-          const TransactionsListState(status: TransactionsListStatus.failure),
-        );
-
-        // whenListen<TransactionsListState>(
-        //   transactionsListBloc,
-        //   Stream.fromIterable([
-        //     const TransactionsListState(),
-        //     const TransactionsListState(
-        //status: TransactionsListStatus.failure)
-        //   ]),
-        // );
-
+    group('TransactionsListPage', () {
+      setUp(() {
+        vinttemRepository = MockVinttemRepository();
+        when(vinttemRepository.getTransactions)
+            .thenAnswer((_) => Future<List<Transaction>>.value([]));
+      });
+      testWidgets('render TransactionsListView', (tester) async {
         await tester.pumpApp(
           buildNavigatorRoute(),
           vinttemRepository: vinttemRepository,
         );
-        await tester.pumpAndSettle();
 
-        expect(find.byType(SnackBar), findsOneWidget);
-      },
-      skip: true,
-    );
+        expect(find.byType(TransactionsListView), findsOneWidget);
+      });
+
+      testWidgets(
+        'on initialization calls getTransactions',
+        (tester) async {
+          await tester.pumpApp(
+            buildNavigatorRoute(),
+            vinttemRepository: vinttemRepository,
+          );
+          verify(() => vinttemRepository.getTransactions()).called(1);
+        },
+        skip: true,
+      );
+    });
+
+    group('TransactionsListView', () {
+      testWidgets('renders transactionList cards', (tester) async {
+        await tester.pumpApp(
+          buildNavigatorRoute(),
+          vinttemRepository: vinttemRepository,
+        );
+
+        expect(find.byType(ListView), findsOneWidget);
+      });
+
+      testWidgets(
+        'shows an error snackbar when getTransactionList fails',
+        (tester) async {
+          when(() => transactionsListBloc.state).thenReturn(
+            const TransactionsListState(status: TransactionsListStatus.failure),
+          );
+
+          // whenListen<TransactionsListState>(
+          //   transactionsListBloc,
+          //   Stream.fromIterable([
+          //     const TransactionsListState(),
+          //     const TransactionsListState(
+          //status: TransactionsListStatus.failure)
+          //   ]),
+          // );
+
+          await tester.pumpApp(
+            buildNavigatorRoute(),
+            vinttemRepository: vinttemRepository,
+          );
+          await tester.pumpAndSettle();
+
+          expect(find.byType(SnackBar), findsOneWidget);
+        },
+        skip: true,
+      );
+    });
   });
 }

@@ -63,7 +63,7 @@ class TransactionCreateForm extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               const _RowLabel(label: 'how much'),
-              _TransactionCreateValueField(),
+              _ValueField(),
               const SizedBox(height: 10),
               const _RowLabel(label: 'category'),
               MultiChoiceChips<TransactionCategory>(
@@ -129,8 +129,8 @@ class TransactionCreateForm extends StatelessWidget {
                   Wrap(
                     spacing: 8,
                     children: [
-                      _TransactionCreateClearFormButton(),
-                      _TransactionCreateSaveButton(),
+                      _ClearFormButton(),
+                      _SaveButton(),
                     ],
                   ),
                 ],
@@ -164,7 +164,7 @@ class _RowLabel extends StatelessWidget {
   }
 }
 
-class _TransactionCreateValueField extends StatelessWidget {
+class _ValueField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TransactionCreateBloc, TransactionCreateState>(
@@ -208,7 +208,7 @@ class _TransactionCreateValueField extends StatelessWidget {
   }
 }
 
-class _TransactionCreateClearFormButton extends StatelessWidget {
+class _ClearFormButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TransactionCreateBloc, TransactionCreateState>(
@@ -225,7 +225,7 @@ class _TransactionCreateClearFormButton extends StatelessWidget {
   }
 }
 
-class _TransactionCreateSaveButton extends StatelessWidget {
+class _SaveButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TransactionCreateBloc, TransactionCreateState>(

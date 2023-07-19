@@ -8,7 +8,7 @@ environment:
   flutter: 3.10.1
 
 dependencies:
-  bloc: ^8.1.1
+  bloc: ^8.1.2
   brasil_fields: ^1.9.1
   build_runner: ^2.4.4
   equatable: ^2.0.5

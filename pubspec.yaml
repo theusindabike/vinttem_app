@@ -1,6 +1,6 @@
 name: vinttem_app
 description: A new way of tracking expenses that considers how much each person earns.
-version: 1.0.0+6
+version: 1.0.0+7
 publish_to: none
 
 environment:

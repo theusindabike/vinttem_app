@@ -30,7 +30,7 @@ dependencies:
     path: packages/vinttem_ui
 
 dev_dependencies:
-  bloc_test: ^9.1.2
+  bloc_test: ^9.1.4
   flutter_test:
     sdk: flutter
   json_serializable: ^6.6.2

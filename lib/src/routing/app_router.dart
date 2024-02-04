@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:vinttem_app/src/features/home/home.dart';
 import 'package:vinttem_app/src/features/transactions/transaction.dart';
 
+
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorHomeKey =
     GlobalKey<NavigatorState>(debugLabel: 'shell_home');
@@ -39,7 +40,7 @@ final router = GoRouter(
               name: 'last_transactions',
               path: '/last_transactions',
               pageBuilder: (context, state) => NoTransitionPage(
-                child: TransactionsListPage.routeBuilder(context, state),
+                child: TransactionsListPage.routerBuilder(context, state),
               ),
             ),
           ],
@@ -50,6 +51,11 @@ final router = GoRouter(
       path: '/transaction_create',
       parentNavigatorKey: _rootNavigatorKey,
       builder: (context, state) => const TransactionCreatePage(),
+    ),
+    GoRoute(
+      path: '/transaction/:transactionId',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) => const TransactionDetailPage(),
     ),
   ],
 );

@@ -8,7 +8,7 @@ import 'package:vinttem_repository/vinttem_repository.dart'
 class TransactionsListPage extends StatelessWidget {
   const TransactionsListPage({super.key});
 
-  factory TransactionsListPage.routeBuilder(_, __) {
+  factory TransactionsListPage.routerBuilder(_, __) {
     return const TransactionsListPage(key: Key('transaction_list'));
   }
 

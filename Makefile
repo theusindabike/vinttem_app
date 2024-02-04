@@ -5,28 +5,28 @@ run_staging:
 	fvm flutter run --flavor staging --target lib/main_staging.dart
 
 clean:
-	melos run clean
+	fvm exec melos run clean
 
 get:
-	melos run get
+	fvm exec melos run get
 
 build_runner:
-	melos run build_runner
+	fvm exec melos run build_runner
 
 qualitycheck:
-	melos run qualitycheck
+	fvm exec melos run qualitycheck
 
 tests:
-	melos run test
+	fvm exec melos run test
 
 generate_coverage:
-	melos run generate_coverage
+	fvm exec melos run generate_coverage
 
 lint:
-	melos run lint
+	fvm exec melos run lint
 
 format:
-	melos run format
+	fvm exec melos run format
 
 githubactions_build_runner:
 	flutter pub run build_runner build --delete-conflicting-outputs
